@@ -1,0 +1,24 @@
+# Hexo Configuration
+## Docs: https://hexo.io/docs/configuration.html
+## Source: https://github.com/hexojs/hexo/
+# Site
+title: 苏的博客
+subtitle: ''
+description: 选择有时候比努力更重要     #简介或者格言
+keywords:
+author:       #作者
+language: zh-CN     #主题语言
+timezone: Asia/Shanghai    #中国的时区
+
+# Extensions
+## Plugins: https://hexo.io/plugins/
+## Themes: https://hexo.io/themes/
+theme: butterfly
+
+# Deployment
+## Docs: https://hexo.io/docs/one-command-deployment
+deploy:
+  type: git
+  repository: git@github.com:su6660/su6660.github.io.git
+  branch: main
+
