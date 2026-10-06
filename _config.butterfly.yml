@@ -1,0 +1,40 @@
+# Butterfly 主题覆盖配置（此文件随 git 部署，换电脑重新 clone 后依然生效）
+# 优先级高于 node_modules/hexo-theme-butterfly/_config.yml
+
+# 网站图标（浏览器标签页小图标）
+favicon: /img/favicon.png
+
+# 头像
+avatar:
+  img: /img/avatar.jpg
+  effect: false
+
+# 首页顶部 banner 大图
+index_img: /img/banner.jpg
+
+# 文章详情页等内页顶部默认横幅图
+default_top_img: /img/banner.jpg
+
+# 主题色（雪乃冰蓝）
+theme_color:
+  enable: true
+  main: "#5B8DEF"
+  paginator: "#5B8DEF"
+  button_hover: "#4A7BD1"
+  text_selection: "#5B8DEF"
+  link_color: "#4A7BD1"
+  meta_color: "#8A93A6"
+  hr_color: "#B8D4F0"
+  code_foreground: "#4A7BD1"
+  code_background: "rgba(27, 31, 35, .05)"
+  toc_color: "#5B8DEF"
+  blockquote_padding_color: "#5B8DEF"
+  blockquote_background_color: "#5B8DEF"
+  scrollbar_color: "#5B8DEF"
+
+# 界面美化（毛玻璃卡片、圆角、悬浮动画、字体排版）
+inject:
+  head:
+    - '<style>body{background:url(/img/banner.jpg) center/cover no-repeat fixed;}</style>'
+    - '<style>body{font-family:-apple-system,"PingFang SC","HarmonyOS Sans SC","Microsoft YaHei","Segoe UI",sans-serif}.recent-post-item,.card-widget{background:rgba(255,255,255,.72)!important;backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-radius:16px}.recent-post-item{box-shadow:0 8px 24px rgba(0,0,0,.08);transition:transform .3s ease,box-shadow .3s ease}.recent-post-item:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(0,0,0,.16)}#article-container.post-content{background:rgba(255,255,255,.6)!important;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:16px;padding:24px 32px;box-shadow:0 8px 24px rgba(0,0,0,.08);font-size:16px;line-height:1.9}#aside-content .card-widget{margin-bottom:16px}html[data-theme="dark"] .recent-post-item,html[data-theme="dark"] .card-widget,html[data-theme="dark"] #article-container.post-content{background:rgba(18,18,18,.72)!important}</style>'
+    - '<style>.recent-post-item{overflow:hidden}.recent-post-item .article-title{font-size:1.25em;font-weight:700;line-height:1.4}.recent-post-item .article-meta-wrap{font-size:.8em;margin:.4em 0 .5em}.recent-post-item .content{font-size:.95em;line-height:1.8}#article-container h1{font-size:1.9em;margin:1.2em 0 .8em;font-weight:700}#article-container h2{font-size:1.55em;margin:1.2em 0 .7em;padding-left:.7rem;border-left:4px solid #5B8DEF;font-weight:700}#article-container h3{font-size:1.3em;margin:1em 0 .6em;padding-left:.6rem;border-left:3px solid #5B8DEF;font-weight:700}#article-container h4{font-size:1.15em;margin:.9em 0 .5em;font-weight:700}#article-container p{margin:.9em 0;line-height:1.9}#article-container blockquote{margin:1em 0;padding:.8em 1.3em;border-left:4px solid #5B8DEF;background:rgba(91,141,239,.1);border-radius:0 10px 10px 0}#article-container code{background:rgba(91,141,239,.12);padding:.2em .45em;border-radius:5px;font-family:Consolas,"SF Mono",monospace}#article-container figure.highlight{border-radius:10px;overflow:hidden}#article-container img{border-radius:10px}#article-container ul,#article-container ol{padding-left:1.7em}#article-container li{margin:.35em 0;line-height:1.8}.card-widget .item-headline{font-size:1em;font-weight:700;padding-bottom:.6em;margin-bottom:.8em;border-bottom:1px solid rgba(0,0,0,.07)}.card-info .avatar-img img{width:90px;height:90px}.author-info__name{font-size:1.15em;font-weight:700;margin-top:.6em}.card-tag-cloud a{display:inline-block;padding:.25em .7em;margin:.2em .15em;background:rgba(91,141,239,.12);border-radius:20px;font-size:.85em}</style>'
