@@ -32,6 +32,11 @@ theme_color:
   blockquote_background_color: "#5B8DEF"
   scrollbar_color: "#5B8DEF"
 
+# 阅读量/访问量统计：不蒜子官方接口 busuanzi.ibruce.info 长期 502，
+# 改用 Vercount（兼容 busuanzi 容器 ID，国内节点，自动尝试同步历史数据）
+asset:
+  busuanzi: https://cn.vercount.one/js
+
 # 侧边栏作者卡片 Follow Me 按钮（链接到本人 GitHub）
 aside:
   card_author:
