@@ -1,0 +1,68 @@
+[
+  {
+    "bookSourceName": "Project Gutenberg（古登堡计划·英文公版）",
+    "bookSourceGroup": "公版书",
+    "bookSourceUrl": "https://www.gutenberg.org",
+    "bookSourceType": 0,
+    "bookSourceComment": "官方免费公版书库，英文为主。搜索+详情+章节目录已验证可用结构。正文为整本单页 HTML，章节靠锚点定位，App 内为整本渲染；强烈建议用详情页的 EPUB/TXT 下载后导入本地书架，体验最佳。",
+    "enabled": true,
+    "enabledExplore": false,
+    "header": "{\"User-Agent\":\"Mozilla/5.0 (Linux; Android 10; K)\"}",
+    "searchUrl": "https://www.gutenberg.org/ebooks/search/?query={{key}}",
+    "ruleSearch": {
+      "bookList": "class.booklink",
+      "name": "class.title@text",
+      "author": "class.subtitle@text",
+      "coverUrl": "tag.img@src",
+      "bookUrl": "tag.a@href"
+    },
+    "ruleBookInfo": {
+      "name": "id.book_title@text",
+      "author": "",
+      "coverUrl": "",
+      "intro": "class.summary-text-container@text",
+      "tocUrl": "a.read-online-button@href##-images\\.html##.html"
+    },
+    "ruleToc": {
+      "chapterList": "li.toc-entry",
+      "chapterName": "tag.a@text",
+      "chapterUrl": "tag.a@href"
+    },
+    "ruleContent": {
+      "content": "tag.body@html"
+    }
+  },
+  {
+    "bookSourceName": "维基文库中文站（公版古籍/文献）",
+    "bookSourceGroup": "公版书",
+    "bookSourceUrl": "https://zh.wikisource.org",
+    "bookSourceType": 0,
+    "bookSourceComment": "维基文库中文站，公版/自由授权文本。单篇文献整页即正文；长篇按子页面分回（如《红楼梦》）。若目录取不到子页，请打开书籍页用「阅读」重新导入一次。",
+    "enabled": true,
+    "enabledExplore": false,
+    "header": "{\"User-Agent\":\"Mozilla/5.0 (Linux; Android 10; K)\"}",
+    "searchUrl": "https://zh.wikisource.org/w/index.php?search={{key}}&title=Special:%E6%90%9C%E7%B4%A2&fulltext=1",
+    "ruleSearch": {
+      "bookList": "li.mw-search-result",
+      "name": "a@text",
+      "author": "",
+      "coverUrl": "",
+      "bookUrl": "a@href"
+    },
+    "ruleBookInfo": {
+      "name": "id.firstHeading@text",
+      "author": "",
+      "coverUrl": "",
+      "intro": "class.mw-parser-output@text",
+      "tocUrl": ""
+    },
+    "ruleToc": {
+      "chapterList": "class.mw-parser-output!0.tag.ul!0.tag.li",
+      "chapterName": "tag.a@text",
+      "chapterUrl": "tag.a@href"
+    },
+    "ruleContent": {
+      "content": "class.mw-parser-output@html"
+    }
+  }
+]
