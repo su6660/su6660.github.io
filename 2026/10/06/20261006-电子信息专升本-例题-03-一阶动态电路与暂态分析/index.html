@@ -1,0 +1,273 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>电子信息专升本例题集 · 第3章 一阶动态电路与暂态分析 | 苏的博客</title><meta name="author"><meta name="copyright"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="电子信息专升本例题集 · 第3章 一阶动态电路与暂态分析本套例题对应《电子信息专升本 · 第3章 一阶动态电路与暂态分析》学习要点，覆盖本章核心考点：  RC 电路的零输入响应； RC 与 RL 电路的零状态响应； 一阶电路的三要素法（全响应）； 时间常数 τ&#x3D;RC 与 τ&#x3D;L&#x2F;R 的求取。  难度分为三级：基础（直接套用定理与公式）、进阶（综合本章多个知识点）、拓展（开放思考）。本套共 6 道题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="电子信息专升本例题集 · 第3章 一阶动态电路与暂态分析">
+<meta property="og:url" content="http://example.com/2026/10/06/20261006-%E7%94%B5%E5%AD%90%E4%BF%A1%E6%81%AF%E4%B8%93%E5%8D%87%E6%9C%AC-%E4%BE%8B%E9%A2%98-03-%E4%B8%80%E9%98%B6%E5%8A%A8%E6%80%81%E7%94%B5%E8%B7%AF%E4%B8%8E%E6%9A%82%E6%80%81%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="苏的博客">
+<meta property="og:description" content="电子信息专升本例题集 · 第3章 一阶动态电路与暂态分析本套例题对应《电子信息专升本 · 第3章 一阶动态电路与暂态分析》学习要点，覆盖本章核心考点：  RC 电路的零输入响应； RC 与 RL 电路的零状态响应； 一阶电路的三要素法（全响应）； 时间常数 τ&#x3D;RC 与 τ&#x3D;L&#x2F;R 的求取。  难度分为三级：基础（直接套用定理与公式）、进阶（综合本章多个知识点）、拓展（开放思考）。本套共 6 道题">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/avatar.jpg">
+<meta property="article:published_time" content="2026-10-06T06:00:03.000Z">
+<meta property="article:modified_time" content="2026-10-06T05:41:21.911Z">
+<meta property="article:tag" content="专升本">
+<meta property="article:tag" content="电子信息">
+<meta property="article:tag" content="电路分析">
+<meta property="article:tag" content="例题集">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/avatar.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2026/10/06/20261006-%E7%94%B5%E5%AD%90%E4%BF%A1%E6%81%AF%E4%B8%93%E5%8D%87%E6%9C%AC-%E4%BE%8B%E9%A2%98-03-%E4%B8%80%E9%98%B6%E5%8A%A8%E6%80%81%E7%94%B5%E8%B7%AF%E4%B8%8E%E6%9A%82%E6%80%81%E5%88%86%E6%9E%90/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '电子信息专升本例题集 · 第3章 一阶动态电路与暂态分析',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-10-06 13:41:21'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><style>body{background:url(/img/banner.jpg) center/cover no-repeat fixed;}</style><style>body{font-family:-apple-system,"PingFang SC","HarmonyOS Sans SC","Microsoft YaHei","Segoe UI",sans-serif}.recent-post-item,.card-widget{background:rgba(255,255,255,.72)!important;backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-radius:16px}.recent-post-item{box-shadow:0 8px 24px rgba(0,0,0,.08);transition:transform .3s ease,box-shadow .3s ease}.recent-post-item:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(0,0,0,.16)}#article-container.post-content{background:rgba(255,255,255,.6)!important;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:16px;padding:24px 32px;box-shadow:0 8px 24px rgba(0,0,0,.08);font-size:16px;line-height:1.9}#aside-content .card-widget{margin-bottom:16px}html[data-theme="dark"] .recent-post-item,html[data-theme="dark"] .card-widget,html[data-theme="dark"] #article-container.post-content{background:rgba(18,18,18,.72)!important}</style><style>.recent-post-item{overflow:hidden}.recent-post-item .article-title{font-size:1.25em;font-weight:700;line-height:1.4}.recent-post-item .article-meta-wrap{font-size:.8em;margin:.4em 0 .5em}.recent-post-item .content{font-size:.95em;line-height:1.8}#article-container h1{font-size:1.9em;margin:1.2em 0 .8em;font-weight:700}#article-container h2{font-size:1.55em;margin:1.2em 0 .7em;padding-left:.7rem;border-left:4px solid #5B8DEF;font-weight:700}#article-container h3{font-size:1.3em;margin:1em 0 .6em;padding-left:.6rem;border-left:3px solid #5B8DEF;font-weight:700}#article-container h4{font-size:1.15em;margin:.9em 0 .5em;font-weight:700}#article-container p{margin:.9em 0;line-height:1.9}#article-container blockquote{margin:1em 0;padding:.8em 1.3em;border-left:4px solid #5B8DEF;background:rgba(91,141,239,.1);border-radius:0 10px 10px 0}#article-container code{background:rgba(91,141,239,.12);padding:.2em .45em;border-radius:5px;font-family:Consolas,"SF Mono",monospace}#article-container figure.highlight{border-radius:10px;overflow:hidden}#article-container img{border-radius:10px}#article-container ul,#article-container ol{padding-left:1.7em}#article-container li{margin:.35em 0;line-height:1.8}.card-widget .item-headline{font-size:1em;font-weight:700;padding-bottom:.6em;margin-bottom:.8em;border-bottom:1px solid rgba(0,0,0,.07)}.card-info .avatar-img img{width:90px;height:90px}.author-info__name{font-size:1.15em;font-weight:700;margin-top:.6em}.card-tag-cloud a{display:inline-block;padding:.25em .7em;margin:.2em .15em;background:rgba(91,141,239,.12);border-radius:20px;font-size:.85em}</style><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">37</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/banner.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="苏的博客"><span class="site-name">苏的博客</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">电子信息专升本例题集 · 第3章 一阶动态电路与暂态分析</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-10-06T06:00:03.000Z" title="发表于 2026-10-06 14:00:03">2026-10-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-10-06T05:41:21.911Z" title="更新于 2026-10-06 13:41:21">2026-10-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%94%B5%E5%AD%90%E4%BF%A1%E6%81%AF%E4%B8%93%E5%8D%87%E6%9C%AC/">电子信息专升本</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="电子信息专升本例题集 · 第3章 一阶动态电路与暂态分析"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="电子信息专升本例题集-·-第3章-一阶动态电路与暂态分析"><a href="#电子信息专升本例题集-·-第3章-一阶动态电路与暂态分析" class="headerlink" title="电子信息专升本例题集 · 第3章 一阶动态电路与暂态分析"></a>电子信息专升本例题集 · 第3章 一阶动态电路与暂态分析</h1><p>本套例题对应《电子信息专升本 · 第3章 一阶动态电路与暂态分析》学习要点，覆盖本章核心考点：</p>
+<ol>
+<li>RC 电路的零输入响应；</li>
+<li>RC 与 RL 电路的零状态响应；</li>
+<li>一阶电路的三要素法（全响应）；</li>
+<li>时间常数 τ=RC 与 τ=L/R 的求取。</li>
+</ol>
+<p>难度分为三级：基础（直接套用定理与公式）、进阶（综合本章多个知识点）、拓展（开放思考）。本套共 6 道题，其中基础 3 道、进阶 2 道、拓展 1 道。建议先遮住答案独立作答，再对照解析复核数值，最后用知识点链接定位自己的薄弱环节。全篇公式与符号均与学习要点手册保持一致；每题最后附【涉及公式】供快速回顾。</p>
+<h2 id="一、基础概念示例题"><a href="#一、基础概念示例题" class="headerlink" title="一、基础概念示例题"></a>一、基础概念示例题</h2><h3 id="例题3-1-｜-难度：基础"><a href="#例题3-1-｜-难度：基础" class="headerlink" title="例题3-1 ｜ 难度：基础"></a>例题3-1 ｜ 难度：基础</h3><p>【题目】<br>电容 C=5μF 已充电至 uc(0) = 10V，t=0 时通过电阻 R=2kΩ 开始放电（零输入响应）。求：</p>
+<ul>
+<li>时间常数 τ；</li>
+<li>电容电压 uc(t) 的表达式；</li>
+<li>t=τ 时刻的 uc 值；</li>
+<li>uc 衰减到 1V 所需的放电时间。</li>
+</ul>
+<p>【解题步骤】</p>
+<ol>
+<li>求时间常数：τ = RC = 2kΩ × 5μF = 2000 × 5×10⁻⁶ = 0.01s = 10ms。</li>
+<li>列 RC 零输入响应表达式：uc(t) = U0×e^(-t/τ) = 10×e^(-100t) V（因为 1/τ = 100）。</li>
+<li>求 t=τ 时刻的 uc 值：uc(τ) = 10×e^(-1) = 10×0.368 = 3.68V。</li>
+<li>求 uc 衰减到 1V 的时间：令 10×e^(-100t) = 1，即 e^(-100t) = 0.1；<ul>
+<li>两端取自然对数：-100t = ln0.1 = -2.303；</li>
+<li>解得：t = 0.02303s ≈ 23ms。</li>
+</ul>
+</li>
+</ol>
+<p>【答案解析】<br>τ = 10ms；uc(t) = 10×e^(-100t) V；t=τ 时 uc = 3.68V；衰减到 1V 约需 23ms。</p>
+<p>【易错提醒】<br>指数项必须带负号（放电是衰减过程，写成正指数会得到”越放越大”的错误结果）；τ 与 t 必须采用同一时间单位（本题统一用秒）。</p>
+<p>【涉及公式】<br>RC 零输入 uc(t) = U0·e^(-t/τ)；时间常数 τ = RC。</p>
+<p>【知识点链接】<br>RC 零输入响应 uc(t) = U0·e^(-t/τ)、时间常数 τ=RC，详见《电子信息专升本 · 第3章 一阶动态电路与暂态分析》学习要点：<a target="_blank" rel="noopener" href="https://su6660.github.io/2026/10/06/20261006-%E7%94%B5%E5%AD%90%E4%BF%A1%E6%81%AF%E4%B8%93%E5%8D%87%E6%9C%AC-03-%E4%B8%80%E9%98%B6%E5%8A%A8%E6%80%81%E7%94%B5%E8%B7%AF%E4%B8%8E%E6%9A%82%E6%80%81%E5%88%86%E6%9E%90/">https://su6660.github.io/2026/10/06/20261006-电子信息专升本-03-一阶动态电路与暂态分析/</a></p>
+<h3 id="例题3-2-｜-难度：基础"><a href="#例题3-2-｜-难度：基础" class="headerlink" title="例题3-2 ｜ 难度：基础"></a>例题3-2 ｜ 难度：基础</h3><p>【题目】<br>RL 电路由 Us=20V 直流源、R=4Ω、L=2H 串联构成，t=0 前电感无储能（iL(0)=0），t=0 时接通电源（零状态响应）。求：</p>
+<ul>
+<li>时间常数 τ；</li>
+<li>电流 iL(t) 表达式；</li>
+<li>电感电压 uL(t) 表达式；</li>
+<li>t=τ 与 t=3τ 时刻的 iL 值。</li>
+</ul>
+<p>【解题步骤】</p>
+<ol>
+<li>求时间常数：τ = L/R = 2/4 = 0.5s。</li>
+<li>求稳态电流（t→∞ 时电感相当于短路）：iL(∞) = Us/R = 20/4 = 5A。</li>
+<li>列 RL 零状态响应电流表达式：iL(t) = iL(∞)(1 - e^(-t/τ)) = 5(1 - e^(-2t)) A（因为 1/τ = 2）。</li>
+<li>列电感电压表达式：uL(t) = L×diL/dt = Us×e^(-t/τ) = 20×e^(-2t) V。</li>
+<li>求 t=τ=0.5s 时刻的 iL：iL = 5(1 - e^(-1)) = 5×0.632 = 3.16A。</li>
+<li>求 t=3τ=1.5s 时刻的 iL：iL = 5(1 - e^(-3)) = 5×0.9502 = 4.75A。</li>
+</ol>
+<p>【答案解析】<br>τ = 0.5s；iL(t) = 5(1 - e^(-2t)) A；uL(t) = 20×e^(-2t) V；t=τ 时 iL = 3.16A，t=3τ 时 iL = 4.75A。</p>
+<p>【易错提醒】<br>RL 电路的 τ = L/R；注意储能元件在稳态的等效——稳态时电感相当于短路、电容相当于开路，用此结果求稳态值才不会出错。</p>
+<p>【涉及公式】<br>RL 零状态 iL(t) = I0(1 - e^(-t/τ))；τ = L/R；电感电压 u = L·di/dt。</p>
+<p>【知识点链接】<br>RL 零状态响应、时间常数 τ=L/R、电感电压 u = L·di/dt，详见《电子信息专升本 · 第3章 一阶动态电路与暂态分析》学习要点：<a target="_blank" rel="noopener" href="https://su6660.github.io/2026/10/06/20261006-%E7%94%B5%E5%AD%90%E4%BF%A1%E6%81%AF%E4%B8%93%E5%8D%87%E6%9C%AC-03-%E4%B8%80%E9%98%B6%E5%8A%A8%E6%80%81%E7%94%B5%E8%B7%AF%E4%B8%8E%E6%9A%82%E6%80%81%E5%88%86%E6%9E%90/">https://su6660.github.io/2026/10/06/20261006-电子信息专升本-03-一阶动态电路与暂态分析/</a></p>
+<h3 id="例题3-3-｜-难度：基础"><a href="#例题3-3-｜-难度：基础" class="headerlink" title="例题3-3 ｜ 难度：基础"></a>例题3-3 ｜ 难度：基础</h3><p>【题目】<br>RC 串联电路由 Us=12V 直流源、R=1kΩ、C=10μF 构成，电容初值 uc(0) = 0，t=0 时接通电源（零状态响应）。求：</p>
+<ul>
+<li>时间常数 τ；</li>
+<li>电容电压 uc(t) 表达式；</li>
+<li>充电电流 i(t) 表达式；</li>
+<li>t=τ 与 t=5τ 时刻的 uc 值。</li>
+</ul>
+<p>【解题步骤】</p>
+<ol>
+<li>求时间常数：τ = RC = 1kΩ × 10μF = 1000 × 10×10⁻⁶ = 0.01s。</li>
+<li>列 RC 零状态响应电容电压表达式：uc(t) = Us(1 - e^(-t/τ)) = 12(1 - e^(-100t)) V。</li>
+<li>列充电电流表达式：i(t) = (Us/R)×e^(-t/τ) = (12/1000)×e^(-100t) = 12×e^(-100t) mA。</li>
+<li>求 t=τ=0.01s 时刻的 uc：uc = 12(1 - e^(-1)) = 12×0.632 = 7.58V。</li>
+<li>求 t=5τ=0.05s 时刻的 uc：uc = 12(1 - e^(-5)) = 12×0.9933 = 11.92V（已接近稳态值 12V）。</li>
+</ol>
+<p>【答案解析】<br>τ = 0.01s；uc(t) = 12(1 - e^(-100t)) V；i(t) = 12×e^(-100t) mA；t=τ 时 uc = 7.58V，t=5τ 时 uc = 11.92V。</p>
+<p>【易错提醒】<br>一般 t = 3τ～5τ 即可认为过渡过程结束；本题 t=5τ 时 uc 与稳态值相差不足 1%，若把 5τ 当”还没开始充电”则理解有误。</p>
+<p>【涉及公式】<br>RC 零状态 uc(t) = Us(1 - e^(-t/τ))；充电电流 i = (Us/R)·e^(-t/τ)。</p>
+<p>【知识点链接】<br>RC 零状态响应 uc(t) = Us(1 - e^(-t/τ))、t=5τ 过渡过程基本结束，详见《电子信息专升本 · 第3章 一阶动态电路与暂态分析》学习要点：<a target="_blank" rel="noopener" href="https://su6660.github.io/2026/10/06/20261006-%E7%94%B5%E5%AD%90%E4%BF%A1%E6%81%AF%E4%B8%93%E5%8D%87%E6%9C%AC-03-%E4%B8%80%E9%98%B6%E5%8A%A8%E6%80%81%E7%94%B5%E8%B7%AF%E4%B8%8E%E6%9A%82%E6%80%81%E5%88%86%E6%9E%90/">https://su6660.github.io/2026/10/06/20261006-电子信息专升本-03-一阶动态电路与暂态分析/</a></p>
+<h2 id="二、综合应用题"><a href="#二、综合应用题" class="headerlink" title="二、综合应用题"></a>二、综合应用题</h2><h3 id="例题3-4-｜-难度：进阶"><a href="#例题3-4-｜-难度：进阶" class="headerlink" title="例题3-4 ｜ 难度：进阶"></a>例题3-4 ｜ 难度：进阶</h3><p>【题目】<br>RC 电路中，电容初值 uc(0-) = 8V，R = 1kΩ，C = 2μF；t=0 时将其接入 Us=24V 直流源（全响应）。用三要素法求 uc(t)，并求 t=τ 时刻的 uc 值。</p>
+<p>【解题步骤】</p>
+<ol>
+<li>写出三要素法公式：f(t) = f(∞) + [f(0+) - f(∞)]×e^(-t/τ)。</li>
+<li>求时间常数：τ = RC = 1kΩ × 2μF = 1000 × 2×10⁻⁶ = 2×10⁻³ s = 2ms。</li>
+<li>求初始值：由换路定律 uc(0+) = uc(0-) = 8V。</li>
+<li>求稳态值：t→∞ 时电容相当于开路，uc(∞) = Us = 24V。</li>
+<li>代入三要素法公式：<br>uc(t) = 24 + (8 - 24)×e^(-t/0.002) = 24 - 16×e^(-500t) V（因为 1/τ = 500）。</li>
+<li>求 t=τ=2ms 时刻的 uc：uc = 24 - 16×e^(-1) = 24 - 5.886 = 18.11V。</li>
+</ol>
+<p>【答案解析】<br>uc(t) = 24 - 16×e^(-500t) V；t=τ 时 uc = 18.11V。<br>校验：t=0 时 uc = 24 - 16 = 8V（与初值一致）；t→∞ 时 uc → 24V（与稳态一致）。</p>
+<p>【易错提醒】<br>初始值、稳态值、时间常数三者缺一不可；求 τ 时 R 是从储能元件两端看进去的”除源”等效电阻，本题只有单一 R 故直接取 1kΩ。</p>
+<p>【涉及公式】<br>三要素法 f(t) = f(∞) + [f(0+) - f(∞)]·e^(-t/τ)；换路定律 uc(0+) = uc(0-)。</p>
+<p>【知识点链接】<br>三要素法 f(t) = f(∞) + [f(0+) - f(∞)]·e^(-t/τ)、换路定律 uc(0+) = uc(0-)，详见《电子信息专升本 · 第3章 一阶动态电路与暂态分析》学习要点：<a target="_blank" rel="noopener" href="https://su6660.github.io/2026/10/06/20261006-%E7%94%B5%E5%AD%90%E4%BF%A1%E6%81%AF%E4%B8%93%E5%8D%87%E6%9C%AC-03-%E4%B8%80%E9%98%B6%E5%8A%A8%E6%80%81%E7%94%B5%E8%B7%AF%E4%B8%8E%E6%9A%82%E6%80%81%E5%88%86%E6%9E%90/">https://su6660.github.io/2026/10/06/20261006-电子信息专升本-03-一阶动态电路与暂态分析/</a></p>
+<h3 id="例题3-5-｜-难度：进阶"><a href="#例题3-5-｜-难度：进阶" class="headerlink" title="例题3-5 ｜ 难度：进阶"></a>例题3-5 ｜ 难度：进阶</h3><p>【题目】<br>RL 电路中，E=18V、R1=2Ω、R2=4Ω、L=1.5H。t=0 前开关 S 将 R2 短路，电感与 R1 串联接 E 已处稳态；t=0 时 S 断开，R2 串入回路。用三要素法求 iL(t)，并求 t=τ 与 t=3τ 时刻的 iL 值。</p>
+<p>【解题步骤】</p>
+<ol>
+<li>求换路前稳态电流：t=0- 时电感相当于短路，iL(0-) = E/R1 = 18/2 = 9A。</li>
+<li>由换路定律求初始值：iL(0+) = iL(0-) = 9A。</li>
+<li>求换路后稳态电流：t→∞ 时电感相当于短路，iL(∞) = E/(R1+R2) = 18/(2+4) = 3A。</li>
+<li>求时间常数（R 为换路后从电感两端看进去的除源等效电阻）：<br>τ = L/(R1+R2) = 1.5/6 = 0.25s。</li>
+<li>代入三要素法公式：<br>iL(t) = 3 + (9 - 3)×e^(-t/0.25) = 3 + 6×e^(-4t) A（因为 1/τ = 4）。</li>
+<li>求 t=τ=0.25s 时刻的 iL：iL = 3 + 6×e^(-1) = 3 + 2.207 = 5.21A。</li>
+<li>求 t=3τ=0.75s 时刻的 iL：iL = 3 + 6×e^(-3) = 3 + 0.299 = 3.30A。</li>
+</ol>
+<p>【答案解析】<br>iL(t) = 3 + 6×e^(-4t) A；t=τ 时 iL = 5.21A，t=3τ 时 iL = 3.30A。<br>校验：t=0 时 iL = 3 + 6 = 9A（与初值一致）；t→∞ 时 iL → 3A（与稳态一致）。</p>
+<p>【易错提醒】<br>换路前后电路结构改变，时间常数 τ 必须用换路后的等效电阻计算，不能沿用换路前的电阻；换路定律只保证 iL、uc 在 0+ 时刻连续，其余量可突变。</p>
+<p>【涉及公式】<br>三要素法 f(t) = f(∞) + [f(0+) - f(∞)]·e^(-t/τ)；τ = L/R；换路定律 iL(0+) = iL(0-)。</p>
+<p>【知识点链接】<br>三要素法、换路定律 iL(0+) = iL(0-)、时间常数 τ=L/R 中 R 的求取，详见《电子信息专升本 · 第3章 一阶动态电路与暂态分析》学习要点：<a target="_blank" rel="noopener" href="https://su6660.github.io/2026/10/06/20261006-%E7%94%B5%E5%AD%90%E4%BF%A1%E6%81%AF%E4%B8%93%E5%8D%87%E6%9C%AC-03-%E4%B8%80%E9%98%B6%E5%8A%A8%E6%80%81%E7%94%B5%E8%B7%AF%E4%B8%8E%E6%9A%82%E6%80%81%E5%88%86%E6%9E%90/">https://su6660.github.io/2026/10/06/20261006-电子信息专升本-03-一阶动态电路与暂态分析/</a></p>
+<h2 id="三、拓展思考题"><a href="#三、拓展思考题" class="headerlink" title="三、拓展思考题"></a>三、拓展思考题</h2><h3 id="例题3-6-｜-难度：拓展"><a href="#例题3-6-｜-难度：拓展" class="headerlink" title="例题3-6 ｜ 难度：拓展"></a>例题3-6 ｜ 难度：拓展</h3><p>【题目】<br>在继电器、接触器等电感性线圈电路中，为什么强制断电的瞬间，线圈两端会产生远高于电源电压的尖峰（可能击穿开关触点或损坏驱动管）？若某线圈 R=10Ω、L=0.5H 正常通电时稳态电流 I0=2A，突然被开关断开，理论上断开瞬间线圈电压可达多高？工程上又该如何抑制这一现象？</p>
+<p>【思路提示】<br>从”电感电流不能突变”与 u = L·di/dt 入手：断电瞬间 iL 被强迫迅速下降，di/dt 趋于极大，使 uL 趋于极高。思考电感中储存的磁场能量（W = ½Li²，此处 W = ½×0.5×2² = 1J）的去路，以及续流二极管如何为该能量提供续流回路。</p>
+<p>【参考答案要点】<br>电感电流 iL 不能突变，断电瞬间开关迫使电流在极短时间内降为 0，di/dt 趋于无穷大，故 uL = L·di/dt 理论上趋于无穷大（实际受线圈分布电容限制为一个有限高电压），足以击穿触点或在驱动管两端产生高压尖峰。工程上常在线圈两端反并联一只续流二极管：正常通电时二极管反偏截止、不参与工作；断电瞬间 iL 通过二极管续流，磁场能量经电阻回路释放，电流按 iL = I0·e^(-t/τ) 衰减（τ = L/R = 0.5/10 = 0.05s），从而把反压钳制在约一个二极管压降（约 0.7V）附近，保护开关与驱动器件。本题串联了”换路定律、u = L·di/dt、磁场能量 W = ½Li²、时间常数 τ = L/R”等多个知识点。</p>
+<h2 id="本章公式速查"><a href="#本章公式速查" class="headerlink" title="本章公式速查"></a>本章公式速查</h2><ul>
+<li>电容伏安关系：i = C·du/dt</li>
+<li>电感伏安关系：u = L·di/dt</li>
+<li>换路定律：uc(0+) = uc(0-)、iL(0+) = iL(0-)</li>
+<li>时间常数：τ = RC（RC 电路）、τ = L/R（RL 电路）</li>
+<li>RC 零输入：uc(t) = U0·e^(-t/τ)</li>
+<li>RC 零状态：uc(t) = Us(1 - e^(-t/τ))</li>
+<li>三要素法：f(t) = f(∞) + [f(0+) - f(∞)]·e^(-t/τ)</li>
+<li>过渡过程：约 t = 3τ～5τ 结束</li>
+</ul>
+<h2 id="相关知识点链接"><a href="#相关知识点链接" class="headerlink" title="相关知识点链接"></a>相关知识点链接</h2><ul>
+<li>本章学习要点：《电子信息专升本 · 第3章 一阶动态电路与暂态分析》：<a target="_blank" rel="noopener" href="https://su6660.github.io/2026/10/06/20261006-%E7%94%B5%E5%AD%90%E4%BF%A1%E6%81%AF%E4%B8%93%E5%8D%87%E6%9C%AC-03-%E4%B8%80%E9%98%B6%E5%8A%A8%E6%80%81%E7%94%B5%E8%B7%AF%E4%B8%8E%E6%9A%82%E6%80%81%E5%88%86%E6%9E%90/">https://su6660.github.io/2026/10/06/20261006-电子信息专升本-03-一阶动态电路与暂态分析/</a></li>
+<li>系列全部分类页：<a target="_blank" rel="noopener" href="https://su6660.github.io/categories/%E7%94%B5%E5%AD%90%E4%BF%A1%E6%81%AF%E4%B8%93%E5%8D%87%E6%9C%AC/">https://su6660.github.io/categories/电子信息专升本/</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com"></a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2026/10/06/20261006-%E7%94%B5%E5%AD%90%E4%BF%A1%E6%81%AF%E4%B8%93%E5%8D%87%E6%9C%AC-%E4%BE%8B%E9%A2%98-03-%E4%B8%80%E9%98%B6%E5%8A%A8%E6%80%81%E7%94%B5%E8%B7%AF%E4%B8%8E%E6%9A%82%E6%80%81%E5%88%86%E6%9E%90/">http://example.com/2026/10/06/20261006-%E7%94%B5%E5%AD%90%E4%BF%A1%E6%81%AF%E4%B8%93%E5%8D%87%E6%9C%AC-%E4%BE%8B%E9%A2%98-03-%E4%B8%80%E9%98%B6%E5%8A%A8%E6%80%81%E7%94%B5%E8%B7%AF%E4%B8%8E%E6%9A%82%E6%80%81%E5%88%86%E6%9E%90/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">苏的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E4%B8%93%E5%8D%87%E6%9C%AC/">专升本</a><a class="post-meta__tags" href="/tags/%E7%94%B5%E5%AD%90%E4%BF%A1%E6%81%AF/">电子信息</a><a class="post-meta__tags" href="/tags/%E7%94%B5%E8%B7%AF%E5%88%86%E6%9E%90/">电路分析</a><a class="post-meta__tags" href="/tags/%E4%BE%8B%E9%A2%98%E9%9B%86/">例题集</a></div><div class="post_share"><div class="social-share" data-image="/img/avatar.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2026/10/06/20261006-%E7%94%B5%E5%AD%90%E4%BF%A1%E6%81%AF%E4%B8%93%E5%8D%87%E6%9C%AC-%E4%BE%8B%E9%A2%98-04-%E6%AD%A3%E5%BC%A6%E7%A8%B3%E6%80%81%E7%94%B5%E8%B7%AF%E5%88%86%E6%9E%90/" title="电子信息专升本例题集 · 第4章 正弦稳态电路分析"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">电子信息专升本例题集 · 第4章 正弦稳态电路分析</div></div></a></div><div class="next-post pull-right"><a href="/2026/10/06/20261006-%E7%94%B5%E5%AD%90%E4%BF%A1%E6%81%AF%E4%B8%93%E5%8D%87%E6%9C%AC-%E4%BE%8B%E9%A2%98-02-%E7%94%B5%E8%B7%AF%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95%E4%B8%8E%E7%94%B5%E8%B7%AF%E5%AE%9A%E7%90%86/" title="电子信息专升本例题集 · 第2章 电路分析方法与电路定理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">电子信息专升本例题集 · 第2章 电路分析方法与电路定理</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2026/10/06/20261006-%E7%94%B5%E5%AD%90%E4%BF%A1%E6%81%AF%E4%B8%93%E5%8D%87%E6%9C%AC-%E4%BE%8B%E9%A2%98-04-%E6%AD%A3%E5%BC%A6%E7%A8%B3%E6%80%81%E7%94%B5%E8%B7%AF%E5%88%86%E6%9E%90/" title="电子信息专升本例题集 · 第4章 正弦稳态电路分析"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-06</div><div class="title">电子信息专升本例题集 · 第4章 正弦稳态电路分析</div></div></a></div><div><a href="/2026/10/06/20261006-%E7%94%B5%E5%AD%90%E4%BF%A1%E6%81%AF%E4%B8%93%E5%8D%87%E6%9C%AC-%E4%BE%8B%E9%A2%98-02-%E7%94%B5%E8%B7%AF%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95%E4%B8%8E%E7%94%B5%E8%B7%AF%E5%AE%9A%E7%90%86/" title="电子信息专升本例题集 · 第2章 电路分析方法与电路定理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-06</div><div class="title">电子信息专升本例题集 · 第2章 电路分析方法与电路定理</div></div></a></div><div><a href="/2026/10/06/20261006-%E7%94%B5%E5%AD%90%E4%BF%A1%E6%81%AF%E4%B8%93%E5%8D%87%E6%9C%AC-%E4%BE%8B%E9%A2%98-01-%E7%9B%B4%E6%B5%81%E7%94%B5%E8%B7%AF%E5%9F%BA%E7%A1%80%E4%B8%8E%E5%9F%BA%E6%9C%AC%E5%AE%9A%E5%BE%8B/" title="电子信息专升本例题集 · 第1章 直流电路基础与基本定律"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-06</div><div class="title">电子信息专升本例题集 · 第1章 直流电路基础与基本定律</div></div></a></div><div><a href="/2026/10/06/20261006-%E7%94%B5%E5%AD%90%E4%BF%A1%E6%81%AF%E4%B8%93%E5%8D%87%E6%9C%AC-01-%E7%9B%B4%E6%B5%81%E7%94%B5%E8%B7%AF%E5%9F%BA%E7%A1%80%E4%B8%8E%E5%9F%BA%E6%9C%AC%E5%AE%9A%E5%BE%8B/" title="电子信息专升本 · 第1章 直流电路基础与基本定律"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-06</div><div class="title">电子信息专升本 · 第1章 直流电路基础与基本定律</div></div></a></div><div><a href="/2026/10/06/20261006-%E7%94%B5%E5%AD%90%E4%BF%A1%E6%81%AF%E4%B8%93%E5%8D%87%E6%9C%AC-02-%E7%94%B5%E8%B7%AF%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95%E4%B8%8E%E7%94%B5%E8%B7%AF%E5%AE%9A%E7%90%86/" title="电子信息专升本 · 第2章 电路分析方法与电路定理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-06</div><div class="title">电子信息专升本 · 第2章 电路分析方法与电路定理</div></div></a></div><div><a href="/2026/10/06/20261006-%E7%94%B5%E5%AD%90%E4%BF%A1%E6%81%AF%E4%B8%93%E5%8D%87%E6%9C%AC-04-%E6%AD%A3%E5%BC%A6%E7%A8%B3%E6%80%81%E7%94%B5%E8%B7%AF%E5%88%86%E6%9E%90/" title="电子信息专升本 · 第4章 正弦稳态电路分析"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-06</div><div class="title">电子信息专升本 · 第4章 正弦稳态电路分析</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name"></div><div class="author-info__description">选择有时候比努力更重要</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">37</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%B5%E5%AD%90%E4%BF%A1%E6%81%AF%E4%B8%93%E5%8D%87%E6%9C%AC%E4%BE%8B%E9%A2%98%E9%9B%86-%C2%B7-%E7%AC%AC3%E7%AB%A0-%E4%B8%80%E9%98%B6%E5%8A%A8%E6%80%81%E7%94%B5%E8%B7%AF%E4%B8%8E%E6%9A%82%E6%80%81%E5%88%86%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text">电子信息专升本例题集 · 第3章 一阶动态电路与暂态分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E7%A4%BA%E4%BE%8B%E9%A2%98"><span class="toc-number">1.1.</span> <span class="toc-text">一、基础概念示例题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E9%A2%983-1-%EF%BD%9C-%E9%9A%BE%E5%BA%A6%EF%BC%9A%E5%9F%BA%E7%A1%80"><span class="toc-number">1.1.1.</span> <span class="toc-text">例题3-1 ｜ 难度：基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E9%A2%983-2-%EF%BD%9C-%E9%9A%BE%E5%BA%A6%EF%BC%9A%E5%9F%BA%E7%A1%80"><span class="toc-number">1.1.2.</span> <span class="toc-text">例题3-2 ｜ 难度：基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E9%A2%983-3-%EF%BD%9C-%E9%9A%BE%E5%BA%A6%EF%BC%9A%E5%9F%BA%E7%A1%80"><span class="toc-number">1.1.3.</span> <span class="toc-text">例题3-3 ｜ 难度：基础</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E7%BB%BC%E5%90%88%E5%BA%94%E7%94%A8%E9%A2%98"><span class="toc-number">1.2.</span> <span class="toc-text">二、综合应用题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E9%A2%983-4-%EF%BD%9C-%E9%9A%BE%E5%BA%A6%EF%BC%9A%E8%BF%9B%E9%98%B6"><span class="toc-number">1.2.1.</span> <span class="toc-text">例题3-4 ｜ 难度：进阶</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E9%A2%983-5-%EF%BD%9C-%E9%9A%BE%E5%BA%A6%EF%BC%9A%E8%BF%9B%E9%98%B6"><span class="toc-number">1.2.2.</span> <span class="toc-text">例题3-5 ｜ 难度：进阶</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%8B%93%E5%B1%95%E6%80%9D%E8%80%83%E9%A2%98"><span class="toc-number">1.3.</span> <span class="toc-text">三、拓展思考题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E9%A2%983-6-%EF%BD%9C-%E9%9A%BE%E5%BA%A6%EF%BC%9A%E6%8B%93%E5%B1%95"><span class="toc-number">1.3.1.</span> <span class="toc-text">例题3-6 ｜ 难度：拓展</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E7%AB%A0%E5%85%AC%E5%BC%8F%E9%80%9F%E6%9F%A5"><span class="toc-number">1.4.</span> <span class="toc-text">本章公式速查</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9%E9%93%BE%E6%8E%A5"><span class="toc-number">1.5.</span> <span class="toc-text">相关知识点链接</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/10/06/20261006-%E7%94%B5%E5%AD%90%E4%BF%A1%E6%81%AF%E4%B8%93%E5%8D%87%E6%9C%AC-%E4%BE%8B%E9%A2%98-12-%E6%95%B0%E6%A8%A1%E4%B8%8E%E6%A8%A1%E6%95%B0%E8%BD%AC%E6%8D%A2%E7%94%B5%E8%B7%AF/" title="电子信息专升本例题集 · 第12章 数模与模数转换电路">电子信息专升本例题集 · 第12章 数模与模数转换电路</a><time datetime="2026-10-06T06:00:12.000Z" title="发表于 2026-10-06 14:00:12">2026-10-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/10/06/20261006-%E7%94%B5%E5%AD%90%E4%BF%A1%E6%81%AF%E4%B8%93%E5%8D%87%E6%9C%AC-%E4%BE%8B%E9%A2%98-11-%E8%A7%A6%E5%8F%91%E5%99%A8%E4%B8%8E%E6%97%B6%E5%BA%8F%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF/" title="电子信息专升本例题集 · 第11章 触发器与时序逻辑电路">电子信息专升本例题集 · 第11章 触发器与时序逻辑电路</a><time datetime="2026-10-06T06:00:11.000Z" title="发表于 2026-10-06 14:00:11">2026-10-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/10/06/20261006-%E7%94%B5%E5%AD%90%E4%BF%A1%E6%81%AF%E4%B8%93%E5%8D%87%E6%9C%AC-%E4%BE%8B%E9%A2%98-10-%E9%97%A8%E7%94%B5%E8%B7%AF%E4%B8%8E%E7%BB%84%E5%90%88%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF/" title="电子信息专升本例题集 · 第10章 门电路与组合逻辑电路">电子信息专升本例题集 · 第10章 门电路与组合逻辑电路</a><time datetime="2026-10-06T06:00:10.000Z" title="发表于 2026-10-06 14:00:10">2026-10-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/10/06/20261006-%E7%94%B5%E5%AD%90%E4%BF%A1%E6%81%AF%E4%B8%93%E5%8D%87%E6%9C%AC-%E4%BE%8B%E9%A2%98-09-%E6%95%B0%E5%88%B6%E7%A0%81%E5%88%B6%E4%B8%8E%E9%80%BB%E8%BE%91%E4%BB%A3%E6%95%B0/" title="电子信息专升本例题集 · 第9章 数制码制与逻辑代数">电子信息专升本例题集 · 第9章 数制码制与逻辑代数</a><time datetime="2026-10-06T06:00:09.000Z" title="发表于 2026-10-06 14:00:09">2026-10-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/10/06/20261006-%E7%94%B5%E5%AD%90%E4%BF%A1%E6%81%AF%E4%B8%93%E5%8D%87%E6%9C%AC-%E4%BE%8B%E9%A2%98-08-%E9%9B%86%E6%88%90%E8%BF%90%E7%AE%97%E6%94%BE%E5%A4%A7%E5%99%A8%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/" title="电子信息专升本例题集 · 第8章 集成运算放大器及其应用">电子信息专升本例题集 · 第8章 集成运算放大器及其应用</a><time datetime="2026-10-06T06:00:08.000Z" title="发表于 2026-10-06 14:00:08">2026-10-06</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2026 By null</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
