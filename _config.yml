@@ -15,6 +15,13 @@ timezone: Asia/Shanghai    #中国的时区
 ## Themes: https://hexo.io/themes/
 theme: butterfly
 
+# 主题配置覆盖（头像与网站背景）
+theme_config:
+  avatar:
+    img: /img/yukino_avatar.jpg
+    effect: false
+  background: url(/img/yukino_bg.jpg)
+
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
