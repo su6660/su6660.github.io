@@ -21,6 +21,11 @@ theme_config:
     img: /img/yukino_avatar.jpg
     effect: false
   background: url(/img/yukino_bg.jpg)
+  # 文章/页面顶部横幅图片（点进去后的顶部背景）
+  default_top_img: /img/yukino_bg.jpg
+  inject:
+    head:
+      - '<style>#page-header{background-position:center top!important}</style>'
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
