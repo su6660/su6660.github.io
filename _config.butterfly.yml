@@ -32,6 +32,12 @@ theme_color:
   blockquote_background_color: "#5B8DEF"
   scrollbar_color: "#5B8DEF"
 
+# 侧边栏作者卡片 Follow Me 按钮（链接到本人 GitHub）
+aside:
+  card_author:
+    button:
+      link: https://github.com/su6660
+
 # 界面美化（毛玻璃卡片、圆角、悬浮动画、字体排版）
 inject:
   head:
