@@ -22,3 +22,7 @@ deploy:
   repository: git@github.com:su6660/su6660.github.io.git
   branch: main
 
+
+# 独立交互页面原样输出，不套主题
+skip_render:
+  - psych-test/**
