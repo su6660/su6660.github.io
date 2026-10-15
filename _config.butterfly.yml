@@ -44,6 +44,9 @@ aside:
   card_author:
     button:
       link: https://github.com/su6660
+  card_announcement:
+    enable: true
+    content: 我一定25岁之前练成大肌男
 
 # 界面美化（毛玻璃卡片、圆角、悬浮动画、字体排版）
 inject:
