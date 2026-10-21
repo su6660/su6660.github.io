@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>破局行动追踪器 · 一次只改一个变量</title>
+<style>
+  :root{
+    --acc:#4f46e5; --accbg:#eef2ff;
+    --ink:#151b26; --sub:#667085; --line:#e6e9f0; --bg:#f4f6fb; --card:#ffffff;
+    --ok:#15803d; --okbg:#f0fdf4; --warn:#b45309; --warnbg:#fff8e6; --danger:#b91c1c;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Microsoft YaHei","PingFang SC","Segoe UI",system-ui,sans-serif;font-size:14px;line-height:1.7;padding-bottom:60px}
+  .wrap{max-width:760px;margin:0 auto;padding:20px 14px 40px}
+  header.top{background:linear-gradient(135deg,#1e293b,#312e81);color:#fff;border-radius:16px;padding:22px 24px;margin-bottom:14px}
+  header.top h1{margin:0 0 6px;font-size:20px;letter-spacing:.5px}
+  header.top p{margin:0;color:#c7d2fe;font-size:12.5px}
+
+  .stats{display:flex;gap:8px;margin-bottom:14px}
+  .stat{flex:1;background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 6px;text-align:center}
+  .stat .n{font-size:21px;font-weight:800;color:var(--acc)}
+  .stat .l{font-size:11px;color:var(--sub);margin-top:2px}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:17px 19px;margin-bottom:14px}
+  .card h2{margin:0 0 10px;font-size:16px;display:flex;align-items:center;gap:8px}
+  .card h2 .dot{width:8px;height:8px;border-radius:50%;background:var(--acc);flex:0 0 auto}
+  .muted{color:var(--sub);font-size:12.5px}
+
+  .rule{display:flex;gap:11px;padding:11px 13px;border:1px solid var(--line);border-radius:11px;background:#fbfcfe;margin-bottom:8px}
+  .rule .no{flex:0 0 auto;width:24px;height:24px;border-radius:7px;background:var(--acc);color:#fff;font-size:12.5px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:2px}
+  .rule .tt{font-size:13.5px;font-weight:700}
+  .rule .dd{font-size:12.5px;color:#475569;margin-top:2px}
+
+  .chk{display:flex;align-items:flex-start;gap:10px;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;cursor:pointer;margin-bottom:7px;transition:.15s}
+  .chk:hover{background:var(--accbg)}
+  .chk .box{flex:0 0 auto;width:21px;height:21px;border:2px solid #cbd5e1;border-radius:6px;margin-top:2px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;transition:.15s}
+  .chk.done{background:var(--okbg);border-color:#86efac}
+  .chk.done .box{background:var(--ok);border-color:var(--ok)}
+  .chk .lb{flex:1;font-size:13.5px}
+  .chk .lb b{color:#1e293b}
+  .chk .sb{font-size:11.5px;color:var(--sub);margin-top:1px}
+
+  .heat{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-top:10px}
+  .heat .hd{font-size:10.5px;color:var(--sub);text-align:center;padding:2px 0}
+  .heat .c{aspect-ratio:1;border-radius:6px;background:#eef0f5;display:flex;align-items:center;justify-content:center;font-size:10px;color:#9aa3b2}
+  .heat .c.on{background:var(--ok);color:#fff}
+  .heat .c.today{outline:2px solid var(--acc);outline-offset:1px}
+
+  textarea,input.txt{width:100%;border:1px solid var(--line);border-radius:9px;padding:9px 11px;font-family:inherit;font-size:13.5px;background:#fff;color:var(--ink);resize:vertical}
+  textarea{min-height:56px}
+  textarea:focus,input.txt:focus{outline:none;border-color:var(--acc)}
+  .qlab{font-size:13px;font-weight:700;color:#334155;margin:10px 0 4px}
+  .qlab:first-child{margin-top:0}
+
+  .btn{border:none;border-radius:10px;padding:10px 18px;font-size:13.5px;font-weight:700;cursor:pointer;background:var(--acc);color:#fff}
+  .btn:hover{background:#4338ca}
+  .btn.ghost{background:#fff;color:#334155;border:1px solid var(--line)}
+  .btnrow{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}
+
+  .hist{border:1px solid var(--line);border-radius:10px;padding:10px 13px;margin-bottom:8px;background:#fbfcfe}
+  .hist .hd{display:flex;justify-content:space-between;align-items:center}
+  .hist .dt{font-size:12px;font-weight:700;color:var(--acc)}
+  .hist .del{font-size:11px;color:var(--sub);cursor:pointer;border:none;background:none;padding:2px 6px}
+  .hist .del:hover{color:var(--danger)}
+  .hist .bd{font-size:12.8px;color:#3f4a5c;margin-top:5px;white-space:pre-wrap}
+  .hist .bd b{color:#1e293b}
+
+  .alert{border-radius:10px;padding:11px 14px;font-size:12.8px;border:1px solid;margin:10px 0}
+  .alert.w{background:var(--warnbg);border-color:#fcd34d;color:#78350f}
+  .alert.g{background:var(--okbg);border-color:#86efac;color:#14532d}
+
+  .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:26px;background:#1e293b;color:#fff;padding:9px 17px;border-radius:10px;font-size:13px;opacity:0;transition:.25s;pointer-events:none;z-index:99}
+  .toast.on{opacity:1}
+  footer.end{text-align:center;color:var(--sub);font-size:12px;margin-top:16px}
+  footer.end a{color:var(--acc)}
+  @media print{.btn,.btnrow,.chk,.toast{display:none}body{background:#fff}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <h1>破局行动追踪器</h1>
+  <p>敌人只有一个：高标准启动 → 遇到难度 → 烦 → 草草收场。本页只追踪打断它的三个动作。</p>
+</header>
+
+<div class="stats">
+  <div class="stat"><div class="n" id="stStreak">0</div><div class="l">连续隔离(天)</div></div>
+  <div class="stat"><div class="n" id="stReview">0</div><div class="l">复盘次数</div></div>
+  <div class="stat"><div class="n" id="stDeliver">0</div><div class="l">粗糙交付</div></div>
+  <div class="stat"><div class="n" id="stExam">—</div><div class="l">距专转本(约·天)</div></div>
+</div>
+
+<div class="card">
+  <h2><span class="dot"></span>本周规则（只有这三条，不加新动作）</h2>
+  <div class="rule">
+    <div class="no">1</div>
+    <div><div class="tt">抖音物理隔离</div>
+    <div class="dd">19:00–20:30 学习时段手机放客厅，不进书房。平时想刷，用网页版，用完即关。不靠意志力，靠距离。</div></div>
+  </div>
+  <div class="rule">
+    <div class="no">2</div>
+    <div><div class="tt">每周三句话复盘（周日 20:00）</div>
+    <div class="dd">只写三句：本周实际做了什么 / 哪件最有效 / 下周只改哪一件。写在下面，连续累积，不新开文件。</div></div>
+  </div>
+  <div class="rule">
+    <div class="no">3</div>
+    <div><div class="tt">粗糙交付（48 小时规则）</div>
+    <div class="dd">任何新任务，48 小时内先交出「能用但粗糙」的第一版，再谈优化。先完成，再完美。</div></div>
+  </div>
+  <div class="alert w" style="margin-bottom:0"><b>执行纪律：</b>错过一天不算失败，连续错过两天才需要调整方案。每周预留一天缓冲，不许自我攻击——自责是伪装的行动。</div>
+</div>
+
+<div class="card">
+  <h2><span class="dot"></span>今日打卡 <span class="muted" id="todayLab" style="font-weight:400"></span></h2>
+  <div class="chk" id="ckIso" onclick="toggleToday()">
+    <div class="box">✓</div>
+    <div class="lb"><b>学习时段手机已放客厅</b><div class="sb">19:00–20:30 手机不在视线内（当天有学习安排时打卡）</div></div>
+  </div>
+  <div class="heat" id="heat"></div>
+  <div class="muted" style="margin-top:8px">最近 35 天记录。绿色 = 已隔离。连续天数只统计到昨天为止已确认的部分。</div>
+</div>
+
+<div class="card">
+  <h2><span class="dot"></span>每周复盘（周日 20:00，三句话）</h2>
+  <div class="qlab">1｜本周我实际做了什么？（写实际做的，不写计划的）</div>
+  <textarea id="rv1" placeholder="例：完成了电路第 3 章习题；力量训练 4 次全部完成；周四晚上没学习，刷手机到 12 点……"></textarea>
+  <div class="qlab">2｜哪件事最有效？为什么？</div>
+  <textarea id="rv2" placeholder="例：把手机放客厅那晚效率最高——因为「想刷」的念头出现后 10 秒就断了……"></textarea>
+  <div class="qlab">3｜下周我只改哪一件事？（只许写一件）</div>
+  <textarea id="rv3" placeholder="例：学习前先把当天要看的章节标题抄在纸上，坐下就知道从哪开始……"></textarea>
+  <div class="btnrow">
+    <button class="btn" onclick="saveReview()">保存本次复盘</button>
+  </div>
+  <div id="reviewList" style="margin-top:12px"></div>
+</div>
+
+<div class="card">
+  <h2><span class="dot"></span>粗糙交付记录（48 小时规则）</h2>
+  <div class="muted" style="margin-bottom:8px">每次交出一个「粗糙但能用」的第一版，记在这里。重点不是质量，是你在「做不到最好就想放弃」的时刻选择了先完成。</div>
+  <input class="txt" id="dvTask" placeholder="任务名称（例：电路第 3 章笔记第一版 / 帮 XX 剪的视频初稿）" style="margin-bottom:7px">
+  <textarea id="dvNote" placeholder="交出后发生了什么？别人的真实反应 vs 你预想的反应（这一栏最重要）"></textarea>
+  <div class="btnrow">
+    <button class="btn" onclick="saveDelivery()">记一笔交付</button>
+  </div>
+  <div id="deliveryList" style="margin-top:12px"></div>
+</div>
+
+<div class="card">
+  <h2><span class="dot"></span>复测提醒</h2>
+  <div class="alert g" style="margin-bottom:0">
+    <b>2027 年 1 月 15 日前后</b>，重新做一次 <a href="psych-quiz.html" style="color:var(--acc);font-weight:700">个人发展深度心理测验</a>（同目录文件）。<br>
+    对比重点不是总分，而是：A2（长线投入）、A4（复盘机制）两题的选项有没有上移；开放题 2 描述的「想做好但做不到就烦」的模式，出现频率有没有下降。
+  </div>
+</div>
+
+<footer class="end">数据保存在本机浏览器 · 配套测验：<a href="psych-quiz.html">个人发展深度心理测验</a></footer>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+var KEY='poju_tracker_v1';
+var state={ checks:{}, reviews:[], deliveries:[] };
+
+function $(id){return document.getElementById(id);}
+function toast(m){var t=$('toast');t.textContent=m;t.classList.add('on');setTimeout(function(){t.classList.remove('on');},1500);}
+function todayStr(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function dateStr(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+function load(){try{var r=localStorage.getItem(KEY);if(r){var o=JSON.parse(r);state.checks=o.checks||{};state.reviews=o.reviews||[];state.deliveries=o.deliveries||[];}}catch(e){}}
+
+function toggleToday(){
+  var k=todayStr();
+  if(state.checks[k]){delete state.checks[k];}else{state.checks[k]=1;}
+  save();renderAll();
+  toast(state.checks[k]?'今日已打卡':'已取消今日打卡');
+}
+
+function streak(){
+  var d=new Date();var n=0;
+  if(!state.checks[dateStr(d)]){d.setDate(d.getDate()-1);}
+  while(state.checks[dateStr(d)]){n++;d.setDate(d.getDate()-1);}
+  return n;
+}
+
+function renderHeat(){
+  var days=['一','二','三','四','五','六','七'];
+  var h='';
+  days.forEach(function(x){h+='<div class="hd">'+x+'</div>';});
+  var cells=[];
+  for(var i=34;i>=0;i--){var d=new Date();d.setDate(d.getDate()-i);cells.push(d);}
+  var firstDow=(cells[0].getDay()+6)%7;
+  for(var p=0;p<firstDow;p++){h+='<div class="c" style="background:transparent"></div>';}
+  var tk=todayStr();
+  cells.forEach(function(d){
+    var k=dateStr(d);
+    h+='<div class="c'+(state.checks[k]?' on':'')+(k===tk?' today':'')+'" title="'+k+'">'+d.getDate()+'</div>';
+  });
+  $('heat').innerHTML=h;
+}
+
+function renderToday(){
+  var k=todayStr();
+  var on=!!state.checks[k];
+  $('ckIso').className='chk'+(on?' done':'');
+  $('todayLab').textContent='（'+k+'）';
+}
+
+function saveReview(){
+  var q1=$('rv1').value.trim(),q2=$('rv2').value.trim(),q3=$('rv3').value.trim();
+  if(!q1&&!q2&&!q3){toast('三句都空着，至少写一句');return;}
+  state.reviews.unshift({d:todayStr(),q1:q1,q2:q2,q3:q3});
+  if(state.reviews.length>52)state.reviews.length=52;
+  $('rv1').value='';$('rv2').value='';$('rv3').value='';
+  save();renderAll();
+  toast('复盘已保存（累计 '+state.reviews.length+' 次）');
+}
+function delReview(i){if(!confirm('删除这条复盘记录？'))return;state.reviews.splice(i,1);save();renderAll();}
+
+function renderReviews(){
+  var h='';
+  if(!state.reviews.length){h='<div class="muted">还没有复盘记录。本周日 20:00 写第一条。</div>';}
+  state.reviews.forEach(function(r,i){
+    h+='<div class="hist"><div class="hd"><span class="dt">'+r.d+'</span><button class="del" onclick="delReview('+i+')">删除</button></div>';
+    if(r.q1)h+='<div class="bd"><b>做了什么：</b>'+esc(r.q1)+'</div>';
+    if(r.q2)h+='<div class="bd"><b>最有效：</b>'+esc(r.q2)+'</div>';
+    if(r.q3)h+='<div class="bd" style="color:#4f46e5"><b>下周只改：</b>'+esc(r.q3)+'</div>';
+    h+='</div>';
+  });
+  $('reviewList').innerHTML=h;
+}
+
+function saveDelivery(){
+  var t=$('dvTask').value.trim(),n=$('dvNote').value.trim();
+  if(!t){toast('至少写任务名称');return;}
+  state.deliveries.unshift({d:todayStr(),t:t,n:n});
+  if(state.deliveries.length>100)state.deliveries.length=100;
+  $('dvTask').value='';$('dvNote').value='';
+  save();renderAll();
+  toast('已记录（累计 '+state.deliveries.length+' 次粗糙交付）');
+}
+function delDelivery(i){if(!confirm('删除这条交付记录？'))return;state.deliveries.splice(i,1);save();renderAll();}
+
+function renderDeliveries(){
+  var h='';
+  if(!state.deliveries.length){h='<div class="muted">还没有交付记录。下一个任务，48 小时内先交出粗糙的第一版。</div>';}
+  state.deliveries.forEach(function(r,i){
+    h+='<div class="hist"><div class="hd"><span class="dt">'+r.d+'</span><button class="del" onclick="delDelivery('+i+')">删除</button></div>';
+    h+='<div class="bd"><b>'+esc(r.t)+'</b></div>';
+    if(r.n)h+='<div class="bd">'+esc(r.n)+'</div>';
+    h+='</div>';
+  });
+  $('deliveryList').innerHTML=h;
+}
+
+function renderStats(){
+  $('stStreak').textContent=streak();
+  $('stReview').textContent=state.reviews.length;
+  $('stDeliver').textContent=state.deliveries.length;
+  var target=new Date(2027,2,15);
+  var days=Math.ceil((target-new Date())/86400000);
+  $('stExam').textContent=days>0?days:'0';
+}
+
+function renderAll(){
+  renderToday();renderHeat();renderReviews();renderDeliveries();renderStats();
+}
+
+load();renderAll();
+</script>
+</body>
+</html>

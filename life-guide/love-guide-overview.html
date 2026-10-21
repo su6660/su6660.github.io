@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>恋爱关系全阶段系统指南</title>
+<style>
+  :root {
+    --primary: #e91e63;
+    --primary-light: #fce4ec;
+    --secondary: #7e57c2;
+    --accent: #ff7043;
+    --bg: #fafafa;
+    --card-bg: #ffffff;
+    --text: #212121;
+    --text-light: #616161;
+    --border: #e0e0e0;
+    --danger: #ff5252;
+    --danger-bg: #ffebee;
+    --success: #4caf50;
+    --success-bg: #e8f5e9;
+    --warning: #ff9800;
+    --warning-bg: #fff3e0;
+    --info: #2196f3;
+    --info-bg: #e3f2fd;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding-bottom: 40px;
+  }
+
+  /* Header */
+  .hero {
+    background: linear-gradient(135deg, #e91e63 0%, #7e57c2 100%);
+    color: white;
+    padding: 60px 40px;
+    text-align: center;
+  }
+  .hero h1 {
+    font-size: 2.5em;
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: 2px;
+  }
+  .hero .subtitle {
+    font-size: 1.1em;
+    opacity: 0.9;
+    margin-bottom: 24px;
+  }
+  .hero .principles {
+    display: inline-flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .hero .principles span {
+    background: rgba(255,255,255,0.2);
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    backdrop-filter: blur(10px);
+  }
+
+  /* Layout */
+  .layout {
+    display: flex;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px;
+    gap: 40px;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    position: sticky;
+    top: 20px;
+    width: 260px;
+    flex-shrink: 0;
+    height: fit-content;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+  }
+  .sidebar .nav-title {
+    font-size: 0.85em;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    padding-left: 8px;
+  }
+  .sidebar ul {
+    list-style: none;
+  }
+  .sidebar li {
+    margin-bottom: 4px;
+  }
+  .sidebar a {
+    display: block;
+    padding: 10px 14px;
+    color: var(--text);
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 0.92em;
+    border-left: 3px solid transparent;
+    transition: all 0.2s;
+  }
+  .sidebar a:hover, .sidebar a.active {
+    background: var(--primary-light);
+    border-left-color: var(--primary);
+    color: var(--primary);
+  }
+  .sidebar .nav-section {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Main content */
+  .main {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* Stage card */
+  .stage {
+    background: var(--card-bg);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    padding: 40px;
+    margin-bottom: 36px;
+    border-top: 5px solid var(--primary);
+    scroll-margin-top: 20px;
+  }
+  .stage-0 { border-top-color: #bdbdbd; }
+  .stage-1 { border-top-color: #ff80ab; }
+  .stage-2 { border-top-color: #ba68c8; }
+  .stage-3 { border-top-color: #ffb74d; }
+  .stage-4 { border-top-color: #64b5f6; }
+  .stage-5 { border-top-color: #f06292; }
+  .stage-6 { border-top-color: #81c784; }
+
+  .stage-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--border);
+  }
+  .stage-num {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3em;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .stage-title {
+    font-size: 1.6em;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .stage-subtitle {
+    font-size: 0.9em;
+    color: var(--text-light);
+    margin-top: 4px;
+  }
+
+  .stage-body h3 {
+    font-size: 1.05em;
+    font-weight: 600;
+    margin: 24px 0 12px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .stage-body h3::before {
+    content: '';
+    width: 4px;
+    height: 20px;
+    background: var(--primary);
+    border-radius: 2px;
+  }
+  .stage-body p, .stage-body li {
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .stage-body ul, .stage-body ol {
+    padding-left: 20px;
+    margin-bottom: 12px;
+  }
+
+  /* Callout boxes */
+  .callout {
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 16px 0;
+  }
+  .callout-goal {
+    background: var(--info-bg);
+    border-left: 4px solid var(--info);
+  }
+  .callout-logic {
+    background: #f3e5f5;
+    border-left: 4px solid var(--secondary);
+  }
+  .callout-mistakes {
+    background: var(--danger-bg);
+    border-left: 4px solid var(--danger);
+  }
+  .callout-tips {
+    background: var(--success-bg);
+    border-left: 4px solid var(--success);
+  }
+  .callout-redline {
+    background: var(--warning-bg);
+    border-left: 4px solid var(--warning);
+  }
+  .callout-stoploss {
+    background: #fce4ec;
+    border-left: 4px solid #c2185b;
+  }
+  .callout h4 {
+    font-size: 0.95em;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+  }
+  .callout-goal h4 { color: var(--info); }
+  .callout-logic h4 { color: var(--secondary); }
+  .callout-mistakes h4 { color: var(--danger); }
+  .callout-tips h4 { color: var(--success); }
+  .callout-redline h4 { color: var(--warning); }
+  .callout-stoploss h4 { color: #c2185b; }
+
+  /* Tips sub-sections */
+  .tips-sub {
+    margin: 12px 0;
+    padding: 12px 16px;
+    background: rgba(76,175,80,0.08);
+    border-radius: 8px;
+  }
+  .tips-sub h5 {
+    color: var(--success);
+    font-size: 0.92em;
+    margin-bottom: 6px;
+    font-weight: 700;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 0.92em;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+  th {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+  }
+  td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  tr:nth-child(even) td { background: #fafafa; }
+  tr:last-child td { border-bottom: none; }
+
+  /* Warning box */
+  .warning-box {
+    background: linear-gradient(135deg, #ffebee, #fff3e0);
+    border: 2px dashed var(--danger);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 24px 0;
+    text-align: center;
+  }
+  .warning-box h3 {
+    color: var(--danger);
+    font-size: 1.2em;
+    margin-bottom: 12px;
+    border: none !important;
+  }
+  .warning-box h3::before { display: none; }
+  .warning-box table { text-align: left; }
+
+  /* Footer principles */
+  .principles-box {
+    background: linear-gradient(135deg, #fce4ec, #f3e5f5);
+    border-radius: 16px;
+    padding: 40px;
+    margin-top: 40px;
+  }
+  .principles-box h2 {
+    text-align: center;
+    font-size: 1.5em;
+    margin-bottom: 24px;
+    color: var(--primary);
+  }
+  .principles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  .principle-item {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+  .principle-item .icon {
+    font-size: 2em;
+    margin-bottom: 8px;
+  }
+  .principle-item .title {
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 4px;
+  }
+
+  /* Print */
+  @media print {
+    .hero { background: #e91e63 !important; padding: 30px; }
+    .sidebar { display: none; }
+    .layout { padding: 20px; }
+    .stage { box-shadow: none; break-inside: avoid; }
+    body { background: white; }
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .layout { flex-direction: column; padding: 20px; }
+    .sidebar { position: static; width: 100%; }
+    .stage { padding: 24px; }
+    .hero h1 { font-size: 1.8em; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>💕 恋爱关系全阶段系统指南</h1>
+  <p class="subtitle">从初次相遇到长期稳定，结构化梳理每一步该怎么走</p>
+  <div class="principles">
+    <span>💎 真诚</span>
+    <span>💡 共情</span>
+    <span>🛡️ 边界</span>
+    <span>⏳ 耐心</span>
+  </div>
+</div>
+
+<div class="layout">
+
+  <!-- Sidebar Navigation -->
+  <nav class="sidebar">
+    <div class="nav-title">阶段导航</div>
+    <ul>
+      <li><a href="#stage-0">🔔 前置：线上预热</a></li>
+      <li><a href="#stage-1">👋 阶段1：初次见面</a></li>
+      <li><a href="#stage-2">💬 阶段2：日常聊天</a></li>
+      <li><a href="#stage-3">🌹 阶段3：正式约会</a></li>
+      <li><a href="#stage-4">🔥 阶段4：关系深化</a></li>
+      <li><a href="#stage-5">💝 阶段5：亲密建立</a></li>
+      <li><a href="#stage-6">🏠 阶段6：长期稳定</a></li>
+    </ul>
+    <div class="nav-section">
+      <div class="nav-title">核心参考</div>
+      <ul>
+        <li><a href="#principles">💎 通用底层逻辑</a></li>
+        <li><a href="#warnings">⚠️ 阶段跳转预警</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main">
+
+    <!-- Stage 0: Pre-heat -->
+    <section id="stage-0" class="stage stage-0">
+      <div class="stage-header">
+        <div class="stage-num">0</div>
+        <div>
+          <div class="stage-title">前置阶段：线上预热</div>
+          <div class="stage-subtitle">加好友 → 第一次线下见面 · 周期 3-7 天</div>
+        </div>
+      </div>
+      <div class="stage-body">
+
+        <div class="callout callout-goal">
+          <h4>🎯 核心目标</h4>
+          <p>拿到第一次线下见面的<strong>明确邀约</strong>（而非线上聊嗨后见光死）</p>
+        </div>
+
+        <div class="callout callout-logic">
+          <h4>🧠 底层逻辑</h4>
+          <p>线上是「人设筛选」，线下才是「真实验证」；过度线上聊天会降低线下见面的新鲜感，甚至让对方失去见面动力。</p>
+        </div>
+
+        <div class="callout callout-mistakes">
+          <h4>❌ 常见误区</h4>
+          <ol>
+            <li>线上查户口式提问（"你多大？工资多少？"）</li>
+            <li>过度输出自我（狂发朋友圈/流水账）</li>
+            <li>聊太暧昧但不敢提见面（沦为"云备胎"）</li>
+            <li>秒回每条消息（暴露"无生活重心"）</li>
+          </ol>
+        </div>
+
+        <div class="callout callout-tips">
+          <h4>✅ 可落地实操</h4>
+          <div class="tips-sub">
+            <h5>基础动作（必做）</h5>
+            <ul>
+              <li><strong>聊天节奏对齐</strong>：对方1小时回，你40-50分钟回；对方晚上聊，你别白天狂发</li>
+              <li><strong>每句聊天必带「钩子」</strong>：别只回"好可爱"，要回"这只猫的脸圆得像我上周吃的铜锣烧！你在哪里撸到的？"</li>
+              <li><strong>3次有效聊天后提见面</strong>：有效聊天 = 双方都有展开的对话（不是"嗯/哦/哈哈"）</li>
+            </ul>
+          </div>
+          <div class="tips-sub">
+            <h5>进阶动作（加分）</h5>
+            <ul>
+              <li>用「生活碎片」代替"找话题"：拍一张楼下的樱花落了，配文"今天下班踩了一鞋底的樱花，像踩了个粉色小蛋糕"</li>
+              <li>提见面用「低压力选项」：别问"要不要约会？"，要问"附近有家猫咖，周末要不要一起撸猫？我请你喝冰美式"</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout callout-redline">
+          <h4>🚫 避坑红线（绝对不能碰）</h4>
+          <ul>
+            <li>不发"在吗""干嘛呢"等无营养开场白</li>
+            <li>不追问"你刚才怎么不理我"（等于给对方压力）</li>
+            <li>不在 11 点后聊私人话题（除非对方主动）</li>
+          </ul>
+        </div>
+
+        <h3>📝 话术示例（3种风格提见面）</h3>
+        <table>
+          <thead><tr><th>风格</th><th>话术内容</th><th>沟通逻辑</th></tr></thead>
+          <tbody>
+            <tr><td><strong>社牛直接型</strong></td><td>"聊了三天觉得你挺有意思的，周末有空一起撸猫？我发现家猫咖的橘猫特别亲人"</td><td>用具体场景降低见面压力，主动提出自己的发现（不是"求见面"）</td></tr>
+            <tr><td><strong>社恐礼貌型</strong></td><td>"之前你说喜欢手冲咖啡，我知道有家店的耶加雪菲特别绝，要不要周末一起去尝尝？"</td><td>用对方之前提过的点当由头，显得用心，而非刻意</td></tr>
+            <tr><td><strong>好奇探索型</strong></td><td>"你说你喜欢看展？刚好周末有个插画展，我正愁没人陪，要不要一起？"</td><td>把见面包装成"找伴"而非"约会"，给对方台阶</td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-stoploss">
+          <h4>🛑 失败信号（及时止损）</h4>
+          <ul>
+            <li>连续3次只回"嗯/哦/哈哈"</li>
+            <li>提见面后对方找借口推脱2次以上</li>
+            <li>全程只聊自己，不接你的话</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stage 1 -->
+    <section id="stage-1" class="stage stage-1">
+      <div class="stage-header">
+        <div class="stage-num">1</div>
+        <div>
+          <div class="stage-title">初次见面</div>
+          <div class="stage-subtitle">第一次线下物理接触 · 时长 30-60 分钟（留余味）</div>
+        </div>
+      </div>
+      <div class="stage-body">
+
+        <div class="callout callout-goal">
+          <h4>🎯 核心目标</h4>
+          <p>3-10 分钟内让对方留下「我愿意和你有下一次联系」的正向记忆点</p>
+        </div>
+
+        <div class="callout callout-logic">
+          <h4>🧠 底层逻辑</h4>
+          <p>首因效应的「<strong>3秒定基调，10分钟定好感</strong>」：人的前额叶还没启动，靠本能印象判断；<strong>"有下一次"比"这次聊嗨"重要</strong></p>
+        </div>
+
+        <div class="callout callout-mistakes">
+          <h4>❌ 常见误区</h4>
+          <ol>
+            <li>查户口式提问（刚见面就问收入/房车）</li>
+            <li>过度展示（炫富/炫才华/全程吹牛逼）</li>
+            <li>肢体越界（刚见面就拍肩/搂腰）</li>
+            <li>全程低头玩手机（等于告诉对方"你不如手机有意思"）</li>
+          </ol>
+        </div>
+
+        <div class="callout callout-tips">
+          <h4>✅ 可落地实操</h4>
+          <div class="tips-sub">
+            <h5>基础动作（必做）</h5>
+            <ul>
+              <li><strong>三秒微笑锁定眼神</strong>：见到对方第一秒，微笑 + 眼神停留 3 秒（别飘，别躲）</li>
+              <li><strong>开口第一句用「场景锚定」</strong>：别说"你好我叫XX"，要说"你也喜欢手冲？我刚才点的耶加雪菲真的很绝"</li>
+              <li><strong>肢体语言 3 要点</strong>：肩放松、手放桌前/腿上（别抱胸）、微微前倾 15 度（表示专注）</li>
+            </ul>
+          </div>
+          <div class="tips-sub">
+            <h5>进阶动作（加分）</h5>
+            <ul>
+              <li>制造 1 个「专属小记忆点」：比如对方说喜欢猫，接"我上次在巷子里喂了一只橘猫，它居然蹭我腿要罐头，你下次要不要一起去蹲？"</li>
+              <li>主动递水/拉椅子（细节见教养，但别过度殷勤）</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout callout-redline">
+          <h4>🚫 避坑红线</h4>
+          <ul>
+            <li>不问隐私问题（年龄/收入/家庭）</li>
+            <li>不聊前任/结婚/买房等沉重话题</li>
+            <li>不强迫对方喝酒/做不想做的事</li>
+          </ul>
+        </div>
+
+        <h3>📝 话术示例（冷场急救）</h3>
+        <table>
+          <thead><tr><th>场景</th><th>话术内容</th><th>沟通逻辑</th></tr></thead>
+          <tbody>
+            <tr><td>突然冷场</td><td>"对了，刚才进来的时候看到门口有个流浪猫窝，你平时会喂流浪动物吗？"</td><td>用环境锚定新话题，避免尴尬</td></tr>
+            <tr><td>对方明显紧张</td><td>"哈哈，我第一次和陌生人见面也紧张，要不我们先各自玩 5 分钟手机？（开玩笑）"</td><td>共情对方的紧张，用玩笑拉近距离</td></tr>
+            <tr><td>对方要提前走</td><td>"好的，今天和你聊天真的很开心，我加你个微信，下次一起撸猫？"</td><td>不纠缠，留余味，明确下次邀约</td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-stoploss">
+          <h4>🛑 失败信号</h4>
+          <ul>
+            <li>对方全程低头玩手机，不接你的话</li>
+            <li>对方主动提出要提前走（无合理理由）</li>
+            <li>肢体语言抗拒（往后躲/交叉手臂/不看你）</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stage 2 -->
+    <section id="stage-2" class="stage stage-2">
+      <div class="stage-header">
+        <div class="stage-num">2</div>
+        <div>
+          <div class="stage-title">日常聊天</div>
+          <div class="stage-subtitle">初次见面 → 第一次正式约会 · 周期 3-10 天</div>
+        </div>
+      </div>
+      <div class="stage-body">
+
+        <div class="callout callout-goal">
+          <h4>🎯 核心目标</h4>
+          <p>建立<strong>舒适的聊天频率</strong>（每周 3-5 次，每次 20-30 分钟）+ 挖掘 3-5 个共同兴趣点 + 传递「我是个有趣且有边界的人」</p>
+        </div>
+
+        <div class="callout callout-logic">
+          <h4>🧠 底层逻辑</h4>
+          <p>聊天的本质是「<strong>提供情绪价值</strong>」：情绪价值分两种——<strong>开心（有趣）+ 共情（懂对方）</strong>；绝对不是"汇报行踪"或"查户口"</p>
+        </div>
+
+        <div class="callout callout-mistakes">
+          <h4>❌ 常见误区</h4>
+          <ol>
+            <li>查户口连环问（"吃了吗？吃的什么？好吃吗？"）</li>
+            <li>全程自我输出（狂吐槽老板/炫新买的包）</li>
+            <li>半夜找对方聊天（11点后除非对方主动）</li>
+            <li>对方不回就狂发消息（暴露需求感）</li>
+          </ol>
+        </div>
+
+        <div class="callout callout-tips">
+          <h4>✅ 可落地实操</h4>
+          <div class="tips-sub">
+            <h5>基础动作（必做）</h5>
+            <ul>
+              <li><strong>每句聊天要么「抛钩子」要么「给情绪反馈」</strong>：
+                <br>· 抛钩子：对方发猫的照片 → "这只猫的眼神像偷喝奶茶被抓包的我！你在哪里撸到的？"
+                <br>· 情绪反馈：对方说"今天加班好累" → "我天，我上周加了3天班，回家直接瘫在沙发上睡着了，太懂这种累了"</li>
+              <li><strong>聊天节奏对齐</strong>：对方3小时回，你别10分钟回；对方聊得短，你别聊太长</li>
+            </ul>
+          </div>
+          <div class="tips-sub">
+            <h5>进阶动作（加分）</h5>
+            <ul>
+              <li>用「专属梗」强化记忆：比如之前聊过"讨厌香菜"，以后看到香菜就拍给对方发"香菜刺客出没！"</li>
+              <li>偶尔「失联1天」：比如周末没发消息，周一发"周末去爬山了，没看手机，山上的云真的像棉花糖"（传递你有自己的生活）</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout callout-redline">
+          <h4>🚫 避坑红线</h4>
+          <ul>
+            <li>不发"在吗""干嘛呢"等无营养开场白</li>
+            <li>不追问"你为什么不回我"（等于给对方压力）</li>
+            <li>不聊敏感话题（政治/宗教/性别对立）</li>
+          </ul>
+        </div>
+
+        <h3>📝 话术示例（对方半天没回后的回应）</h3>
+        <table>
+          <thead><tr><th>场景</th><th>话术内容</th><th>沟通逻辑</th></tr></thead>
+          <tbody>
+            <tr><td>对方后来回"刚才开会"</td><td>"哈哈，开会是不是又被老板按头输出 PPT？我上次开了3小时战略会，差点在会议室睡着"</td><td>共情对方的处境，拉近距离，而非追问</td></tr>
+            <tr><td>对方后来回"刚才在忙"</td><td>"好的，那你先忙，等你空了我们再聊～"</td><td>给对方留空间，传递边界感，而非纠缠</td></tr>
+            <tr><td>对方连续3次只回"嗯/哦"</td><td>（直接停止聊天，过3天再发一条生活碎片）</td><td>及时止损，别当舔狗</td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-stoploss">
+          <h4>🛑 失败信号</h4>
+          <ul>
+            <li>连续3次只回"嗯/哦/哈哈"</li>
+            <li>从不主动找你聊天</li>
+            <li>聊了10天还没提过见面</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stage 3 -->
+    <section id="stage-3" class="stage stage-3">
+      <div class="stage-header">
+        <div class="stage-num">3</div>
+        <div>
+          <div class="stage-title">正式约会</div>
+          <div class="stage-subtitle">第一次专属线下 1-3 小时 · 时长 1.5-2 小时（留余味）</div>
+        </div>
+      </div>
+      <div class="stage-body">
+
+        <div class="callout callout-goal">
+          <h4>🎯 核心目标</h4>
+          <p>验证线上好感是否落地 + 制造 2-3 个「可回忆的专属时刻」+ 确认对方是否愿意进入下一轮约会</p>
+        </div>
+
+        <div class="callout callout-logic">
+          <h4>🧠 底层逻辑</h4>
+          <p>线上是「人设」，线下是「真人」；人对<strong>具体的场景记忆</strong>产生好感，而非抽象的聊天内容；「留余味」比「安排满行程」重要</p>
+        </div>
+
+        <div class="callout callout-mistakes">
+          <h4>❌ 常见误区</h4>
+          <ol>
+            <li>选太正式的场所（第一次就选米其林？压力拉满）</li>
+            <li>全程玩手机/刷社交软件</li>
+            <li>安排太满的行程（咖啡→火锅→电影→逛展？累死）</li>
+            <li>不敢肢体接触/过度肢体接触</li>
+          </ol>
+        </div>
+
+        <div class="callout callout-tips">
+          <h4>✅ 可落地实操</h4>
+          <div class="tips-sub">
+            <h5>基础动作（必做）</h5>
+            <ul>
+              <li><strong>选址逻辑：低压力、有互动、好开口</strong>：优先猫咖/手冲咖啡店/插画展；绝对不要选 KTV（太吵）/电影院（全程不能说话）</li>
+              <li><strong>肢体接触「3 秒法则」</strong>：比如对方说"我怕猫抓我"，你轻轻把她的手拉到猫的背毛上，说"摸这里，它最软"，停留 3 秒就收</li>
+              <li><strong>行程控制：1 个核心活动 + 1 个轻量收尾</strong>：比如猫咖撸 1 小时猫 → 楼下便利店买冰淇淋逛 20 分钟街，就可以结束</li>
+            </ul>
+          </div>
+          <div class="tips-sub">
+            <h5>进阶动作（加分）</h5>
+            <ul>
+              <li>制造「小意外的浪漫」：路过花店，对方说"洋甘菊好香"，你买<strong>1 朵</strong>（别买一束）递给他/她，说"今天的小奖励"</li>
+              <li>送对方到楼下时，说"今天真的很开心，下次我们去吃那家你说的火锅？"（明确邀约下一次）</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout callout-redline">
+          <h4>🚫 避坑红线</h4>
+          <ul>
+            <li>不聊前任/结婚/买房等沉重话题</li>
+            <li>不让对方单独买单（男生可以主动提 AA，但别让女生尴尬）</li>
+            <li>不强迫对方做不想做的事</li>
+          </ul>
+        </div>
+
+        <h3>📝 话术示例（约会中冷场急救）</h3>
+        <table>
+          <thead><tr><th>场景</th><th>话术内容</th><th>沟通逻辑</th></tr></thead>
+          <tbody>
+            <tr><td>突然下雨（没带伞）</td><td>"前面有个屋檐，我们去躲雨？对了，你有没有觉得下雨的时候闻起来特别像橘子皮？"</td><td>用小观察拉近距离，别慌</td></tr>
+            <tr><td>对方聊到自己的爱好</td><td>"哇，你居然喜欢玩滑板？我之前试过一次，直接摔了个狗吃屎，你下次能教我吗？"</td><td>用自己的"糗事"共情，同时埋下次见面的钩子</td></tr>
+            <tr><td>约会结束时</td><td>"今天和你待在一起真的特别舒服，下次我们去看那个你说的插画展？"</td><td>明确邀约下一次，传递好感</td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-stoploss">
+          <h4>🛑 失败信号</h4>
+          <ul>
+            <li>对方全程玩手机，不接你的话</li>
+            <li>对方主动提出要提前走（无合理理由）</li>
+            <li>肢体语言抗拒（往后躲/交叉手臂/不看你）</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stage 4 -->
+    <section id="stage-4" class="stage stage-4">
+      <div class="stage-header">
+        <div class="stage-num">4</div>
+        <div>
+          <div class="stage-title">关系深化</div>
+          <div class="stage-subtitle">2-5 次约会 → 暧昧专属感 · 周期 2-4 周</div>
+        </div>
+      </div>
+      <div class="stage-body">
+
+        <div class="callout callout-goal">
+          <h4>🎯 核心目标</h4>
+          <p>让对方感受到「你和其他人不一样」+ 建立 1-2 个「专属互动暗号/梗」+ 试探对方对亲密关系的接受度</p>
+        </div>
+
+        <div class="callout callout-logic">
+          <h4>🧠 底层逻辑</h4>
+          <p>人对<strong>专属感</strong>的需求远大于新鲜感：比如你只给对方发你家猫的丑照，只在对方加班时送奶茶，这就是专属感；暧昧的核心是「模糊边界但传递专属」</p>
+        </div>
+
+        <div class="callout callout-mistakes">
+          <h4>❌ 常见误区</h4>
+          <ol>
+            <li>把暧昧谈成普通朋友（聊的内容和同事一样）</li>
+            <li>过早表白（约会 2 次就说"我喜欢你" = 把压力甩给对方）</li>
+            <li>过度试探（让朋友去问/故意和其他异性暧昧刺激对方 = 不真诚）</li>
+            <li>不敢传递专属感（怕对方拒绝，所以不敢与众不同）</li>
+          </ol>
+        </div>
+
+        <div class="callout callout-tips">
+          <h4>✅ 可落地实操</h4>
+          <div class="tips-sub">
+            <h5>基础动作（必做）</h5>
+            <ul>
+              <li><strong>建立「专属互动暗号」</strong>：比如对方喜欢喝冰美式，以后见面就说"老规矩？冰美式加双倍浓缩？"</li>
+              <li><strong>传递专属感的 3 个小动作</strong>：
+                <br>① 只和对方聊你的「小秘密」："我其实偷偷喜欢看喜羊羊，别告诉别人"
+                <br>② 记住对方的「小偏好」：比如对方不吃葱，下次点餐直接说"不要葱"
+                <br>③ 朋友圈留「专属评论」：对方发猫的照片 → "这只猫的脸和我上次踩的铜锣烧一模一样"</li>
+            </ul>
+          </div>
+          <div class="tips-sub">
+            <h5>进阶动作（加分）</h5>
+            <ul>
+              <li><strong>半开玩笑式试探</strong>：约会时靠在对方肩膀上，说"哎，你肩膀还挺舒服的，以后可以当我的专属靠垫吗？"</li>
+              <li><strong>专属小惊喜</strong>：比如对方加班到 10 点，你点一杯他/她喜欢的奶茶送到公司，附言"加班快乐，别饿肚子"（别送太贵重的）</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout callout-redline">
+          <h4>🚫 避坑红线</h4>
+          <ul>
+            <li>不逼问"我们是什么关系"（等于打破暧昧的张力）</li>
+            <li>不用"冷战/消失"试探对方的在乎（幼稚且伤害感情）</li>
+            <li>不搞"多人局"试探</li>
+          </ul>
+        </div>
+
+        <h3>📝 话术示例（对方问"我们是不是太暧昧了"）</h3>
+        <table>
+          <thead><tr><th>风格</th><th>话术内容</th><th>沟通逻辑</th></tr></thead>
+          <tbody>
+            <tr><td><strong>真诚型</strong></td><td>"哈哈，是有点？不过我觉得和你聊天、见面真的很舒服，你觉得呢？"</td><td>传递自己的感受，把问题抛回去，给对方留空间</td></tr>
+            <tr><td><strong>玩笑型</strong></td><td>"暧昧不好吗？暧昧是恋爱里最甜的阶段啊～"</td><td>用玩笑化解尴尬，同时传递自己的态度</td></tr>
+            <tr><td><strong>直接型</strong></td><td>"我是真的喜欢你，不想只和你当朋友，你呢？"</td><td>适合已经约会 5 次以上、专属感很强的情况</td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-stoploss">
+          <h4>🛑 失败信号</h4>
+          <ul>
+            <li>对方从不主动找你聊天/约会</li>
+            <li>对方在朋友圈屏蔽你（或者发的内容和你无关）</li>
+            <li>连续 3 次拒绝你的约会邀约</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stage 5 -->
+    <section id="stage-5" class="stage stage-5">
+      <div class="stage-header">
+        <div class="stage-num">5</div>
+        <div>
+          <div class="stage-title">亲密关系建立</div>
+          <div class="stage-subtitle">暧昧 → 确定情感 / 身体亲密</div>
+        </div>
+      </div>
+      <div class="stage-body">
+
+        <div class="callout callout-goal">
+          <h4>🎯 核心目标</h4>
+          <p>确保双方意愿同步 + 把「模糊好感」转化为「明确承诺」（情感亲密）/「明确同意的身体接触」（身体亲密），<strong>绝对禁止强来</strong></p>
+        </div>
+
+        <div class="callout callout-logic">
+          <h4>🧠 底层逻辑</h4>
+          <p>亲密关系不是「里程碑」，是「双方共同选择的结果」；<strong>情感亲密（确定关系）是身体亲密的前提</strong>（除非双方都是开放关系，但需要明确约定）</p>
+        </div>
+
+        <div class="callout callout-mistakes">
+          <h4>❌ 常见误区</h4>
+          <ol>
+            <li>用身体亲密换取情感承诺（"睡了就能在一起" = 大错特错）</li>
+            <li>表白太有压力（大庭广众拿玫瑰花 = 把对方架在火上烤）</li>
+            <li>不敢拒绝（自己没准备好硬着头皮答应 = 留下心理阴影）</li>
+            <li>不明确同意（默认"应该可以" = 性骚扰边界）</li>
+          </ol>
+        </div>
+
+        <h3>💕 情感亲密（确定关系）</h3>
+        <div class="callout callout-tips">
+          <div class="tips-sub">
+            <h5>基础动作（低压力表白）</h5>
+            <p>在一次舒服的约会结束后，送对方到楼下，说：<br>"今天和你待在一起真的特别开心，我觉得我已经不想只和你当朋友了，你愿意做我的女朋友/男朋友吗？<strong>你不用现在回答我，想清楚了告诉我就行</strong>"（给对方留思考空间）</p>
+          </div>
+          <div class="tips-sub">
+            <h5>进阶动作（行为代替言语）</h5>
+            <p>已经约会 5 次，每次都很舒服，突然牵起对方的手，说"我觉得我们好像已经在一起了？"（用行为试探，比言语更自然）</p>
+          </div>
+        </div>
+
+        <h3>🔥 身体亲密（肢体/性接触）</h3>
+        <div class="callout callout-tips">
+          <div class="tips-sub">
+            <h5>基础动作（明确同意）</h5>
+            <p>想牵手 → "我可以牵你的手吗？"<br>想拥抱 → "我可以抱你一下吗？"<br>想更进一步 → "我觉得我们的关系可以更进一步，你准备好了吗？"<br><strong>绝对不能"默认"</strong></p>
+          </div>
+          <div class="tips-sub">
+            <h5>进阶动作（观察肢体信号）</h5>
+            <p>对方靠你更近 / 眼神看你嘴唇 = 接受信号<br>对方往后躲 / 交叉手臂 = 拒绝信号（立刻停）</p>
+          </div>
+        </div>
+
+        <div class="callout callout-redline">
+          <h4>🚫 避坑红线</h4>
+          <ul>
+            <li>绝对不能在对方喝醉/被迫的情况下发生任何接触</li>
+            <li>对方说"不"就立刻停（哪怕已经开始）</li>
+            <li>不在对方喝醉/情绪不好时表白</li>
+            <li>不道德绑架（"你不爱我才不答应"）</li>
+          </ul>
+        </div>
+
+        <h3>📝 话术示例（对方拒绝表白后的回应）</h3>
+        <table>
+          <thead><tr><th>风格</th><th>话术内容</th><th>沟通逻辑</th></tr></thead>
+          <tbody>
+            <tr><td><strong>成熟型</strong></td><td>"没事，我就是想告诉你我的感受，我们还是可以像以前一样聊天见面，你不用有压力"</td><td>给对方台阶，也给自己留余地</td></tr>
+            <tr><td><strong>真诚型</strong></td><td>"好的，我不勉强你，不过我会等你，直到你愿意为止"（仅限真的想等）</td><td>传递诚意，但别给对方压力</td></tr>
+            <tr><td><strong>止损型</strong></td><td>"好的，那我就不打扰你了，祝你幸福"（别纠缠，及时止损）</td><td>适合对方明确说"没感觉"的情况</td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-stoploss">
+          <h4>🛑 失败信号</h4>
+          <ul>
+            <li>对方多次拒绝你的表白/身体接触</li>
+            <li>对方说"我只想和你当朋友"</li>
+            <li>对方在你表白后突然疏远你</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stage 6 -->
+    <section id="stage-6" class="stage stage-6">
+      <div class="stage-header">
+        <div class="stage-num">6</div>
+        <div>
+          <div class="stage-title">长期稳定相处</div>
+          <div class="stage-subtitle">确定关系 → 激情转亲密承诺 · 周期 6 个月以上</div>
+        </div>
+      </div>
+      <div class="stage-body">
+
+        <div class="callout callout-goal">
+          <h4>🎯 核心目标</h4>
+          <p>建立<strong>可持续的相处模式</strong> + 掌握<strong>矛盾处理能力</strong> + 保持对彼此的<strong>好奇心</strong></p>
+        </div>
+
+        <div class="callout callout-logic">
+          <h4>🧠 底层逻辑</h4>
+          <p>激情的保质期是 <strong>18-30 个月</strong>，之后的好感来自<strong>共同经历/彼此理解/稳定安全感</strong>，而非"心跳加速"；<strong>"平淡"是正常的，不是"不爱了"</strong></p>
+        </div>
+
+        <div class="callout callout-mistakes">
+          <h4>❌ 常见误区</h4>
+          <ol>
+            <li>把"平淡"当成"不爱了"（对方不再天天说"我爱你" = 不爱？错）</li>
+            <li>回避矛盾（吵架就冷战/"算了不说了" = 矛盾越积越多）</li>
+            <li>停止自我成长（确定关系就邋遢/不学习/不打扮 = 失去吸引力）</li>
+            <li>过度控制（查手机/管着对方和谁见面 = 逼对方走）</li>
+          </ol>
+        </div>
+
+        <div class="callout callout-tips">
+          <h4>✅ 可落地实操</h4>
+          <div class="tips-sub">
+            <h5>基础动作（必做）</h5>
+            <ul>
+              <li><strong>每周固定「专属时间」</strong>：比如每周三晚上一起吃火锅，每周六下午一起逛超市（这个时间不允许被工作/朋友占用）</li>
+              <li><strong>矛盾处理「3 步法」</strong>：
+                <br>① 先暂停："我现在有点激动，等 10 分钟我们再聊"
+                <br>② 说「我」不说「你」："我觉得有点难过，因为今天等了你 2 小时"（别骂"你怎么总是迟到！"）
+                <br>③ 找解决方案："以后如果你要迟到，提前给我发个消息好吗？"</li>
+              <li><strong>保持「自我边界」</strong>：不要为了对方放弃自己的爱好/朋友/工作（独立的人更有吸引力）</li>
+            </ul>
+          </div>
+          <div class="tips-sub">
+            <h5>进阶动作（加分）</h5>
+            <ul>
+              <li><strong>每年做 1-2 件「新鲜事」</strong>：一起去跳伞/学做饭/去没去过的城市旅行（制造新的共同回忆，对抗平淡）</li>
+              <li><strong>每月 1 次「深度聊天」</strong>：比如睡前聊"你最近有什么开心/不开心的事？""你对我们的未来有什么想法？"</li>
+              <li><strong>偶尔「制造小浪漫」</strong>：比如突然买一束对方喜欢的花，或者写一张小纸条贴在冰箱上</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout callout-redline">
+          <h4>🚫 避坑红线</h4>
+          <ul>
+            <li>不说"我为你付出了这么多"（道德绑架）</li>
+            <li>吵架不说"分手"（威胁，说多了就真的分了）</li>
+            <li>不把对方的付出当成理所当然（比如对方每天做饭，别说"应该的"，要说"谢谢你，辛苦啦"）</li>
+          </ul>
+        </div>
+
+        <h3>📝 话术示例（觉得"没感觉了"的沟通）</h3>
+        <table>
+          <thead><tr><th>风格</th><th>话术内容</th><th>沟通逻辑</th></tr></thead>
+          <tbody>
+            <tr><td><strong>真诚型</strong></td><td>"我觉得我们最近好像有点平淡，要不要周末一起去学个陶艺？我一直想试试"</td><td>主动创造新鲜事，而非直接说"没感觉了"</td></tr>
+            <tr><td><strong>理性型</strong></td><td>"我觉得我们的激情好像在消退，但我不想放弃，我们能不能一起想想办法？"</td><td>传递自己的感受，同时拉对方一起解决问题</td></tr>
+            <tr><td><strong>直接型</strong></td><td>"我最近有点迷茫，我们要不要暂时分开一段时间想想？"（慎重用）</td><td>适合真的需要空间的情况，但别拿"分开"威胁</td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-stoploss">
+          <h4>🛑 失败信号</h4>
+          <ul>
+            <li>对方连续 1 个月拒绝你的专属时间邀约</li>
+            <li>对方从不主动和你聊天/见面</li>
+            <li>矛盾超过 1 个月没解决，且对方不想沟通</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Common Principles -->
+    <div id="principles" class="principles-box">
+      <h2>💎 通用底层逻辑</h2>
+      <div class="principles-grid">
+        <div class="principle-item">
+          <div class="icon">💎</div>
+          <div class="title">真诚</div>
+          <div>做自己，别为了讨好对方而改变（装成对方喜欢的样子，迟早会露馅）</div>
+        </div>
+        <div class="principle-item">
+          <div class="icon">💡</div>
+          <div class="title">共情</div>
+          <div>站在对方的角度想问题（对方没回消息，别想"他不爱我"，想"他是不是在忙"）</div>
+        </div>
+        <div class="principle-item">
+          <div class="icon">🛡️</div>
+          <div class="title">边界</div>
+          <div>别越界，也别让对方越界（对方追问隐私，可以说"我不太想聊这个话题"）</div>
+        </div>
+        <div class="principle-item">
+          <div class="icon">⏳</div>
+          <div class="title">耐心</div>
+          <div>别跳阶段（初次见面就表白，90% 会被拒；暧昧期强来身体接触，100% 会翻车）</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stage Skip Warnings -->
+    <div id="warnings" class="warning-box">
+      <h3>⚠️ 阶段跳转预警（绝对禁止）</h3>
+      <table>
+        <thead><tr><th>跳转行为</th><th>失败概率</th></tr></thead>
+        <tbody>
+          <tr><td>初次见面 → 身体亲密</td><td><strong style="color:#c2185b">90%</strong> 被当成"性骚扰"</td></tr>
+          <tr><td>日常聊天 → 表白</td><td><strong style="color:#c2185b">80%</strong> 被当成"神经病"</td></tr>
+          <tr><td>暧昧期 → 逼问关系</td><td><strong style="color:#c2185b">70%</strong> 会把对方吓跑</td></tr>
+          <tr><td>长期稳定期 → 过度控制</td><td><strong style="color:#c2185b">60%</strong> 会导致分手</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  // Sidebar active link tracking
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
+        const id = entry.target.getAttribute('id');
+        const link = document.querySelector(`.sidebar a[href="#${id}"]`);
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+
+  document.querySelectorAll('.stage, .principles-box, .warning-box').forEach(el => {
+    if (el.id) observer.observe(el);
+  });
+
+  // Smooth scroll
+  document.querySelectorAll('.sidebar a').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>情感沟通指南 · 八个独立栏目</title>
+<style>
+  :root{
+    --ink:#1f2430; --sub:#6b7280; --line:#e8e3dd; --bg:#faf8f6;
+    --acc:#c2185b; --acc2:#7e57c2;
+    --c1:#e91e63; --c2:#ff7043; --c3:#42a5f5; --c4:#26a69a;
+    --c5:#7e57c2; --c6:#ec407a; --c7:#66bb6a; --c8:#78909c;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB","Segoe UI",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.9;font-size:15px;
+  }
+  .layout{display:flex;max-width:1180px;margin:0 auto;gap:28px;padding:28px 20px 100px}
+
+  /* 侧边导航 */
+  .nav{
+    width:230px;flex:0 0 230px;position:sticky;top:24px;align-self:flex-start;
+    max-height:calc(100vh - 48px);overflow-y:auto;
+    background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 16px;
+  }
+  .nav h2{font-size:13px;color:var(--acc);letter-spacing:1px;margin-bottom:14px;font-weight:700}
+  .nav a{
+    display:block;font-size:13px;color:#4b5563;text-decoration:none;
+    padding:8px 10px;border-radius:8px;margin-bottom:3px;line-height:1.4;
+    transition:.15s;
+  }
+  .nav a:hover{background:#fdf2f6;color:var(--acc)}
+  .nav a.active{background:#fdf2f6;color:var(--acc);font-weight:700}
+  .nav a .n{display:inline-block;width:18px;color:#b9b1aa;font-size:12px}
+
+  .main{flex:1;min-width:0}
+
+  /* Hero */
+  .hero{
+    background:linear-gradient(135deg,#fce4ec 0%,#f3e5f5 60%,#e8eaf6 100%);
+    border:1px solid #f8bbd0;border-radius:18px;padding:34px 32px;margin-bottom:26px;
+  }
+  .hero h1{font-size:25px;color:#ad1457;margin-bottom:8px}
+  .hero p{font-size:14px;color:#6a1b9a;margin-bottom:14px;line-height:1.8}
+  .hero .meta{display:flex;gap:20px;flex-wrap:wrap;font-size:12.5px;color:#8e24aa}
+  .hero .meta span{background:rgba(255,255,255,.7);padding:4px 12px;border-radius:20px}
+
+  /* 模块 */
+  .mod{
+    background:#fff;border:1px solid var(--line);border-radius:16px;
+    padding:0;margin-bottom:24px;overflow:hidden;
+  }
+  .mod-head{
+    padding:22px 28px 18px;border-bottom:1px solid var(--line);
+    display:flex;align-items:center;gap:16px;
+  }
+  .mod-badge{
+    flex:0 0 auto;width:44px;height:44px;border-radius:12px;color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-size:17px;font-weight:800;letter-spacing:.5px;
+  }
+  .mod-head .t h2{font-size:19px;margin-bottom:3px}
+  .mod-head .t .scope{font-size:12.5px;color:var(--sub)}
+  .mod-body{padding:24px 28px 28px}
+
+  .part{margin-bottom:26px}
+  .part:last-child{margin-bottom:0}
+  .part-title{
+    font-size:15px;font-weight:700;margin-bottom:12px;
+    display:flex;align-items:center;gap:8px;padding-left:11px;
+    border-left:4px solid currentColor;
+  }
+
+  .locate{
+    background:#fbf9f7;border:1px dashed #ddd5cd;border-radius:11px;
+    padding:15px 18px;font-size:14px;color:#4b5563;
+  }
+  .locate b{color:#ad1457}
+
+  ol.steps{padding-left:0;list-style:none;counter-reset:s}
+  ol.steps>li{
+    counter-increment:s;position:relative;padding-left:38px;margin-bottom:13px;font-size:14.5px;
+  }
+  ol.steps>li::before{
+    content:counter(s);position:absolute;left:0;top:2px;
+    width:24px;height:24px;border-radius:7px;background:#f3e5f5;color:#7b1fa2;
+    font-size:12.5px;font-weight:800;display:flex;align-items:center;justify-content:center;
+  }
+  ol.steps>li b{color:#7b1fa2}
+  ol.steps ul{padding-left:18px;margin-top:5px}
+  ol.steps ul li{font-size:13.8px;color:#4b5563;margin-bottom:3px}
+
+  /* 话术 */
+  .talk{
+    background:#fff8f5;border:1px solid #ffe0d5;border-radius:11px;
+    padding:4px 18px 16px;margin-bottom:10px;
+  }
+  .talk .label{
+    display:inline-block;background:#ff7043;color:#fff;font-size:11.5px;font-weight:700;
+    padding:3px 10px;border-radius:20px;margin:12px 0 8px;
+  }
+  .talk .line{font-size:14px;padding:7px 0;border-bottom:1px dashed #ffe0d5}
+  .talk .line:last-child{border-bottom:none}
+  .talk .who{font-weight:700;color:#d84315;margin-right:6px}
+  .talk .who.me{color:#1565c0}
+  .talk .why{color:var(--sub);font-size:12.5px;font-style:normal;display:block;margin-top:3px}
+
+  /* 避坑 */
+  .trap{
+    background:#fff5f5;border-left:4px solid #ef5350;border-radius:9px;
+    padding:14px 18px;margin-bottom:10px;
+  }
+  .trap .h{color:#c62828;font-weight:700;font-size:14px;margin-bottom:6px}
+  .trap .d{font-size:13.8px;color:#52403f}
+  .trap .fix{font-size:13.8px;color:#2e7d32;margin-top:5px}
+  .trap .fix b{color:#1b5e20}
+
+  /* 表格 */
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:6px 0 10px}
+  th{background:#37474f;color:#fff;padding:10px 12px;text-align:left;font-weight:600;font-size:13px}
+  td{padding:10px 12px;border-bottom:1px solid #eceff1;vertical-align:top;line-height:1.7}
+  tbody tr:nth-child(even){background:#fafafa}
+  td b{color:#ad1457}
+  .tag{
+    display:inline-block;font-size:11.5px;padding:2px 8px;border-radius:5px;
+    font-weight:700;white-space:nowrap;
+  }
+  .tag.red{background:#ffebee;color:#c62828}
+  .tag.amb{background:#fff8e1;color:#ef6c00}
+  .tag.ok{background:#e8f5e9;color:#2e7d32}
+
+  /* 尺度阶梯 */
+  .ladder{display:flex;flex-direction:column;gap:0;margin:10px 0}
+  .lv{
+    display:flex;gap:16px;border-left:3px solid #ddd;padding:13px 0 13px 18px;
+    position:relative;
+  }
+  .lv::before{
+    content:'';position:absolute;left:-7px;top:20px;width:11px;height:11px;
+    border-radius:50%;background:#fff;border:3px solid #ddd;
+  }
+  .lv .code{
+    flex:0 0 52px;font-size:12px;font-weight:800;color:#b0a8a0;padding-top:2px;
+  }
+  .lv .body{flex:1}
+  .lv .name{font-weight:700;font-size:14.5px;margin-bottom:3px}
+  .lv .desc{font-size:13.5px;color:#4b5563}
+  .lv .limit{font-size:13px;color:#c62828;margin-top:4px}
+
+  .callout{
+    background:#f3e5f5;border-radius:10px;padding:14px 18px;font-size:14px;color:#4a148c;
+    margin:12px 0;
+  }
+  .callout b{color:#7b1fa2}
+
+  .danger-final{
+    background:linear-gradient(135deg,#ffebee,#fff3e0);border:2px dashed #ef9a9a;
+    border-radius:16px;padding:26px 30px;margin-top:26px;
+  }
+  .danger-final h3{color:#c62828;font-size:17px;margin-bottom:12px}
+
+  footer{text-align:center;color:var(--sub);font-size:12.5px;padding:30px 20px 10px}
+
+  @media(max-width:900px){
+    .layout{flex-direction:column;padding:16px 14px 60px}
+    .nav{width:100%;flex:none;position:static;max-height:none}
+    .mod-head{padding:18px 20px}
+    .mod-body{padding:20px 20px 24px}
+    table{font-size:12.5px}
+    th,td{padding:8px 9px}
+  }
+  @media print{.nav{display:none}.layout{display:block}.mod{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="layout">
+
+<nav class="nav" id="nav">
+  <h2>栏目索引</h2>
+  <a href="#m1"><span class="n">01</span>初识破冰</a>
+  <a href="#m2"><span class="n">02</span>话题搭建</a>
+  <a href="#m3"><span class="n">03</span>聊天阶段划分</a>
+  <a href="#m4"><span class="n">04</span>升温关键节点</a>
+  <a href="#m5"><span class="n">05</span>暧昧期分寸</a>
+  <a href="#m6"><span class="n">06</span>确认关系</a>
+  <a href="#m7"><span class="n">07</span>长期维护</a>
+  <a href="#m8"><span class="n">08</span>止损退出</a>
+</nav>
+
+<div class="main">
+
+<div class="hero">
+  <h1>情感沟通指南</h1>
+  <p>八个独立栏目，覆盖从刚加上好友到长期相处的完整链条。每个栏目只讲一件事，不重复、不交叉，看完能直接照着做。</p>
+  <div class="meta">
+    <span>8 个栏目</span>
+    <span>每栏目含：实操步骤 / 话术示例 / 避坑要点</span>
+    <span>可独立阅读</span>
+  </div>
+</div>
+
+<!-- ================= M1 ================= -->
+<section class="mod" id="m1">
+  <div class="mod-head">
+    <div class="mod-badge" style="background:var(--c1)">01</div>
+    <div class="t">
+      <h2>初识破冰</h2>
+      <div class="scope">只管前 72 小时的第一印象铺设，不管后续话题体系</div>
+    </div>
+  </div>
+  <div class="mod-body">
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c1)">栏目定位与边界</div>
+      <div class="locate">
+        解决的是"<b>刚加上联系方式，怎么开口不尴尬、怎么在三天内让自己被记住</b>"。它只处理开场，不处理持续聊天——那是第 02 栏目的事；也不处理邀约见面——那是第 03 栏目的判断范围。破冰失败的人，后面根本没有机会用到其他技巧，所以这一步的容错率最低。
+      </div>
+    </div>
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c1)">可落地实操步骤</div>
+      <ol class="steps">
+        <li><b>先找素材，再开口。</b>破冰素材只有三个可靠来源，任选其一就够：
+          <ul>
+            <li><b>对方公开信息</b>：头像、朋友圈最近三条、昵称、签名、封面图，挑一条具体的细节（不是"你朋友圈很好看"这种废话）</li>
+            <li><b>共同场景</b>：介绍人、共同参加的活动的某个环节、共同待过的地点、共同认识的人</li>
+            <li><b>你自己的一个生活片段</b>：当天发生的、有画面感的小事，用来做"自我暴露"</li>
+          </ul>
+        </li>
+        <li><b>首条消息用"三段式"结构。</b>顺序固定：<b>观察 → 自我暴露 → 轻问句</b>。观察让对方知道你不是群发；自我暴露让对方有东西可回；轻问句降低回复成本。总长度控制在 30–50 字，不超过三行。</li>
+        <li><b>首轮对话只走 3–5 个来回就主动收尾。</b>破冰阶段的目标不是聊爽，是"留下一个还想再聊的尾巴"。聊到正热的时候主动说"我先去忙会儿，回头聊"，比聊到没话可说要好十倍。</li>
+        <li><b>埋一个可延续的钩子。</b>收尾前必须留一条"下次能接上"的信息，比如"你说的那家店我记下了""那个剧我回去看看"。没有钩子，第二次开口就要重新破冰。</li>
+        <li><b>间隔 24–48 小时再发第二条。</b>中间不追问、不刷屏、不发"在吗"。第二天用新的生活素材重新开场，而不是接着上次的话题硬续。</li>
+        <li><b>三次有效对话内完成第一次邀约试探。</b>"有效"指双方都有展开、不是单方面输出。到第三次还没提过任何见面意向，热度会自然衰减。</li>
+      </ol>
+    </div>
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c1)">具体话术示例</div>
+
+      <div class="talk">
+        <span class="label">类型 A · 从朋友圈细节切入</span>
+        <div class="line">
+          <span class="who me">我：</span>你昨天发的那只猫，眼神像偷喝了奶茶被抓包。它是那种会拆家的类型吗？
+          <span class="why">结构：具体观察（不说"好可爱"）+ 一个画面比喻 + 轻问句。对方回起来毫无压力。</span>
+        </div>
+        <div class="line">
+          <span class="who">对方：</span>哈哈超能拆！昨天刚把纸巾盒撕了
+        </div>
+        <div class="line">
+          <span class="who me">我：</span>这个我懂，我小时候养的那只也这样，撕完还坐纸堆里看着我。你平时上班它自己在家不闹吗？
+          <span class="why">自我暴露（我也有过）+ 顺势推进到对方的生活节奏，信息量在升级但不冒犯。</span>
+        </div>
+      </div>
+
+      <div class="talk">
+        <span class="label">类型 B · 共同场景切入</span>
+        <div class="line">
+          <span class="who me">我：</span>上次那个活动你也在吧？我记得你坐在第三排，全程在记笔记，是工作要用还是自己感兴趣？
+          <span class="why">用共同经历开场，天然有信任基础；"记笔记"是具体观察，证明你真的注意到了她。</span>
+        </div>
+      </div>
+
+      <div class="talk">
+        <span class="label">类型 C · 低姿态求教（给对方价值感）</span>
+        <div class="line">
+          <span class="who me">我：</span>冒昧问一下，你之前提过你在做 XX，我最近正好卡在这个问题上，你这边的经验是怎么处理的？
+          <span class="why">求教是最安全的破冰方式——它把对方放在"有经验的人"的位置上，人天生愿意回答自己擅长的问题。</span>
+        </div>
+      </div>
+
+      <div class="talk">
+        <span class="label">收尾话术（主动结束 + 埋钩子）</span>
+        <div class="line">
+          <span class="who me">我：</span>行，我先去把手上这点事弄完。你说的那家店我记下来了，改天去踩个点，回来跟你汇报。
+          <span class="why">"回来跟你汇报"就是钩子——它预告了下一次对话的存在，而且把主动权握在自己手里。</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c1)">常见避坑要点</div>
+
+      <div class="trap">
+        <div class="h">坑 1：查户口式开场</div>
+        <div class="d">"你多大？做什么工作？家住哪边？"——这不是聊天，是登记。对方第一反应是防御。</div>
+        <div class="fix"><b>改法：</b>把每个信息点都包装成"由一件具体的事引发的好奇"，先给观察再提问。</div>
+      </div>
+
+      <div class="trap">
+        <div class="h">坑 2：发"在吗""干嘛呢"</div>
+        <div class="d">这类开场把"要不要回"的压力全丢给对方，对方得先猜你想干什么，很多人干脆不回。</div>
+        <div class="fix"><b>改法：</b>直接把事说完。"看到你发的 XX，我也想试试，你当时是怎么弄的？"</div>
+      </div>
+
+      <div class="trap">
+        <div class="h">坑 3：连发三条以上</div>
+        <div class="d">对方没回就连发，屏幕上一排绿色气泡，观感上就是"这个人很急"。</div>
+        <div class="fix"><b>改法：</b>一条不回就停。等对方回了再继续，或者隔天换素材重新开。</div>
+      </div>
+
+      <div class="trap">
+        <div class="h">坑 4：用自创梗和内部笑话</div>
+        <div class="d">你以为幽默，对方接不住，只能回"哈哈"，对话直接断在这里。</div>
+        <div class="fix"><b>改法：</b>破冰阶段只用双方都能立刻理解的生活化比喻，梗要等熟了再造。</div>
+      </div>
+
+      <div class="trap">
+        <div class="h">坑 5：一上来就过度赞美</div>
+        <div class="d">"你好漂亮""你气质真好"——陌生人说这种话，可信度极低，还容易被判定为轻浮。</div>
+        <div class="fix"><b>改法：</b>夸具体行为，不夸外貌。"你记笔记记得好细"比"你好好看"安全一百倍。</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= M2 ================= -->
+<section class="mod" id="m2">
+  <div class="mod-head">
+    <div class="mod-badge" style="background:var(--c2)">02</div>
+    <div class="t">
+      <h2>日常聊天话题搭建</h2>
+      <div class="scope">解决"聊什么、怎么聊不枯竭"的持续供给系统</div>
+    </div>
+  </div>
+  <div class="mod-body">
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c2)">栏目定位与边界</div>
+      <div class="locate">
+        破冰解决"怎么开第一句"，本栏目解决"<b>之后每一天聊什么、凭什么不冷场</b>"。它是一套<b>话题生产机制</b>，不是话术清单——清单用完就没了，机制可以一直转。注意：本栏目不涉及"什么时候可以见面""什么时候算暧昧"，那属于第 03、04 栏目。
+      </div>
+    </div>
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c2)">可落地实操步骤</div>
+      <ol class="steps">
+        <li><b>建三类话题储备库，每类常备 3 条。</b>
+          <ul>
+            <li><b>对方的</b>：她主动提过的工作烦恼、宠物、吃的偏好、最近在追的剧、身体状态（牙疼、胃不舒服这类）</li>
+            <li><b>自己的</b>：今天发生的一件有画面感的小事、一段成长经历、一个有点反差的观点</li>
+            <li><b>共同的</b>：共同认识的人、共同去过的地方、一起计划过但没做的事</li>
+          </ul>
+          每次聊完顺手往库里补一条，库就不会空。
+        </li>
+        <li><b>用"细节提问"替代"是非提问"。</b>是非提问只能换来"是/不是"，细节提问能换来一段故事。把"你喜欢猫吗"换成"你那猫最让你崩溃的一次是什么"，把"周末干嘛"换成"你周末一般几点才真正起床"。</li>
+        <li><b>每轮至少做一次自我暴露。</b>对方说完一件事，你要回一件<b>同层级</b>的自己的事，而不是继续追问。只问不答=采访；问答都有=对话。层级要对等：对方说工作烦，你别回"我爸公司去年营收三千万"。</li>
+        <li><b>先接情绪，再谈事实，最后（多数时候不）给建议。</b>顺序错了就会让人不舒服。对方说"今天加班到十点"，第一步是"这确实熬人"，不是"你应该跟领导提"。</li>
+        <li><b>话题枯竭时用三种续命法。</b>
+          <ul>
+            <li><b>切场景</b>：从"你在干嘛"切到"我刚看到楼下…"（用你的现场替换掉问答）</li>
+            <li><b>回头溯</b>：翻回上次她说的事——"你上次说的那个事后来怎么样了"（证明你记得）</li>
+            <li><b>往上抬</b>：从事实层抬到感受层——"那你当时心里是什么感觉"</li>
+          </ul>
+        </li>
+        <li><b>频率和时长要定型。</b>初期每周 3–5 次、每次 20–30 分钟，并且<b>由你主动收尾</b>。固定节奏比忽冷忽热安全得多，收尾权在手，你永远不会显得在等消息。</li>
+        <li><b>节奏跟对方对齐。</b>对方三小时回，你就别十秒回；对方一次回二十字，你就别发三百字。这不是算计，是避免给对方造成压迫感。</li>
+      </ol>
+    </div>
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c2)">具体话术示例</div>
+
+      <div class="talk">
+        <span class="label">对照组 · 提问方式的差别</span>
+        <div class="line"><span class="who">❌ 是非提问：</span>你平时喜欢看电影吗？<span class="why">只能回"喜欢/还行"，对话第二句就死了。</span></div>
+        <div class="line"><span class="who me">✅ 细节提问：</span>你最近看的那部，有没有哪个镜头让你看完还在想？<span class="why">直接要一段具体回忆，对方能讲一整段。</span></div>
+      </div>
+
+      <div class="talk">
+        <span class="label">情绪回应三层（按顺序）</span>
+        <div class="line"><span class="who">对方：</span>今天加班到十点，累死了</div>
+        <div class="line"><span class="who me">第一层·接情绪：</span>十点……这个点回家路上人都是飘的吧
+        <span class="why">先确认她的感受，让她知道你在听。</span></div>
+        <div class="line"><span class="who me">第二层·自我暴露：</span>我上个月连着三天这样，最后一天回家直接躺沙发上睡着了，脸都没洗
+        <span class="why">同层级分享，把"我"和"你"放在同一边。</span></div>
+        <div class="line"><span class="who me">第三层·轻推进：</span>你们最近是赶什么项目？还是常年这个强度？
+        <span class="why">把话题往前带一格，但不给建议。</span></div>
+      </div>
+
+      <div class="talk">
+        <span class="label">冷场续命三句式</span>
+        <div class="line"><span class="who me">切场景：</span>对了，我刚下楼买水，便利店老板在门口摆了只招财猫，歪着头的
+        <span class="why">用你的现场替换掉快要枯竭的问答，画面感自带话题。</span></div>
+        <div class="line"><span class="who me">回头溯：</span>你上周说的那个检查结果出来了吗
+        <span class="why">证明你记着她的事，杀伤力比任何新话题都大。</span></div>
+        <div class="line"><span class="who me">往上抬：</span>那你当时是气多一点，还是委屈多一点
+        <span class="why">从事件抬到情绪，深度立刻上一个层次。</span></div>
+      </div>
+
+      <div class="talk">
+        <span class="label">主动收尾（掌控节奏）</span>
+        <div class="line"><span class="who me">我：</span>行，我得去把明天的东西准备一下，晚点弄完再聊
+        <span class="why">在气氛最好的时候离场，对方记住的是"意犹未尽"，不是"聊到没话说"。</span></div>
+      </div>
+    </div>
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c2)">常见避坑要点</div>
+
+      <div class="trap">
+        <div class="h">坑 1：连环追问，只当采访者</div>
+        <div class="d">连问三个"你呢"，对方会有被审的感觉，而且会觉得你对这段对话没有贡献。</div>
+        <div class="fix"><b>改法：</b>问一句、答一句。每问一个问题，先交出一份自己的答案。</div>
+      </div>
+
+      <div class="trap">
+        <div class="h">坑 2：秒回 + 长文轰炸</div>
+        <div class="d">对方发五个字，你回三百字加三个表情包。信息密度失衡，会显得你很空、很急。</div>
+        <div class="fix"><b>改法：</b>回复长度控制在对方字数的 1–2 倍以内，节奏拉到对方的一半速度。</div>
+      </div>
+
+      <div class="trap">
+        <div class="h">坑 3：把聊天当行程汇报</div>
+        <div class="d">"我起床了""我吃饭了""我睡了"——这不是分享，是打卡。对方没有回的义务，回了也没内容。</div>
+        <div class="fix"><b>改法：</b>只发有画面、有情绪、有信息的片段，日常流水账一律不发。</div>
+      </div>
+
+      <div class="trap">
+        <div class="h">坑 4：对方回得短就追着问</div>
+        <div class="d">"怎么感觉你不太想聊""是不是我说错话了"——这一问，对方压力立刻拉满，多半直接撤退。</div>
+        <div class="fix"><b>改法：</b>对方短，你也短；对方停，你也停。隔天换素材重新开场。</div>
+      </div>
+
+      <div class="trap">
+        <div class="h">坑 5：过早聊敏感话题</div>
+        <div class="d">收入、编制、婚育观、家庭矛盾、前任——这些在熟悉期之前提，等于提前做背景调查。</div>
+        <div class="fix"><b>改法：</b>这类话题等都出现"对方先主动提起"再顺着聊，永远不主动开。</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= M3 ================= -->
+<section class="mod" id="m3">
+  <div class="mod-head">
+    <div class="mod-badge" style="background:var(--c3)">03</div>
+    <div class="t">
+      <h2>聊天阶段划分</h2>
+      <div class="scope">四个阶段 × 四个维度：时间周期 / 判断标准 / 核心目标 / 禁止行为</div>
+    </div>
+  </div>
+  <div class="mod-body">
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c3)">栏目定位与边界</div>
+      <div class="locate">
+        这一栏目是整套指南的<b>刻度尺</b>。前两个栏目讲"怎么做"，本栏目讲"<b>现在到底处在第几格</b>"——因为同一个动作在不同阶段做，效果完全相反：破冰期主动收尾是加分，暧昧期主动收尾是回避。判断错阶段，后面所有技巧都会用错位置。
+      </div>
+    </div>
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c3)">四阶段总表</div>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:14%">阶段</th>
+            <th style="width:18%">时间周期</th>
+            <th style="width:26%">判断标准（可观察）</th>
+            <th style="width:20%">核心目标</th>
+            <th style="width:22%">禁止行为</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>S1 破冰期</b></td>
+            <td>第 0–3 天</td>
+            <td>
+              · 对话以问答为主，往返 3–5 轮<br>
+              · 对方回复长度 ≤ 你的一半<br>
+              · 从不主动发起话题<br>
+              · 回复间隔 ≥ 1 小时
+            </td>
+            <td>被记住：让对方知道"有这么个人，聊起来不费劲"</td>
+            <td>
+              · 查户口<br>
+              · 连发多条<br>
+              · 提见面<br>
+              · 深夜长聊
+            </td>
+          </tr>
+          <tr>
+            <td><b>S2 熟悉期</b></td>
+            <td>第 4–14 天</td>
+            <td>
+              · 对方出现过 ≥ 1 次主动发起<br>
+              · 单次对话能持续 20 分钟以上<br>
+              · 开始出现专属于你们的话题（宠物、工作、某个梗）<br>
+              · 会主动补充细节、反问
+            </td>
+            <td>建立舒适节奏 + 挖出 3 个共同兴趣点</td>
+            <td>
+              · 表白<br>
+              · 连续追问不回<br>
+              · 情感绑架式表达<br>
+              · 每天固定打卡
+            </td>
+          </tr>
+          <tr>
+            <td><b>S3 暧昧期</b></td>
+            <td>第 15–45 天<br>（约 3–8 次约会）</td>
+            <td>
+              · 主动发起比例接近 1:1<br>
+              · 出现专属称呼或只有两人懂的梗<br>
+              · 开始聊感受、家人、过去的挫折<br>
+              · 会为见你调整自己的安排
+            </td>
+            <td>建立专属感 + 试探亲密接受度</td>
+            <td>
+              · 逼问"我们算什么关系"<br>
+              · 冷暴力试探<br>
+              · 拿第三方刺激对方<br>
+              · 拖过 2 个月不给方向
+            </td>
+          </tr>
+          <tr>
+            <td><b>S4 稳定期</b></td>
+            <td>确定关系后</td>
+            <td>
+              · 有约定的固定相处时间<br>
+              · 能就分歧坐下来谈，而不是冷战<br>
+              · 各自保留独立的朋友和爱好<br>
+              · 对方的日常不需要你追问就能知道
+            </td>
+            <td>可持续的相处机制 + 冲突修复能力</td>
+            <td>
+              · 说"分手"当武器<br>
+              · 翻旧账<br>
+              · 查手机、限制社交<br>
+              · 把对方付出当理所当然
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c3)">如何用好这张表</div>
+      <ol class="steps">
+        <li><b>每周做一次"阶段体检"。</b>对着判断标准逐条打勾，勾满 3 条才可认为进入下一阶段，只有 1 条就说明还在原地。这一步能防止"自我感觉良好式越级"。</li>
+        <li><b>判断标准看行为，不看语气。</b>对方说了句"你好可爱"不代表升阶，那是社交礼貌；对方<b>为你改了行程</b>才代表升阶，那是成本付出。</li>
+        <li><b>禁止行为是硬红线，不是参考项。</b>在 S2 期表白，80% 会被当成"太急了"；不是因为你不好，是因为阶段没到，对方还没形成对你的判断依据。</li>
+        <li><b>阶段会倒退。</b>连续两次邀约被推脱、或连续三天只回单字，就退回上一个阶段重新开始，不要继续用上一阶段的动作硬推。</li>
+        <li><b>45 天是关键节点。</b>S3 超过 2 个月还没有任何明确方向，关系会自然滑向"朋友"——这时候需要的不是继续聊天，是第 06 栏目的动作。</li>
+      </ol>
+    </div>
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c3)">具体话术示例（各阶段的"同一句话"）</div>
+
+      <div class="talk">
+        <span class="label">同一件事，四个阶段的不同说法</span>
+        <div class="line"><span class="who">S1 破冰期：</span>"你也喜欢猫？"<span class="why">只做信息确认，不加情感色彩。</span></div>
+        <div class="line"><span class="who">S2 熟悉期：</span>"你那只猫昨天又拆家了吗？"<span class="why">用已建立的共同话题开场，证明你记得。</span></div>
+        <div class="line"><span class="who">S3 暧昧期：</span>"老规矩，冰美式双倍浓缩，对吧？"<span class="why">专属暗号，只有你们俩懂的信息。</span></div>
+        <div class="line"><span class="who">S4 稳定期：</span>"今天我先去接它，你下班直接回家就行。"<span class="why">把对方的事当成自己的事来安排。</span></div>
+      </div>
+    </div>
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c3)">常见避坑要点</div>
+
+      <div class="trap">
+        <div class="h">坑 1：用"聊得开心"当升阶依据</div>
+        <div class="d">聊得开心只是氛围指标，不代表关系推进。很多人聊了两个月很嗨，一约见面就被推脱，就是错把氛围当成了阶段。</div>
+        <div class="fix"><b>改法：</b>只认"成本指标"——对方是否主动发起、是否为你调整安排、是否开放私人信息。</div>
+      </div>
+
+      <div class="trap">
+        <div class="h">坑 2：在某阶段停留过久</div>
+        <div class="d">S2 停一个月、S3 停两个月，热度会自然衰减，最后连退回朋友都算好的，多数是直接消失。</div>
+        <div class="fix"><b>改法：</b>每个阶段设一个上限时间，到期必须做一次"推进动作"（邀约、深聊或明确表达）。</div>
+      </div>
+
+      <div class="trap">
+        <div class="h">坑 3：阶段倒退还硬推</div>
+        <div class="d">对方已经连续两次推脱，你还按 S3 的方式发专属梗、约单独见面，只会加速恶化。</div>
+        <div class="fix"><b>改法：</b>退一阶，回到低压力互动，重新积累，而不是加码。</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= M4 ================= -->
+<section class="mod" id="m4">
+  <div class="mod-head">
+    <div class="mod-badge" style="background:var(--c4)">04</div>
+    <div class="t">
+      <h2>情感升温关键节点</h2>
+      <div class="scope">五个可观察信号 × 对应操作 × 尺度阶梯</div>
+    </div>
+  </div>
+  <div class="mod-body">
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c4)">栏目定位与边界</div>
+      <div class="locate">
+        回答"<b>什么时候可以往前一步，往前一步该迈多大</b>"。本栏目只讲<b>信号的识别与推进的尺度</b>；至于"暧昧期该怎么拿捏进退的火候"，属于第 05 栏目；"最后怎么把关系说清楚"，属于第 06 栏目。三者是"看信号 → 控火候 → 落定"的接力关系。
+      </div>
+    </div>
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c4)">五个关键升温信号与对应操作</div>
+      <table>
+        <thead>
+          <tr><th style="width:22%">信号</th><th style="width:34%">具体表现（可观察）</th><th style="width:44%">对应操作</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>① 发起率反转</b></td>
+            <td>从"每次都是你先开口"变成"她偶尔先找你"，哪怕只是发个表情包、一张图</td>
+            <td>不要立刻长聊。<b>接住就好，简短回应，然后等下一次</b>。让她确认"主动找你是安全的、不会被黏住"。</td>
+          </tr>
+          <tr>
+            <td><b>② 话题深度下探</b></td>
+            <td>开始聊家人、童年、过去的挫折、对某件事的真实看法，而不是只聊吃喝玩乐</td>
+            <td>这个信号出现时<b>只做一件事：认真听 + 同层级交换</b>。她讲一段家里的事，你也讲一段，不要追问细节，不要评价。</td>
+          </tr>
+          <tr>
+            <td><b>③ 时间投入升级</b></td>
+            <td>为你调整原本的安排；愿意为一次见面花通勤时间；加班后还愿意聊二十分钟</td>
+            <td>这是最硬的信号。<b>此时可以推进"下一次的具体约定"</b>，并且要主动承担安排成本（订位、路线、时间），别让她操心。</td>
+          </tr>
+          <tr>
+            <td><b>④ 空间距离缩小</b></td>
+            <td>并排走时不自觉靠近；递东西时手会碰到也不躲；坐着时身体朝向你而不是侧着</td>
+            <td><b>只做"3 秒以内的轻接触"</b>：递东西时指尖相碰、看手机时肩膀靠近。碰完就自然收回，观察她是否后退。</td>
+          </tr>
+          <tr>
+            <td><b>⑤ 社交半径开放</b></td>
+            <td>提起"我朋友说…"时带上了你；愿意让你见到她的朋友；开始问你"你家里人…"</td>
+            <td>这是准恋人级别的信号。<b>可以准备做明确表达了</b>，同时注意：见朋友要等对方主动邀请，不要自己提。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c4)">升温尺度阶梯（从 L0 到 L4）</div>
+      <div class="ladder">
+        <div class="lv" style="border-color:#cfd8dc">
+          <div class="code">L0</div>
+          <div class="body">
+            <div class="name">普通朋友</div>
+            <div class="desc">只在公共场合见面、群聊为主、聊天内容围绕公开信息。</div>
+            <div class="limit">上限：不主动深夜私聊，不打听私人生活。</div>
+          </div>
+        </div>
+        <div class="lv" style="border-color:#90a4ae">
+          <div class="code">L1</div>
+          <div class="body">
+            <div class="name">亲近朋友</div>
+            <div class="desc">能单独见面、分享日常、记得对方的偏好和小习惯。</div>
+            <div class="limit">上限：不评价对方的外貌和感情状态，不做专属称呼。</div>
+          </div>
+        </div>
+        <div class="lv" style="border-color:#ffb74d">
+          <div class="code">L2</div>
+          <div class="body">
+            <div class="name">暧昧</div>
+            <div class="desc">专属称呼或专属梗、轻微肢体接触（3 秒内）、深夜聊感受、单独出行。</div>
+            <div class="limit">上限：不牵手、不拥抱、不谈论"我们是什么关系"。</div>
+          </div>
+        </div>
+        <div class="lv" style="border-color:#ef5350">
+          <div class="code">L3</div>
+          <div class="body">
+            <div class="name">准恋人</div>
+            <div class="desc">牵手、拥抱、明确表达好感但还没有正式确认。</div>
+            <div class="limit">上限：不发生更进一步的亲密接触；超过 2 周不给方向，关系会往回掉。</div>
+          </div>
+        </div>
+        <div class="lv" style="border-color:#c2185b">
+          <div class="code">L4</div>
+          <div class="body">
+            <div class="name">恋人</div>
+            <div class="desc">双方明确确认关系，有对外的一致性表达。</div>
+            <div class="limit">底线：所有更进一步的行为都以明确同意为前提，任何一次"不"都立即停止。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c4)">节奏把控要点</div>
+      <ol class="steps">
+        <li><b>一次只升一档。</b>不能从 L1 直接跳到 L3。跨档推进会让对方产生"跟不上"的失控感，这是最常见的翻车原因。</li>
+        <li><b>升档后观察 3–7 天的"回弹"。</b>升档之后如果对方更主动、更放松，说明接受；如果对方变冷、回复变短、推脱见面，说明升快了，立刻退回上一档，不要解释、不要追问。</li>
+        <li><b>升档动作由"轻"到"重"排顺序。</b>建议顺序：专属称呼 → 专属梗 → 深夜聊感受 → 单独出行 → 3 秒内肢体接触 → 牵手 → 明确表达。跳过任何一环都会让下一步显得突兀。</li>
+        <li><b>对方升档时，你要接住。</b>对方主动靠近、主动分享私事、主动约你——这时如果你还停在原地（客气、疏离、只回短句），对方会理解为"被拒绝"，然后收回。很多关系死在这一步。</li>
+        <li><b>永远保留退路。</b>每一次推进都设计成"可以自然收回"的形式：半开玩笑、随场景发生、留一句"你要是不习惯我就收着"。</li>
+      </ol>
+    </div>
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c4)">具体话术示例</div>
+
+      <div class="talk">
+        <span class="label">信号 ③ 出现时（她为你调整了安排）</span>
+        <div class="line"><span class="who">对方：</span>我把周六的课调了，应该能过去</div>
+        <div class="line"><span class="who me">我：</span>那我把位子订好，两点半，我提前十分钟到门口等你。你不用赶，迟到我兜着。
+        <span class="why">她付出了成本，你就承担安排成本，并且主动消解"迟到"的压力。这是标准的接住。</span></div>
+      </div>
+
+      <div class="talk">
+        <span class="label">信号 ④ 出现时（轻微肢体接触）</span>
+        <div class="line"><span class="who me">我：</span>（过马路时轻扶一下她的手肘，过了路口自然松开）车有点多，走里面。
+        <span class="why">接触有明确理由（安全），时长 3 秒内，结束后自然松手。不解释、不回味、不盯着看反应。</span></div>
+      </div>
+
+      <div class="talk">
+        <span class="label">升档过快的撤回话术</span>
+        <div class="line"><span class="who me">我：</span>刚才是有点冒失了，你别有压力，我们就按原来的来。
+        <span class="why">主动认领、主动给台阶、主动退回。这句话能把"越界"变成"可以原谅的小失误"。</span></div>
+      </div>
+    </div>
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c4)">常见避坑要点</div>
+
+      <div class="trap">
+        <div class="h">坑 1：把礼貌当信号</div>
+        <div class="d">对方客气、爱笑、秒回，你就判定"她对我有意思"。这些可能只是她的社交习惯。</div>
+        <div class="fix"><b>改法：</b>只认"成本"——她为你花了时间、改了安排、开放了私人信息，才叫信号。</div>
+      </div>
+
+      <div class="trap">
+        <div class="h">坑 2：一次升两档</div>
+        <div class="d">昨天还在聊日常，今天就想牵手。对方会瞬间警觉，之前的积累全部作废。</div>
+        <div class="fix"><b>改法：</b>一次一格，升完等回弹，确认接受再走下一步。</div>
+      </div>
+
+      <div class="trap">
+        <div class="h">坑 3：对方升档你不接</div>
+        <div class="d">她开始分享家里的事，你只回"哦这样啊"。这在她看来就是"他对我没兴趣"，之后就不会再分享了。</div>
+        <div class="fix"><b>改法：</b>一旦对方下探深度，你必须同层级回应，哪怕讲得笨拙也比不接强。</div>
+      </div>
+
+      <div class="trap">
+        <div class="h">坑 4：用"试探"代替"表达"</div>
+        <div class="d">找朋友去打听、故意跟别人走近让她看见、突然消失看她会不会找你——这些都是消耗信任的动作。</div>
+        <div class="fix"><b>改法：</b>想推进就直接表达，想说清楚就直接问，不用第三方、不用情绪操纵。</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= M5 ================= -->
+<section class="mod" id="m5">
+  <div class="mod-head">
+    <div class="mod-badge" style="background:var(--c5)">05</div>
+    <div class="t">
+      <h2>暧昧期互动分寸</h2>
+      <div class="scope">火候问题：太冷变朋友，太热吓跑人</div>
+    </div>
+  </div>
+  <div class="mod-body">
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c5)">栏目定位与边界</div>
+      <div class="locate">
+        第 04 栏目解决的是"<b>能不能升</b>"，本栏目解决的是"<b>升了之后怎么维持这个温度</b>"。暧昧期的核心矛盾是：<b>太确定会让对方失去兴趣，太不确定会让对方失去耐心</b>。这一栏目给出的就是那个中间值。
+      </div>
+    </div>
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c5)">可落地实操步骤</div>
+      <ol class="steps">
+        <li><b>用 3:1 的发起比例。</b>你主动三次，留一次空间等对方主动。如果第四次还是你先开口，说明这一档还没到，先退回多积累，不要继续加码。</li>
+        <li><b>制造"只有我们俩有"的东西。</b>这是暧昧期唯一真正在做的事。可以是：专属称呼、专属梗、专属的小习惯（每次同一家店同一个位置）、专属的小秘密（"我其实偷偷看喜羊羊，别告诉别人"）。三样就够，多了会显得刻意。</li>
+        <li><b>用"半开玩笑"做试探，而不是用问题做试探。</b>想推进的时候，用一句可以笑着收回的话，而不是"你到底怎么想的"这种把对方架起来的问题。</li>
+        <li><b>保持"信息不对称"的适度空间。</b>不是隐瞒，而是不一次性展示完。每次见面留一点对方还没见过的东西（一个爱好、一个技能、一段经历），让关系有"下次还能发现新东西"的余地。</li>
+        <li><b>控制暧昧期时长：45 天到 2 个月。</b>超过这个窗口还没有任何方向，对方会开始做减法——把你归类为"聊得来的朋友"。这不是道德问题，是心理机制：不确定感超过耐受阈值，人会主动降低投入。</li>
+        <li><b>温度掉了要补，不要硬撑。</b>如果连续一周对方回复变慢、不主动、约不出来，先降温（减少频率），做一次高质量见面（而不是发更多消息），再判断。</li>
+      </ol>
+    </div>
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c5)">具体话术示例</div>
+
+      <div class="talk">
+        <span class="label">半开玩笑式试探（可退可进）</span>
+        <div class="line"><span class="who me">我：</span>你这肩膀还挺好靠的，以后可以当我的专属靠垫吗？
+        <span class="why">用玩笑语气，接受了她会笑，不接受她会当玩笑带过，双方都不用尴尬。</span></div>
+        <div class="line"><span class="who me">我：</span>我发现我最近有点问题，一天不跟你说话就手痒，这算不算工伤？
+        <span class="why">表达好感但用"工伤"这种荒诞说法消解重量，比"我喜欢你"安全得多。</span></div>
+      </div>
+
+      <div class="talk">
+        <span class="label">对方问"我们算什么关系"时的三种回应</span>
+        <div class="line"><span class="who">回应 A（还没准备好，但想留住）：</span>我也没想清楚，但我知道跟你待着很舒服。你要是急，我们可以聊；你要是不急，我想再走一段看看。
+        <span class="why">诚实、不骗、也不给空承诺，同时把选择权交回去。</span></div>
+        <div class="line"><span class="who">回应 B（已经确定心意）：</span>我早就想说了，只是怕太早说会给你压力。既然你问了——我是认真的。
+        <span class="why">对方先开口，等于给了安全出口，这时可以直接亮牌。</span></div>
+        <div class="line"><span class="who">回应 C（不想继续）：</span>说实话我挺珍惜现在这样的。我怕说破了，反而连朋友都做不成。
+        <span class="why">温和拒绝，给对方留体面，也给自己留清晰边界。</span></div>
+      </div>
+
+      <div class="talk">
+        <span class="label">温度下降时的修复话术（不是加消息，是换场景）</span>
+        <div class="line"><span class="who me">我：</span>最近是不是事情多？我看你回消息都挺晚的。不用回我这条，忙完再说。
+        <span class="why">点出变化但不施压，还主动免除回复义务。这句话在降温期比十句"在吗"都管用。</span></div>
+      </div>
+    </div>
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c5)">常见避坑要点</div>
+
+      <div class="trap">
+        <div class="h">坑 1：只暧昧不给方向</div>
+        <div class="d">享受被喜欢的感觉，一直拖着不表态。短期舒服，长期会被判定为"不靠谱"，对方一旦遇到更明确的人就会走。</div>
+        <div class="fix"><b>改法：</b>给暧昧期设一个自己的上限时间，到点必须做一个决定——推进或退出。</div>
+      </div>
+
+      <div class="trap">
+        <div class="h">坑 2：用冷暴力测试在乎程度</div>
+        <div class="d">故意不回消息、故意消失两天看对方找不找你。这是消耗信任最快的动作，一次就能把好感打掉一半。</div>
+        <div class="fix"><b>改法：</b>需要空间就直接说"我这两天想安静一下"，把沉默变成透明的，而不是惩罚性的。</div>
+      </div>
+
+      <div class="trap">
+        <div class="h">坑 3：拿第三方刺激</div>
+        <div class="d">故意提"今天有个女生加我微信"、故意在朋友圈晒跟别人的合影。短期可能引发反应，但会永久性降低你的可信度。</div>
+        <div class="fix"><b>改法：</b>不制造竞争感。想被重视，靠"你是特别的"，不靠"你有对手"。</div>
+      </div>
+
+      <div class="trap">
+        <div class="h">坑 4：暧昧期的付出过度</div>
+        <div class="d">天天送早餐、随叫随到、替对方处理各种事。这会把关系变成"服务关系"，对方享受但不会心动。</div>
+        <div class="fix"><b>改法：</b>付出的频率和重量保持"偶尔、轻量、有心意"，不做日常化供给。</div>
+      </div>
+
+      <div class="trap">
+        <div class="h">坑 5：把所有话题都聊成暧昧</div>
+        <div class="d">每句话都带钩子、每个表情都在撩。对方会觉得你这个人"不真诚、太会了"。</div>
+        <div class="fix"><b>改法：</b>至少一半的对话保持正常朋友状态，暧昧要稀，才显得珍贵。</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= M6 ================= -->
+<section class="mod" id="m6">
+  <div class="mod-head">
+    <div class="mod-badge" style="background:var(--c6)">06</div>
+    <div class="t">
+      <h2>确认关系</h2>
+      <div class="scope">把模糊好感变成明确共识，包括被拒后的收场</div>
+    </div>
+  </div>
+  <div class="mod-body">
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c6)">栏目定位与边界</div>
+      <div class="locate">
+        前面所有栏目都在做铺垫，这一栏目只做一件事：<b>把关系说清楚</b>。它包含三个动作——表白、身体接触的征询、被拒后的收场。注意它不是"学到某个话术就能成功"，而是<b>前面阶段积累够了，这一步才有意义</b>。如果 S3 的信号一个都没出现，任何话术都是无效的。
+      </div>
+    </div>
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c6)">可落地实操步骤</div>
+      <ol class="steps">
+        <li><b>先做"三个信号"检查。</b>第 04 栏目的信号里，至少要有 ③ 时间投入升级、④ 空间距离缩小、⑤ 社交半径开放中的两个，才可以考虑表达。一个都没有，说明还在 L1–L2，此时表白等于强行跳档。</li>
+        <li><b>选私密、可退出的场景。</b>见面结束送到楼下、散步到安静的地方、一起吃完饭走出来——共同点是：只有你们两个人，对方随时可以说"我先上去了"而不用当众下台。绝对不选餐厅正中间、不选有朋友在场、不选节日当天。</li>
+        <li><b>表达用"感受 + 邀请 + 退路"三段式。</b>
+          <ul>
+            <li>感受：说清楚你现在的心境，不夸对方、不表功</li>
+            <li>邀请：给出明确的关系提议</li>
+            <li>退路：明确免除"当场回答"的义务</li>
+          </ul>
+        </li>
+        <li><b>身体接触必须先征询。</b>牵手前问一句"我可以牵你的手吗"，拥抱前问一句"抱一下？"。这不是不浪漫，这是把选择权交给对方——而"被尊重"本身就是吸引力的一部分。</li>
+        <li><b>对方说"不"就立刻停。</b>不解释、不争取、不说"为什么"。停下来的动作本身，比任何话都更能证明你是个安全的人。</li>
+        <li><b>被拒后按"三步收场"。</b>第一步认领（"我就是想让你知道"），第二步免责（"你不用有任何压力"），第三步维持（"我们还像以前一样"）。三步说完，转身就走，不回头补话。</li>
+        <li><b>被拒后至少冷却 7 天。</b>不追问原因、不发长文、不深夜找人。7 天后如果对方主动，就正常往来；如果没动静，接受结果，不要二次表白。</li>
+      </ol>
+    </div>
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c6)">具体话术示例</div>
+
+      <div class="talk">
+        <span class="label">低压力表白（标准版）</span>
+        <div class="line"><span class="who me">我：</span>今天跟你待着特别舒服，回去路上我一直在想一件事——我已经不太想只跟你做朋友了。
+        <span class="why">感受先行，说的是自己的状态，不是给对方打分。</span></div>
+        <div class="line"><span class="who me">我：</span>你要是也这么想，那我们就在一起；你要是还没想好，我也不急，你慢慢想。
+        <span class="why">邀请 + 退路，一句话说完。核心是"你慢慢想"，它把压力清零。</span></div>
+      </div>
+
+      <div class="talk">
+        <span class="label">身体接触的征询</span>
+        <div class="line"><span class="who me">我：</span>手给我一下？（伸手，等着，不主动去抓）
+        <span class="why">问句 + 等待，主动权完全交给对方。她伸手就是同意，不伸也不会尴尬。</span></div>
+        <div class="line"><span class="who me">我：</span>抱一下？就到这儿。
+        <span class="why">"就到这儿"是非常重要的补充——它明确划出边界，让对方知道你不会顺势越界。</span></div>
+      </div>
+
+      <div class="talk">
+        <span class="label">被拒后的三步收场</span>
+        <div class="line"><span class="who">对方：</span>对不起……我还没准备好</div>
+        <div class="line"><span class="who me">第一步·认领：</span>没事，我就是想让你知道我的想法，不是要你现在给答案。
+        <span class="why">把"表白"重新定义为"告知"，对方的压力立刻卸掉一大半。</span></div>
+        <div class="line"><span class="who me">第二步·免责：</span>这件事不影响我们以后怎么相处，你别有负担。
+        <span class="why">主动替对方卸掉"以后还能不能正常来往"的顾虑。</span></div>
+        <div class="line"><span class="who me">第三步·维持：</span>行，那我先回了，路上小心。明天该聊还聊。
+        <span class="why">用日常动作收尾，把这件事"翻篇"。说完就走，不要站在原地等反转。</span></div>
+      </div>
+
+      <div class="talk">
+        <span class="label">❌ 这些话千万不要说</span>
+        <div class="line"><span class="who">错误示范：</span>"我到底哪里不好你告诉我"　<span class="why">把拒绝变成审判，逼对方伤害你。</span></div>
+        <div class="line"><span class="who">错误示范：</span>"那我等你，我一直等"　<span class="why">道德绑架，对方会觉得自己欠了你。</span></div>
+        <div class="line"><span class="who">错误示范：</span>"行，那以后别联系了"　<span class="why">用关系做威胁，幼稚且不可挽回。</span></div>
+      </div>
+    </div>
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c6)">常见避坑要点</div>
+
+      <div class="trap">
+        <div class="h">坑 1：大庭广众、鲜花蜡烛</div>
+        <div class="d">看起来隆重，实际是把对方架在火上——周围人都在看，她拒绝你要当众下你面子，答应你又违背自己心意。多数人会选择含糊或逃走。</div>
+        <div class="fix"><b>改法：</b>只有两个人在场，场景可随时退出。仪式感放在确认关系之后，不放在之前。</div>
+      </div>
+
+      <div class="trap">
+        <div class="h">坑 2：喝酒之后表白</div>
+        <div class="d">对方无法判断你是真心还是一时冲动，第二天双方都不知道该怎么面对。</div>
+        <div class="fix"><b>改法：</b>清醒时说，说的时候把话说完整，不留歧义。</div>
+      </div>
+
+      <div class="trap">
+        <div class="h">坑 3：用亲密接触换承诺</div>
+        <div class="d">"既然都这样了，那我们算在一起了吧"——用既成事实倒逼关系，短期可能成功，长期一定是隐患。</div>
+        <div class="fix"><b>改法：</b>顺序永远是先明确关系，再有对应程度的亲密。反过来就是拿对方的安全感做赌注。</div>
+      </div>
+
+      <div class="trap">
+        <div class="h">坑 4：被拒后反复追问原因</div>
+        <div class="d">"是不是我哪里不够好""是不是你心里有别人"——追问只会让对方更确信拒绝是对的。</div>
+        <div class="fix"><b>改法：</b>接受"没准备好"这个答案本身，冷却 7 天，把主动权还回去。</div>
+      </div>
+
+      <div class="trap">
+        <div class="h">坑 5：节日当天表白</div>
+        <div class="d">情人节、生日、跨年——这些日子自带压力，对方会怀疑你是"被气氛推着说的"，而且拒绝了以后每年这天都尴尬。</div>
+        <div class="fix"><b>改法：</b>选一个普通的日子，普通到只有你们俩记得。</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= M7 ================= -->
+<section class="mod" id="m7">
+  <div class="mod-head">
+    <div class="mod-badge" style="background:var(--c7)">07</div>
+    <div class="t">
+      <h2>长期关系维护</h2>
+      <div class="scope">确定关系之后的日常沟通逻辑与冲突修复</div>
+    </div>
+  </div>
+  <div class="mod-body">
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c7)">栏目定位与边界</div>
+      <div class="locate">
+        前面六个栏目都在解决"<b>怎么开始</b>"，本栏目解决"<b>怎么不散</b>"。核心认知要先立住：<b>激情有保质期，通常 18–30 个月</b>；之后支撑关系的是共同经历、彼此理解和稳定的安全感。"平淡"不是信号灯，是正常状态——把平淡误判成"不爱了"，是长期关系里最大的破坏源。
+      </div>
+    </div>
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c7)">可落地实操步骤</div>
+      <ol class="steps">
+        <li><b>设一个不可挪用的固定相处时间。</b>每周固定一个时段（比如周三晚饭、周六上午），写进双方日程，工作、朋友、加班都不能占用。重点不是时长，是<b>它的不可协商性</b>——它证明"这段关系在你的优先级里是有位置的"。</li>
+        <li><b>吵架用"三步法"。</b>
+          <ul>
+            <li><b>先暂停</b>："我现在有点上头，给我十分钟"——避免在情绪峰值说不可挽回的话</li>
+            <li><b>说"我"不说"你"</b>："我今天等了两个小时，心里挺不是滋味的"，而不是"你怎么每次都迟到"</li>
+            <li><b>提方案</b>："以后要迟到，提前发个消息，哪怕就三个字"——目标不是赢，是下次不再发生</li>
+          </ul>
+        </li>
+        <li><b>维持 5:1 的正负互动比。</b>每出现一次批评、抱怨、冷脸，需要有五次正向互动（道谢、认可、身体接触、玩笑、帮忙）来抵消。低于这个比例，关系会进入持续消耗状态。</li>
+        <li><b>把"谢谢"说出口，别把付出当默认。</b>对方做饭、洗衣、跑腿、记得你的药——每一次都值得一句具体的感谢。"谢谢你今天特意绕路来接我"比"辛苦了"有效得多。</li>
+        <li><b>每月做一次深度对话。</b>不聊家务、不聊安排，只聊三件事：最近什么让你开心、什么让你有压力、你希望我做一件什么不同的事。控制在 30 分钟内，不谈过去的账。</li>
+        <li><b>每季度注入一件新鲜事。</b>一起做一件双方都没做过的事——学一项技能、去一个没去过的地方、尝试一种新做法。新鲜体验会重新激活关系早期的奖赏感，这是对抗平淡最有效的手段。</li>
+        <li><b>各自保留独立的部分。</b>朋友、爱好、独处时间都要留。把自己全部塞进关系里的人，会让对方窒息，也会让自己失去吸引力。</li>
+      </ol>
+    </div>
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c7)">具体话术示例</div>
+
+      <div class="talk">
+        <span class="label">吵架开场（把对抗转成协作）</span>
+        <div class="line"><span class="who me">我：</span>我想聊个事，不是要吵架。我先说我的感受，你也说你的，我们最后想个办法，行吗？
+        <span class="why">开场先声明"不是要吵架"，再给出流程。有流程的对话，很难失控。</span></div>
+      </div>
+
+      <div class="talk">
+        <span class="label">表达不满（说我不说你）</span>
+        <div class="line"><span class="who">❌ 你句式：</span>你怎么每次都这样，从来不想想我？<span class="why">"每次""从来"是绝对化措辞，对方第一反应是反驳，不是理解。</span></div>
+        <div class="line"><span class="who me">✅ 我句式：</span>今天等的那两个小时，我一直在想是不是出什么事了，心里挺慌的。<span class="why">说事实 + 说感受，不评判动机。对方无法反驳你的感受，只能回应。</span></div>
+      </div>
+
+      <div class="talk">
+        <span class="label">道歉的正确结构（三段，缺一不可）</span>
+        <div class="line"><span class="who me">第一步·具体认领：</span>今天是我不好，我说了那句"随便你"，那句话很伤人。
+        <span class="why">道歉必须指名道姓说清楚错在哪，泛泛的"我错了"没有说服力。</span></div>
+        <div class="line"><span class="who me">第二步·说明影响：</span>我知道你当时肯定觉得我在敷衍你。
+        <span class="why">说明你理解对方的感受，而不是只处理自己的愧疚。</span></div>
+        <div class="line"><span class="who me">第三步·给出改变：</span>以后我不说这句了，真有事我们就坐下来定，不甩手。
+        <span class="why">没有第三步的道歉，只是情绪安抚，下次照样重演。</span></div>
+      </div>
+
+      <div class="talk">
+        <span class="label">觉得"没感觉了"时怎么开口</span>
+        <div class="line"><span class="who">❌ 错误：</span>我觉得我们没感觉了，是不是该分手？
+        <div class="line"><span class="who me">✅ 正确：</span>我最近感觉我们有点像在走流程。要不这个周末我们去学个陶艺？我一直想试，你也一起？
+        <span class="why">不说"没感觉"这种判决式的话，直接给出一个新鲜的共同行动。把问题变成"一起解决的事"。</span></div>
+      </div>
+    </div>
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c7)">常见避坑要点</div>
+
+      <div class="trap">
+        <div class="h">坑 1：把"分手"当武器</div>
+        <div class="d">吵架一上头就说分手，前两次对方会挽留，第三次可能就真的答应了。这是最容易兑现的威胁。</div>
+        <div class="fix"><b>改法：</b>把"分手"从词汇表里删掉。真到那一步，用"我们需要认真谈一次"。</div>
+      </div>
+
+      <div class="trap">
+        <div class="h">坑 2：翻旧账</div>
+        <div class="d">这次的事扯到三年前的事，矛盾会从"一件可解决的事"变成"你这个人一直有问题"。</div>
+        <div class="fix"><b>改法：</b>一次只谈一件，谈完就封档。旧账要么当时解决，要么永久放下。</div>
+      </div>
+
+      <div class="trap">
+        <div class="h">坑 3：冷暴力</div>
+        <div class="d">不说话、不回应、装作没事但全程冷脸。这比吵架伤害大得多，因为它剥夺了对方修复的通道。</div>
+        <div class="fix"><b>改法：</b>需要冷静可以明说"我需要半小时"，并且给出回来的时间点。</div>
+      </div>
+
+      <div class="trap">
+        <div class="h">坑 4：查手机、限制社交</div>
+        <div class="d">以"在乎"为名的控制。短期获得安全感，长期一定引发对抗或隐瞒。</div>
+        <div class="fix"><b>改法：</b>把"查"换成"说"——直接讲你的不安，让对方用行动回应，而不是用检查验证。</div>
+      </div>
+
+      <div class="trap">
+        <div class="h">坑 5：道德记账</div>
+        <div class="d">"我为你付出了这么多"——把感情变成债权债务。说一次，对方心里就记一笔"欠你的"。</div>
+        <div class="fix"><b>改法：</b>付出要说在前、不追讨。真觉得失衡，就谈具体的分工，不谈总量。</div>
+      </div>
+
+      <div class="trap">
+        <div class="h">坑 6：停止自我成长</div>
+        <div class="d">确立关系后不再打理自己、不再学习、社交圈收缩到只剩对方。吸引力是动态的，不维护就会掉。</div>
+        <div class="fix"><b>改法：</b>保留至少一项自己的长期投入（运动、技能、事业），它同时供养你的吸引力和你的底气。</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= M8 ================= -->
+<section class="mod" id="m8">
+  <div class="mod-head">
+    <div class="mod-badge" style="background:var(--c8)">08</div>
+    <div class="t">
+      <h2>止损与退出</h2>
+      <div class="scope">什么时候该停、怎么停、停完之后怎么办</div>
+    </div>
+  </div>
+  <div class="mod-body">
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c8)">栏目定位与边界</div>
+      <div class="locate">
+        这是整套指南里唯一一个"<b>教你不做什么</b>"的栏目。它的价值在于：<b>所有技巧都有失效的时候</b>，而识别"该停了"的能力，比任何话术都重要。死磕不会换来感情，只会消耗你自己的状态——而状态正是吸引力的来源。本栏目处理的是判断与退出，不处理修复（修复在第 07 栏目）。
+      </div>
+    </div>
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c8)">可落地实操步骤</div>
+      <ol class="steps">
+        <li><b>先对照五条硬性止损线，任一命中即停。</b>
+          <ul>
+            <li>连续 3 次只回单字（嗯/哦/哈哈），且从不展开</li>
+            <li>连续 3 次邀约被推脱，且对方从不主动提出替代时间</li>
+            <li>连续 2 周从不主动发起任何对话</li>
+            <li>明确说过"我只想跟你做朋友"或"我有喜欢的人了"</li>
+            <li>对方的回应只在需要你帮忙时出现</li>
+          </ul>
+        </li>
+        <li><b>区分"慢热"和"没兴趣"。</b>慢热的人：回复慢但会展开，会记得你说的事，会为一次见面认真安排。没兴趣的人：回复慢且敷衍，从不记得，从不主动给时间。判断依据永远是<b>内容质量</b>，不是回复速度。</li>
+        <li><b>退出用"减法"，不用"宣言"。</b>不需要发一段"我决定放手了"的长文——那是在索取回应。正确做法是：降低频率 → 停止主动 → 自然淡出。三步走完，双方都体面。</li>
+        <li><b>退出时保留对方的体面。</b>不揭短、不追问、不在共同圈子说对方的不是。你退出的姿态，就是你在这个圈子里的口碑。</li>
+        <li><b>给自己设 30 天冷却期。</b>不视奸朋友圈、不找共同朋友打听、不发暗示性动态。所有"让对方看到我过得很好"的动作，本质都还是没放下。</li>
+        <li><b>把复盘写成"经验"而不是"审判"。</b>只记录三条：哪一步走快了、哪个信号我当时忽略了、下次我会先做什么。不写"我不够好"这类结论——那是情绪，不是经验。</li>
+      </ol>
+    </div>
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c8)">具体话术示例</div>
+
+      <div class="talk">
+        <span class="label">场景 A · 对方明确说"只做朋友"</span>
+        <div class="line"><span class="who me">我：</span>明白了，谢谢你直接说。那我不打扰你了，祝你顺利。
+        <span class="why">一句话，三个信息：收到了、不纠缠、给祝福。说完不再补话。</span></div>
+      </div>
+
+      <div class="talk">
+        <span class="label">场景 B · 长期敷衍，想体面收尾</span>
+        <div class="line"><span class="who me">我：</span>最近感觉你挺忙的，我就不老打扰了。有事随时找我。
+        <span class="why">把"淡出"包装成"体贴"，对方不需要回应，也不需要解释。这是最不伤人的退出方式。</span></div>
+      </div>
+
+      <div class="talk">
+        <span class="label">场景 C · 被反复拉扯，需要划边界</span>
+        <div class="line"><span class="who me">我：</span>我认真想过，我现在想要的是明确的关系，不是这样来来回回。如果你给不了，那我得先退出来，不然我自己会很难受。
+        <span class="why">说需求、说边界、说后果，全程不指责对方。这是成年人的退出方式。</span></div>
+      </div>
+
+      <div class="talk">
+        <span class="label">❌ 不要发的三种"告别"</span>
+        <div class="line"><span class="who">错误示范：</span>长文控诉"我为你做了这么多，你怎么能这样"<span class="why">索取愧疚，只会让对方庆幸走得早。</span></div>
+        <div class="line"><span class="who">错误示范：</span>"你会后悔的"<span class="why">威胁式退出，暴露的是不甘心。</span></div>
+        <div class="line"><span class="who">错误示范：</span>发朋友圈暗示"终于看清一个人"<span class="why">公开贬低对方，损的是自己的形象。</span></div>
+      </div>
+    </div>
+
+    <div class="part">
+      <div class="part-title" style="color:var(--c8)">常见避坑要点</div>
+
+      <div class="trap">
+        <div class="h">坑 1：把"再努力一点"当成解法</div>
+        <div class="d">对方已经明确没兴趣，你却加大投入——更多消息、更多关心、更多付出。这在对方眼里不是深情，是压力。</div>
+        <div class="fix"><b>改法：</b>投入只在"对方也在投入"时才加码。单向加码永远无效。</div>
+      </div>
+
+      <div class="trap">
+        <div class="h">坑 2：把退出做成"表演"</div>
+        <div class="d">发告别长文、删好友再偷偷看、发伤感动态等对方来问。这些动作的潜台词都是"快来找我"。</div>
+        <div class="fix"><b>改法：</b>真正的退出是安静的。不需要观众，也不需要对方的反应。</div>
+      </div>
+
+      <div class="trap">
+        <div class="h">坑 3：反复"退出又回来"</div>
+        <div class="d">说好不联系，三天后又发消息。这会让你的所有边界失效，对方也不再认真对待你说的任何话。</div>
+        <div class="fix"><b>改法：</b>退出前先想清楚，说出口就执行 30 天。做不到就先别说。</div>
+      </div>
+
+      <div class="trap">
+        <div class="h">坑 4：把失败归因为"我不够好"</div>
+        <div class="d">一段关系不成立，原因通常是匹配度、时机、阶段错位，不是"你这个人有问题"。归因错了，下一个还会栽在同一处。</div>
+        <div class="fix"><b>改法：</b>复盘只看"动作"——“我第 12 天就表白了”“我忽略了她的三次推脱”，不看"我这个人"。</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 结尾 -->
+<div class="danger-final">
+  <h3>最后一句</h3>
+  <p style="font-size:14px;color:#4b5563;margin-bottom:8px">
+    这八个栏目是<b>顺序关系，不是菜单</b>。跳过第 03 栏目的判断直接去用第 06 栏目的话术，失败率极高——不是话术不对，是阶段不到。
+  </p>
+  <p style="font-size:14px;color:#4b5563">
+    还有一条底线贯穿全部：<b>所有推进都以对方的明确意愿为前提</b>。任何"不"都是终点，不是需要克服的障碍。所有技巧的作用是让合适的人更容易靠近你，而不是让不合适的人被迫接受你。
+  </p>
+</div>
+
+<footer>本页为个人参考资料 · 本地保存</footer>
+
+</div>
+</div>
+
+<script>
+(function(){
+  var links = document.querySelectorAll('.nav a');
+  var mods = [];
+  links.forEach(function(a){
+    var el = document.querySelector(a.getAttribute('href'));
+    if(el) mods.push({a:a, el:el});
+  });
+  function onScroll(){
+    var y = window.scrollY + 120;
+    var cur = null;
+    mods.forEach(function(m){
+      if(m.el.offsetTop <= y) cur = m;
+    });
+    links.forEach(function(a){a.classList.remove('active');});
+    if(cur) cur.a.classList.add('active');
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+  links.forEach(function(a){
+    a.addEventListener('click', function(e){
+      var el = document.querySelector(a.getAttribute('href'));
+      if(el){
+        e.preventDefault();
+        window.scrollTo({top: el.offsetTop - 20, behavior:'smooth'});
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

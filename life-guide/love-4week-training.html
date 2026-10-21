@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>恋爱能力 4 周实操训练表</title>
+<style>
+  :root{
+    --pink:#e91e63; --pink-light:#fce4ec; --pink-deep:#c2185b;
+    --purple:#7e57c2; --purple-light:#f3e5f5;
+    --warm:#ff7043; --warm-light:#fff3e0;
+    --green:#4caf50; --green-light:#e8f5e9;
+    --blue:#2196f3; --blue-light:#e3f2fd;
+    --bg:#faf7f5; --card:#ffffff;
+    --ink:#2c2c2c; --sub:#6b6b6b; --line:#e8e0d8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB","Segoe UI",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.85;font-size:15px;
+    padding-top:64px;padding-bottom:90px;
+  }
+  .wrap{max-width:860px;margin:0 auto;padding:24px 20px}
+
+  /* 顶部进度条 */
+  .topbar{
+    position:fixed;top:0;left:0;right:0;height:64px;z-index:50;
+    background:rgba(255,255,255,.94);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar-inner{
+    max-width:860px;margin:0 auto;padding:0 20px;height:100%;
+    display:flex;align-items:center;gap:16px;
+  }
+  .topbar .label{font-size:13px;font-weight:700;color:var(--pink-deep);white-space:nowrap}
+  .bar{flex:1;height:8px;background:#f0e6e2;border-radius:10px;overflow:hidden}
+  .bar-fill{
+    height:100%;width:0;border-radius:10px;
+    background:linear-gradient(90deg,var(--pink),var(--purple));
+    transition:width .35s ease;
+  }
+  .topbar .num{font-size:12.5px;color:var(--sub);white-space:nowrap;font-variant-numeric:tabular-nums}
+  .reset{
+    border:1px solid #e0d5cf;background:#fff;color:var(--sub);font-size:12px;
+    padding:5px 10px;border-radius:8px;cursor:pointer;font-family:inherit;
+  }
+  .reset:hover{border-color:var(--pink);color:var(--pink)}
+
+  /* 头图 */
+  .hero{
+    background:linear-gradient(135deg,#fce4ec 0%,#f3e5f5 100%);
+    border-radius:20px;padding:38px 30px;margin-bottom:26px;
+    border:1px solid #f8bbd0;text-align:center;
+  }
+  .hero h1{font-size:26px;color:var(--pink-deep);margin-bottom:10px;font-weight:700}
+  .hero p{color:#6a1b9a;font-size:14px;max-width:600px;margin:0 auto 18px}
+  .hero .tag-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+  .hero .tag-row span{
+    background:#fff;border:1px solid #f48fb1;border-radius:20px;
+    padding:5px 14px;font-size:12.5px;color:var(--pink-deep);
+  }
+
+  /* 使用规则 */
+  .rules{
+    background:#fff;border:1px solid var(--line);border-radius:16px;
+    padding:24px 26px;margin-bottom:26px;
+  }
+  .rules h2{font-size:16px;color:var(--pink-deep);margin-bottom:12px}
+  .rules ol{padding-left:20px}
+  .rules li{font-size:14px;margin-bottom:7px;color:#3d3d3d}
+  .rules li b{color:var(--pink-deep)}
+
+  /* 周卡 */
+  .week{
+    background:var(--card);border:1px solid var(--line);border-radius:18px;
+    padding:32px 30px;margin-bottom:26px;position:relative;overflow:hidden;
+  }
+  .week::before{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:6px;
+    background:linear-gradient(180deg,var(--pink),var(--purple));
+  }
+  .week-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:22px}
+  .week-num{
+    width:52px;height:52px;border-radius:14px;flex-shrink:0;
+    background:linear-gradient(135deg,var(--pink),var(--purple));
+    color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    font-weight:700;line-height:1.1;
+  }
+  .week-num small{font-size:9px;letter-spacing:1px;opacity:.9}
+  .week-num strong{font-size:21px}
+  .week-head h2{font-size:19px;margin-bottom:4px}
+  .week-head .goal{font-size:13.5px;color:var(--sub)}
+  .week-head .goal b{color:var(--pink-deep)}
+
+  .block{margin-bottom:24px}
+  .block:last-child{margin-bottom:0}
+  .block h3{
+    font-size:15.5px;margin-bottom:10px;display:flex;align-items:center;gap:8px;
+  }
+  .block h3 .idx{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:22px;height:22px;border-radius:6px;background:var(--pink-light);
+    color:var(--pink-deep);font-size:12px;font-weight:700;
+  }
+
+  .box{border-radius:12px;padding:15px 19px;margin:10px 0}
+  .box-why{background:var(--purple-light);border-left:4px solid var(--purple)}
+  .box-do{background:var(--green-light);border-left:4px solid var(--green)}
+  .box-red{background:#ffebee;border-left:4px solid #ef5350}
+  .box-gate{background:var(--blue-light);border-left:4px solid var(--blue)}
+  .box h4{font-size:13.5px;font-weight:700;margin-bottom:7px}
+  .box-why h4{color:#5e35b1}
+  .box-do h4{color:#2e7d32}
+  .box-red h4{color:#c62828}
+  .box-gate h4{color:#1565c0}
+  .box p,.box li{font-size:14px}
+  .box ul{padding-left:20px}
+  .box li{margin-bottom:4px}
+
+  /* 每日清单 */
+  .days{list-style:none}
+  .day{
+    display:flex;gap:12px;align-items:flex-start;
+    padding:10px 12px;border-radius:10px;transition:background .15s;
+  }
+  .day:hover{background:#fdf8f6}
+  .day input{
+    appearance:none;-webkit-appearance:none;
+    width:19px;height:19px;border:2px solid #d8cbc4;border-radius:6px;
+    margin-top:4px;flex-shrink:0;cursor:pointer;position:relative;
+    transition:all .15s;background:#fff;
+  }
+  .day input:checked{background:var(--green);border-color:var(--green)}
+  .day input:checked::after{
+    content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+    border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);
+  }
+  .day-txt{font-size:14px;color:#3d3d3d;flex:1}
+  .day input:checked + .day-txt{color:#9a9a9a;text-decoration:line-through;text-decoration-color:#c9c9c9}
+  .day-txt .d{
+    display:inline-block;font-size:11px;font-weight:700;color:var(--pink-deep);
+    background:var(--pink-light);border-radius:5px;padding:1px 6px;margin-right:7px;
+    vertical-align:1px;
+  }
+  .day-txt em{font-style:normal;color:#8d6e63;font-size:13px}
+
+  /* 场景演练 */
+  .case{
+    background:#fff9f5;border:2px solid #ffccbc;border-radius:14px;
+    padding:20px 22px;margin:14px 0;
+  }
+  .case-title{font-size:14.5px;font-weight:700;color:#d84315;margin-bottom:10px}
+  .turn{font-size:14px;margin-bottom:9px}
+  .turn .who{font-weight:700}
+  .turn.her .who{color:#c62828}
+  .turn.you .who{color:#1565c0}
+  .quote{
+    background:#fff;border:1px solid #ffe0b2;border-radius:8px;
+    padding:8px 13px;margin-top:4px;
+  }
+  .note{font-size:12.5px;color:var(--sub);margin-top:5px;line-height:1.6}
+  .bad-note{color:#c62828;font-size:12.5px;margin-top:5px}
+
+  /* 复盘 */
+  .review{background:#fbf7ff;border:1px dashed #b39ddb;border-radius:14px;padding:18px 20px}
+  .review h4{font-size:14px;color:#5e35b1;margin-bottom:10px}
+  .q-block{margin-bottom:12px}
+  .q-block label{display:block;font-size:13.5px;color:#4a4a4a;margin-bottom:6px}
+  textarea{
+    width:100%;min-height:64px;resize:vertical;font-family:inherit;font-size:13.5px;
+    color:var(--ink);background:#fff;border:1px solid #ddd0e8;border-radius:9px;
+    padding:10px 12px;line-height:1.7;outline:none;
+  }
+  textarea:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(126,87,194,.1)}
+
+  /* 底部 */
+  .final{
+    background:linear-gradient(135deg,#fce4ec,#f3e5f5);
+    border-radius:18px;padding:30px;margin-top:30px;
+  }
+  .final h3{font-size:16px;color:var(--pink-deep);text-align:center;margin-bottom:14px}
+  .final p{font-size:14px;color:#4a4a4a;margin-bottom:8px}
+  .final .sign{margin-top:16px;text-align:center;font-size:13px;color:#8e6b8e}
+
+  .footnote{text-align:center;font-size:12px;color:#a89c96;margin-top:26px;line-height:1.7}
+
+  @media (max-width:600px){
+    body{padding-top:58px}
+    .topbar{height:58px}
+    .topbar .label{display:none}
+    .hero{padding:28px 20px}
+    .hero h1{font-size:22px}
+    .week{padding:26px 20px}
+    .week-num{width:44px;height:44px}
+  }
+  @media print{
+    .topbar,.reset{display:none}
+    body{padding-top:0;background:#fff}
+    .week{page-break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <span class="label">4 周训练进度</span>
+    <div class="bar"><div class="bar-fill" id="barFill"></div></div>
+    <span class="num" id="progText">0 / 0</span>
+    <button class="reset" id="resetBtn" type="button">清零</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="hero">
+    <h1>恋爱能力 4 周实操训练表</h1>
+    <p>每周只练一个动作。不背台词，只练结构：接住 → 追问 → 收尾 → 推进 → 承担。</p>
+    <div class="tag-row">
+      <span>每天 5 分钟</span>
+      <span>每周一个动作</span>
+      <span>打卡自动保存</span>
+      <span>失败也算数据</span>
+    </div>
+  </div>
+
+  <div class="rules">
+    <h2>先看这四条，否则会白练</h2>
+    <ol>
+      <li><b>一次只改一个毛病。</b>同时练五个动作，五个都会变形，最后得出“我不适合”的错误结论。</li>
+      <li><b>每天最多 5 分钟。</b>练习是复盘和准备，不是加练话术。练太久会变成表演。</li>
+      <li><b>打卡不是目的。</b>勾选只用来观察节奏；漏两天不用补，接着往下走。</li>
+      <li><b>失败记录比成功记录值钱。</b>哪次冷场、哪次被推脱，写下来才有可能下次改。</li>
+    </ol>
+  </div>
+
+  <!-- ================= 第 1 周 ================= -->
+  <section class="week" id="w1">
+    <div class="week-head">
+      <div class="week-num"><small>WEEK</small><strong>1</strong></div>
+      <div>
+        <h2>接情绪 + 追问一个细节</h2>
+        <div class="goal">本周唯一动作：她分享时，<b>只接情绪、只追问细节</b>，不给建议、不做总结、不讲道理。</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="idx">1</span>为什么先练这个</h3>
+      <div class="box box-why">
+        <h4>你的问题不在话少，在“接不住”</h4>
+        <p>她的聊天方式是直播型：正在吃饭、正在改作业、猫又在闹，都会发过来。这种分享<b>要的是被接住</b>，不是被解决。</p>
+        <p>而你习惯性给出结论式回复（“行的”“6”“挺好”），等于把她递过来的东西原样退回。她不会生气，但会慢慢减少分享。</p>
+        <p><b>接情绪 = 让她觉得“你听懂了”；追问细节 = 让她愿意再说一段。</b>这两件事做到，聊天时长自然会变长，不需要你硬找话题。</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="idx">2</span>七天微练习</h3>
+      <div class="box box-do">
+        <h4>每天只做一件，做完打勾</h4>
+        <ul class="days">
+          <li class="day"><input type="checkbox" data-k="w1d1" id="w1d1"><span class="day-txt"><span class="d">D1</span>她发来任何一条分享，你只回一句“接情绪”的话。<em>例：「九点才下班…这也太熬了叭」</em>不追问、不评价。</span></li>
+          <li class="day"><input type="checkbox" data-k="w1d2" id="w1d2"><span class="day-txt"><span class="d">D2</span>接住情绪之后，加一个<b>具体</b>追问（问人、问时间、问当时场景）。<em>例：「是整晚都在盯班，还是就最后那节？」</em></span></li>
+          <li class="day"><input type="checkbox" data-k="w1d3" id="w1d3"><span class="day-txt"><span class="d">D3</span>你主动发一条自己的生活事，必须带 3 个具体元素（地点、人物、一个意外）。<em>不发感受，发事实。</em></span></li>
+          <li class="day"><input type="checkbox" data-k="w1d4" id="w1d4"><span class="day-txt"><span class="d">D4</span>翻记录，找出她回得<b>最长</b>的那一条，写下你当时说了什么。<em>那就是你的有效句式。</em></span></li>
+          <li class="day"><input type="checkbox" data-k="w1d5" id="w1d5"><span class="day-txt"><span class="d">D5</span>她抱怨或吐槽时，全天禁止给建议。<em>“多喝热水”“早点休息”“别想太多”都算违规。</em></span></li>
+          <li class="day"><input type="checkbox" data-k="w1d6" id="w1d6"><span class="day-txt"><span class="d">D6</span>练一次复述：把她的话用自己的话回一遍，再问一句。<em>「所以你是说，学生闹完你还要收尾，等于一个人干两份活？」</em></span></li>
+          <li class="day"><input type="checkbox" data-k="w1d7" id="w1d7"><span class="day-txt"><span class="d">D7</span>写复盘：她最近在意的三件事分别是什么？你能对上几个？</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="idx">3</span>场景演练</h3>
+
+      <div class="case">
+        <div class="case-title">场景 A：晚自习后说累</div>
+        <div class="turn her"><span class="who">她：</span>今天晚自习到九点，累死了</div>
+        <div class="turn you"><span class="who">错误版：</span><div class="quote">多喝热水，早点休息</div>
+          <div class="bad-note">这是结束对话的句子，不是接住。她的情绪被你自己关掉了。</div>
+        </div>
+        <div class="turn you"><span class="who">正确版：</span><div class="quote">九点才下课啊，这也太熬了叭</div>
+          <div class="note">先接住，停两秒，再补一句追问。</div>
+        </div>
+        <div class="turn you"><span class="who">追问：</span><div class="quote">是整晚都得盯着，还是就最后那一节？</div>
+          <div class="note">问的是具体场景，她答起来不费力，还能顺带吐槽学生。</div>
+        </div>
+      </div>
+
+      <div class="case">
+        <div class="case-title">场景 B：她发猫的照片或视频</div>
+        <div class="turn her"><span class="who">她：</span>（猫趴在键盘上的照片）又不让我改作业</div>
+        <div class="turn you"><span class="who">错误版：</span><div class="quote">哈哈可爱</div>
+          <div class="bad-note">两个字把话题堵死了，她只能回你一个表情包。</div>
+        </div>
+        <div class="turn you"><span class="who">正确版：</span><div class="quote">它这是明摆着不让你干活，还挺有原则</div>
+        </div>
+        <div class="turn you"><span class="who">追问：</span><div class="quote">它平时也这样，还是今天特别闹？</div>
+          <div class="note">猫是她的高频话题，问细节等于给她开了一个能说很久的口子。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="idx">4</span>本周红线</h3>
+      <div class="box box-red">
+        <h4>这周绝对不做</h4>
+        <ul>
+          <li>不给建议、不点评她的工作、不评价她的家人同事。</li>
+          <li>不用“6 / 行的 / 挺好 / 哈哈”单独成句。</li>
+          <li>不连续发三条以上没得到回复的消息。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="idx">5</span>本周复盘</h3>
+      <div class="review">
+        <h4>周日晚上填，写三行就够</h4>
+        <div class="q-block">
+          <label>这周她回得最长的一次，我说了什么？</label>
+          <textarea data-n="w1n1" placeholder="……"></textarea>
+        </div>
+        <div class="q-block">
+          <label>这周最冷的一次，我错在哪一步？</label>
+          <textarea data-n="w1n2" placeholder="……"></textarea>
+        </div>
+        <div class="q-block">
+          <label>下周我要保留的一个动作</label>
+          <textarea data-n="w1n3" placeholder="……"></textarea>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 第 2 周 ================= -->
+  <section class="week" id="w2">
+    <div class="week-head">
+      <div class="week-num"><small>WEEK</small><strong>2</strong></div>
+      <div>
+        <h2>主动收尾，掌握节奏</h2>
+        <div class="goal">本周唯一动作：<b>在聊得最好的时候主动结束</b>，并且留一个下次的钩子。</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="idx">1</span>为什么练收尾</h3>
+      <div class="box box-why">
+        <h4>你不擅长长聊，这是事实，不是缺点</h4>
+        <p>你文字聊天是客场，聊久了会累，累了就会掉进“嗯、好、行”的省电模式——那才是真正扣分的地方。</p>
+        <p>高手不是聊得久，是<b>每次都在高点收</b>。她记得的是最后一次互动的感受：如果最后一句是干回复，整段聊天都会被这一句拖低。</p>
+        <p>主动收尾还有一个隐性收益：<b>你在控制节奏，而不是被她的回复速度牵着走。</b>这是状态稳的来源。</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="idx">2</span>七天微练习</h3>
+      <div class="box box-do">
+        <h4>每天只做一件，做完打勾</h4>
+        <ul class="days">
+          <li class="day"><input type="checkbox" data-k="w2d1" id="w2d1"><span class="day-txt"><span class="d">D1</span>挑一次她回得最热的时刻，主动说“我先去忙”，然后真的离开。<em>练习在高点刹车。</em></span></li>
+          <li class="day"><input type="checkbox" data-k="w2d2" id="w2d2"><span class="day-txt"><span class="d">D2</span>收尾句必须带钩子：一个下次能接着问的具体事项。<em>例：「明天跟我说说那个学生后来怎么样了」</em></span></li>
+          <li class="day"><input type="checkbox" data-k="w2d3" id="w2d3"><span class="day-txt"><span class="d">D3</span>给自己设一个聊天窗口（比如 20:00–20:40），窗口外不主动开新话题。</span></li>
+          <li class="day"><input type="checkbox" data-k="w2d4" id="w2d4"><span class="day-txt"><span class="d">D4</span>练习不秒回：看到消息先放 15–60 分钟。<em>不是冷落，是不让自己随时待命。</em></span></li>
+          <li class="day"><input type="checkbox" data-k="w2d5" id="w2d5"><span class="day-txt"><span class="d">D5</span>记录一次她主动开启话题的间隔。<em>看她多久会自己找你，这是关系温度的真实数据。</em></span></li>
+          <li class="day"><input type="checkbox" data-k="w2d6" id="w2d6"><span class="day-txt"><span class="d">D6</span>用真实理由消失两小时（办事、训练、开会），回来自然接上，不解释一大段。</span></li>
+          <li class="day"><input type="checkbox" data-k="w2d7" id="w2d7"><span class="day-txt"><span class="d">D7</span>复盘：哪次收尾之后，第二天她主动来找我了？</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="idx">3</span>场景演练</h3>
+
+      <div class="case">
+        <div class="case-title">场景 A：22:30 她还在讲学校里的事</div>
+        <div class="turn her"><span class="who">她：</span>然后那个小孩居然……（还在往下讲）</div>
+        <div class="turn you"><span class="who">错误版：</span><div class="quote">嗯嗯 / 哈哈哈 / 然后呢</div>
+          <div class="bad-note">你已经在省电模式了，再撑十分钟就会露出疲态，最后一句一定是干回复。</div>
+        </div>
+        <div class="turn you"><span class="who">正确版：</span><div class="quote">你今天说了一晚上话，嗓子该歇了。明天还得早起，我先放你去睡——明天跟我说那个小孩最后怎么处理的。</div>
+          <div class="note">关心 + 给台阶 + 留钩子，三件事一句话完成。她大概率会回“好叭”，并且明天真的来讲。</div>
+        </div>
+      </div>
+
+      <div class="case">
+        <div class="case-title">场景 B：她说“我先去洗澡了”</div>
+        <div class="turn you"><span class="who">错误版：</span><div class="quote">好 / 去吧 / 洗完聊</div>
+          <div class="bad-note">“洗完聊”会让她有压力，好像洗完必须回来汇报。</div>
+        </div>
+        <div class="turn you"><span class="who">正确版：</span><div class="quote">去吧，正好我也去把今天的事收个尾，明天再聊。</div>
+          <div class="note">不追、不等、不查岗，还顺手给了自己一个体面的退出。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="idx">4</span>本周红线</h3>
+      <div class="box box-red">
+        <h4>这周绝对不做</h4>
+        <ul>
+          <li>不用“去洗澡了”当假借口——她迟早会发现你在别处活跃。</li>
+          <li>不因为她没秒回就连发消息、不试探、不发“在吗”。</li>
+          <li>不在 23:00 之后开新话题，尤其不发起深夜视频。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="idx">5</span>本周复盘</h3>
+      <div class="review">
+        <h4>周日晚上填，写三行就够</h4>
+        <div class="q-block">
+          <label>哪次收尾之后她的反应最好？我用了什么句式？</label>
+          <textarea data-n="w2n1" placeholder="……"></textarea>
+        </div>
+        <div class="q-block">
+          <label>这周我有几次是在“硬撑”聊天？当时身体什么感觉？</label>
+          <textarea data-n="w2n2" placeholder="……"></textarea>
+        </div>
+        <div class="q-block">
+          <label>她主动找我的频率，比上周高还是低？</label>
+          <textarea data-n="w2n3" placeholder="……"></textarea>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 第 3 周 ================= -->
+  <section class="week" id="w3">
+    <div class="week-head">
+      <div class="week-num"><small>WEEK</small><strong>3</strong></div>
+      <div>
+        <h2>把邀约变成确定的事</h2>
+        <div class="goal">本周唯一动作：<b>提出一个具体到时间地点的邀约</b>，并且能接住推脱和拒绝。</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="idx">1</span>为什么这周必须推进</h3>
+      <div class="box box-why">
+        <h4>“下次请你吃饭”是一张会过期的票</h4>
+        <p>她已经给过你明确的信号（主动报平安、说下次请你吃饭），但这句话如果没有落成日期，两周之后就会自动作废，而且双方都不好意思再提。</p>
+        <p>推进的本质不是胆子大，是<b>把选择题做完</b>：你定好时间地点，只留一个决策点给她。开放式问“你什么时候有空”，等于把难题丢回去，她只能回“看情况”。</p>
+        <p><b>她的时间表：</b>周二、周四晚自习，周一有晚班，周日备课。<b>能约的窗口是周三、周五、周六。</b>另外她牙还在养、月底复诊，近期胃也不舒服——番茄锅、清淡的店，别选重口。</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="idx">2</span>七天微练习</h3>
+      <div class="box box-do">
+        <h4>每天只做一件，做完打勾</h4>
+        <ul class="days">
+          <li class="day"><input type="checkbox" data-k="w3d1" id="w3d1"><span class="day-txt"><span class="d">D1</span>定三个候选时间段（周三 / 周五 / 周六），每个都写清几点、在哪碰面。</span></li>
+          <li class="day"><input type="checkbox" data-k="w3d2" id="w3d2"><span class="day-txt"><span class="d">D2</span>把邀约话术写下来并读一遍，删掉所有“如果你方便的话”“不知道你有没有空”这类软话。</span></li>
+          <li class="day"><input type="checkbox" data-k="w3d3" id="w3d3"><span class="day-txt"><span class="d">D3</span>发出邀约。<em>一次只发一条，发完就放下手机去做事。</em></span></li>
+          <li class="day"><input type="checkbox" data-k="w3d4" id="w3d4"><span class="day-txt"><span class="d">D4</span>如果她回“看情况”，给一个截止但不给压力。<em>例：「行，那你周四晚上给我个准信，我好订位子。」</em></span></li>
+          <li class="day"><input type="checkbox" data-k="w3d5" id="w3d5"><span class="day-txt"><span class="d">D5</span>准备 Plan B：下雨、她临时加班、胃不舒服，分别去哪、改到哪天。</span></li>
+          <li class="day"><input type="checkbox" data-k="w3d6" id="w3d6"><span class="day-txt"><span class="d">D6</span>设计约会流程：碰面点 → 吃饭 → 结束点，总时长控制在 2–2.5 小时，别一次排太满。</span></li>
+          <li class="day"><input type="checkbox" data-k="w3d7" id="w3d7"><span class="day-txt"><span class="d">D7</span>复盘：她答应时的语气是爽快还是犹豫？犹豫的点在哪（时间、地点、还是别的）？</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="idx">3</span>场景演练</h3>
+
+      <div class="case">
+        <div class="case-title">场景 A：发出邀约（一次只给一个决策点）</div>
+        <div class="turn you"><span class="who">错误版：</span><div class="quote">你什么时候有空呀，我们去吃火锅吧</div>
+          <div class="bad-note">两个问题叠加，她既要想时间又要定地点，最省力的回答就是“看情况”。</div>
+        </div>
+        <div class="turn you"><span class="who">正确版：</span><div class="quote">周六晚上去吃火锅吧，我找了一家番茄锅的，你牙还在养，这个不刺激。你要是周六不行，周五也行，六点半我在店门口等你。</div>
+          <div class="note">时间、地点、理由、备选，全部替她想好，她只需要回答“周六”或“周五”。</div>
+        </div>
+      </div>
+
+      <div class="case">
+        <div class="case-title">场景 B：她说“这周有点忙，看情况”</div>
+        <div class="turn you"><span class="who">错误版：</span><div class="quote">那你有空再说吧 / 是不是不想去啊</div>
+          <div class="bad-note">前者是放弃推进，后者是把她的客气当拒绝来质问，两种都在扣分。</div>
+        </div>
+        <div class="turn you"><span class="who">正确版：</span><div class="quote">行，那你这周先忙。周四晚上你给我个准信就行，我好订位子；实在排不开，我们下周三再约。</div>
+          <div class="note">接受现状 + 给截止 + 主动给下一个窗口。她不用为拒绝你而感到负担。</div>
+        </div>
+      </div>
+
+      <div class="case">
+        <div class="case-title">场景 C：她明确拒绝这次邀约</div>
+        <div class="turn you"><span class="who">正确版：</span><div class="quote">没事，那就等你这阵忙完。我先把位子退了，你想吃的时候跟我说一声。</div>
+          <div class="note">不追问原因、不表现失落、不消失。留门，也留体面。真正掉价的是被拒之后的连环解释和情绪。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="idx">4</span>本周红线</h3>
+      <div class="box box-red">
+        <h4>这周绝对不做</h4>
+        <ul>
+          <li>不问“你什么时候有空”（开放式提问，等于把决定权推回去）。</li>
+          <li>邀约发出后不追问、不催、不补一条“在吗”。</li>
+          <li>不用礼物、红包、代付来换一次见面。</li>
+          <li>不打听她的收入、编制、感情史，不评价她的学历。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="idx">5</span>本周复盘</h3>
+      <div class="review">
+        <h4>周日晚上填，写三行就够</h4>
+        <div class="q-block">
+          <label>邀约发出去了吗？她原话是怎么回的？</label>
+          <textarea data-n="w3n1" placeholder="……"></textarea>
+        </div>
+        <div class="q-block">
+          <label>如果没约成，真正的阻碍是什么（时间、距离、还是意愿）？</label>
+          <textarea data-n="w3n2" placeholder="……"></textarea>
+        </div>
+        <div class="q-block">
+          <label>下一次邀约我准备定在哪天、哪家店？</label>
+          <textarea data-n="w3n3" placeholder="……"></textarea>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 第 4 周 ================= -->
+  <section class="week" id="w4">
+    <div class="week-head">
+      <div class="week-num"><small>WEEK</small><strong>4</strong></div>
+      <div>
+        <h2>承担：把关系说清楚</h2>
+        <div class="goal">本周唯一动作：<b>判断是否到了该明确的时候</b>，到了就承担，没到就继续稳定推进。</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="idx">1</span>先过这道闸门</h3>
+      <div class="box box-gate">
+        <h4>不是必须表白，是必须判断</h4>
+        <p>“承担”不等于冲上去表白。它指的是：你不再用模糊维持安全感，而是看清现状并做一个明确的动作。</p>
+        <p><b>满足以下三条，才进入“表达”环节：</b></p>
+        <ul>
+          <li>已经线下见过至少 3 次，且最近两次是她没有明显勉强地答应。</li>
+          <li>她主动开启过至少 2 次对话，或主动分享过不止一次生活细节。</li>
+          <li>你们已经有过一次“下次”的约定，并且真的兑现了。</li>
+        </ul>
+        <p style="margin-top:8px"><b>不满足，就只做本表的低强度版本</b>（D1–D4、D7），把重点放在稳定约会和自然使用“我们”，不提前逼答案。</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="idx">2</span>七天微练习</h3>
+      <div class="box box-do">
+        <h4>每天只做一件，做完打勾</h4>
+        <ul class="days">
+          <li class="day"><input type="checkbox" data-k="w4d1" id="w4d1"><span class="day-txt"><span class="d">D1</span>写下你喜欢她的三个点，每个必须对应一件具体的事，不许写“性格好”“很温柔”。</span></li>
+          <li class="day"><input type="checkbox" data-k="w4d2" id="w4d2"><span class="day-txt"><span class="d">D2</span>准备一句具体的观察，当面或聊天时自然说出来。<em>例：「你每次讲学生的事，语速都会变快一点。」</em></span></li>
+          <li class="day"><input type="checkbox" data-k="w4d3" id="w4d3"><span class="day-txt"><span class="d">D3</span>做一次礼貌的距离测试（过马路时护一下、递东西时手碰到），观察她是否回避。</span></li>
+          <li class="day"><input type="checkbox" data-k="w4d4" id="w4d4"><span class="day-txt"><span class="d">D4</span>用一次“我们”式表述。<em>例：「我们下次去那家试试」</em>，观察她接不接这个词。</span></li>
+          <li class="day"><input type="checkbox" data-k="w4d5" id="w4d5"><span class="day-txt"><span class="d">D5</span>如果被拒绝，我的生活照样怎么过？把三条写清楚（训练、备考、朋友）。</span></li>
+          <li class="day"><input type="checkbox" data-k="w4d6" id="w4d6"><span class="day-txt"><span class="d">D6</span>判断时机：她刚主动分享完、约会刚结束、气氛轻松时，才是可以说话的时候。疲惫、深夜、她情绪差时一律不说。</span></li>
+          <li class="day"><input type="checkbox" data-k="w4d7" id="w4d7"><span class="day-txt"><span class="d">D7</span>写下决定：继续推进 / 再观察两周 / 调整预期。三选一，必须选一个。</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="idx">3</span>场景演练</h3>
+
+      <div class="case">
+        <div class="case-title">场景 A：轻量表达（不逼宫，给选择）</div>
+        <div class="turn you"><span class="who">错误版：</span><div class="quote">我喜欢你，你愿意做我女朋友吗？</div>
+          <div class="bad-note">这是当众要答案的结构，压力全给到她。她如果没有准备好，只能先拒绝，而拒绝一旦说出口就很难收回。</div>
+        </div>
+        <div class="turn you"><span class="who">正确版：</span><div class="quote">这段时间跟你聊天挺开心的，我想把见面变成固定的事，而不是每次都要碰时间。你怎么看？</div>
+          <div class="note">说的是“我想怎么做”，不是“你必须答应什么”。她可以用“好啊”接住，也可以用“我再想想”缓冲，两条路都不尴尬。</div>
+        </div>
+      </div>
+
+      <div class="case">
+        <div class="case-title">场景 B：她说“我还没想好”</div>
+        <div class="turn you"><span class="who">正确版：</span><div class="quote">行，不用现在给我答案。我就是想让你知道我是怎么想的，其他的按你的节奏来。</div>
+          <div class="note">这就是承担：说清楚自己的立场，同时不把焦虑转嫁给她。说完就正常相处，不冷战、不试探、不反复提。</div>
+        </div>
+      </div>
+
+      <div class="case">
+        <div class="case-title">场景 C：她明确拒绝</div>
+        <div class="turn you"><span class="who">正确版：</span><div class="quote">明白了，谢谢你直接跟我说。那我就不往那边想了。</div>
+          <div class="note">不解释、不追问“为什么”、不说“我可以等”。之后保持距离，别用朋友身份继续索取。这是最后一道分水岭，也是最能看出一个人的地方。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="idx">4</span>本周红线</h3>
+      <div class="box box-red">
+        <h4>这周绝对不做</h4>
+        <ul>
+          <li>不在她疲惫、加班、情绪低落时表达，那是趁虚而入，不是承担。</li>
+          <li>不用礼物、仪式、外人助攻来制造“必须答应”的场面。</li>
+          <li>被拒绝后不反复确认、不追问原因、不发长文。</li>
+          <li>不把“我为你做了这么多”当作筹码。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="idx">5</span>本周复盘</h3>
+      <div class="review">
+        <h4>四周训练收尾，认真写</h4>
+        <div class="q-block">
+          <label>闸门三条，我满足了几条？（不满足就别急）</label>
+          <textarea data-n="w4n1" placeholder="……"></textarea>
+        </div>
+        <div class="q-block">
+          <label>这四周，我哪一个动作已经从“刻意”变成“自然”了？</label>
+          <textarea data-n="w4n2" placeholder="……"></textarea>
+        </div>
+        <div class="q-block">
+          <label>下一个月的目标是什么？（只写一条）</label>
+          <textarea data-n="w4n3" placeholder="……"></textarea>
+        </div>
+        <div class="q-block">
+          <label>如果结果不如预期，我靠什么撑住自己？</label>
+          <textarea data-n="w4n4" placeholder="……"></textarea>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="final">
+    <h3>四周之后，你应该带走的三样东西</h3>
+    <p><b>一、一套结构，不是一堆台词。</b>接住情绪 → 追问细节 → 高点收尾 → 具体邀约 → 清楚承担。换任何人、任何场合，这套结构都能用。</p>
+    <p><b>二、对自己节奏的掌控。</b>你不需要变成话多的人，只需要不再硬撑、不再靠对方回复速度决定心情。</p>
+    <p><b>三、失败之后不掉线的能力。</b>被推脱、被拒绝、冷场，都只是数据。能继续正常生活的人，才有下一次机会。</p>
+    <p style="margin-top:12px;color:#8e6b8e">所谓“恋爱大师”，不是从不失手，是失手之后依然稳。</p>
+    <div class="sign">本表仅本地保存，不发布到博客</div>
+  </div>
+
+  <div class="footnote">
+    打卡与复盘内容保存在本机浏览器中，清理浏览器数据会一并清除。<br>
+    更换浏览器或设备不会同步。
+  </div>
+
+</div>
+
+<script>
+(function(){
+  var KEY = 'love-training-4w-v1';
+  var state = { checks:{}, notes:{} };
+
+  function load(){
+    try{
+      var raw = localStorage.getItem(KEY);
+      if(raw){
+        var obj = JSON.parse(raw);
+        state.checks = obj.checks || {};
+        state.notes = obj.notes || {};
+      }
+    }catch(e){}
+  }
+  function save(){
+    try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
+  }
+
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox][data-k]'));
+  var areas = Array.prototype.slice.call(document.querySelectorAll('textarea[data-n]'));
+
+  function renderProgress(){
+    var total = boxes.length;
+    var done = boxes.filter(function(b){ return b.checked; }).length;
+    var fill = document.getElementById('barFill');
+    var txt = document.getElementById('progText');
+    fill.style.width = total ? (done / total * 100) + '%' : '0%';
+    txt.textContent = done + ' / ' + total;
+  }
+
+  load();
+
+  boxes.forEach(function(b){
+    var k = b.getAttribute('data-k');
+    b.checked = !!state.checks[k];
+    b.addEventListener('change', function(){
+      state.checks[k] = b.checked;
+      save();
+      renderProgress();
+    });
+  });
+
+  var timer = null;
+  areas.forEach(function(a){
+    var n = a.getAttribute('data-n');
+    a.value = state.notes[n] || '';
+    a.addEventListener('input', function(){
+      state.notes[n] = a.value;
+      clearTimeout(timer);
+      timer = setTimeout(save, 400);
+    });
+  });
+
+  document.getElementById('resetBtn').addEventListener('click', function(){
+    if(!confirm('确定要清空所有打卡和复盘内容吗？此操作不可撤销。')) return;
+    state.checks = {};
+    state.notes = {};
+    save();
+    boxes.forEach(function(b){ b.checked = false; });
+    areas.forEach(function(a){ a.value = ''; });
+    renderProgress();
+  });
+
+  renderProgress();
+})();
+</script>
+</body>
+</html>

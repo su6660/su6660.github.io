@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高压电工证备考背题手册</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+            background: #f5f7fa;
+            color: #333;
+            line-height: 1.7;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 30px;
+        }
+        header h1 { font-size: 2.2em; margin-bottom: 10px; }
+        header p { opacity: 0.9; font-size: 1.1em; }
+        .exam-info {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-left: 5px solid #1a237e;
+        }
+        .exam-info h3 { color: #1a237e; margin-bottom: 12px; }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .info-item {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .info-item strong { display: block; color: #1a237e; font-size: 1.2em; }
+        .module {
+            background: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .module-title {
+            font-size: 1.4em;
+            color: #1a237e;
+            border-bottom: 2px solid #e8eaf6;
+            padding-bottom: 12px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .module-title::before {
+            content: "";
+            display: inline-block;
+            width: 6px;
+            height: 24px;
+            background: #1a237e;
+            border-radius: 3px;
+        }
+        .point-group {
+            margin-bottom: 20px;
+        }
+        .point-title {
+            font-weight: bold;
+            color: #c62828;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+        .point-content {
+            background: #fafafa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .point-content ul { padding-left: 20px; }
+        .point-content li { margin-bottom: 6px; }
+        .highlight {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 12px 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 12px 0;
+        }
+        .highlight strong { color: #e65100; }
+        .danger {
+            background: #ffebee;
+            border-left: 4px solid #f44336;
+            padding: 12px 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 12px 0;
+        }
+        .danger strong { color: #c62828; }
+        .tip {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 12px 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 12px 0;
+        }
+        .tip strong { color: #2e7d32; }
+        .question-box {
+            background: #e3f2fd;
+            border: 1px solid #90caf9;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .question-box .q-title {
+            font-weight: bold;
+            color: #1565c0;
+            margin-bottom: 8px;
+        }
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.95em;
+        }
+        .compare-table th,
+        .compare-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        .compare-table th {
+            background: #1a237e;
+            color: #fff;
+        }
+        .compare-table tr:nth-child(even) { background: #f5f5f5; }
+        .tag {
+            display: inline-block;
+            background: #1a237e;
+            color: #fff;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            margin-right: 8px;
+            margin-bottom: 5px;
+        }
+        .tag.hot { background: #c62828; }
+        .tag.easy-wrong { background: #ef6c00; }
+        .memory-formula {
+            background: #263238;
+            color: #eceff1;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-family: Consolas, monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        .toc {
+            background: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .toc h3 { color: #1a237e; margin-bottom: 15px; }
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 10px;
+        }
+        .toc a {
+            color: #333;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s;
+            display: block;
+        }
+        .toc a:hover {
+            background: #e8eaf6;
+            color: #1a237e;
+        }
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            font-size: 0.9em;
+        }
+        @media print {
+            body { background: #fff; }
+            .module { box-shadow: none; border: 1px solid #ddd; page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>高压电工证备考背题手册</h1>
+        <p>特种作业操作证（高压电工作业）· 理论考试核心考点精编</p>
+    </header>
+
+    <div class="container">
+        <div class="exam-info">
+            <h3>考试概况</h3>
+            <div class="info-grid">
+                <div class="info-item"><strong>100题</strong>判断70题 + 单选30题</div>
+                <div class="info-item"><strong>80分</strong>及格分数线</div>
+                <div class="info-item"><strong>60分钟</strong>机考时间</div>
+                <div class="info-item"><strong>6年</strong>证书有效期（3年复审）</div>
+            </div>
+            <div class="highlight" style="margin-top: 15px;">
+                <strong>备考策略：</strong>判断题占70%，是得分关键。单选题难度较高，需重点记忆数字类、分类类考点。易混淆概念（如保护接地vs保护接零、TT/IT/TN系统）几乎必考。
+            </div>
+        </div>
+
+        <div class="toc">
+            <h3>目录导航</h3>
+            <div class="toc-grid">
+                <a href="#m1">一、电工基础知识</a>
+                <a href="#m2">二、电力系统基本知识</a>
+                <a href="#m3">三、电力变压器</a>
+                <a href="#m4">四、高压电器及成套装置</a>
+                <a href="#m5">五、高压电力线路</a>
+                <a href="#m6">六、过电压保护与接地</a>
+                <a href="#m7">七、电气安全技术</a>
+                <a href="#m8">八、判断题常见陷阱</a>
+                <a href="#m9">九、单选题速记要点</a>
+                <a href="#m10">十、易混淆知识点辨析</a>
+            </div>
+        </div>
+
+        <!-- 模块一 -->
+        <div class="module" id="m1">
+            <div class="module-title">一、电工基础知识</div>
+
+            <div class="point-group">
+                <div class="point-title">1. 电路基本定律 <span class="tag hot">高频</span></div>
+                <div class="point-content">
+                    <ul>
+                        <li><strong>欧姆定律：</strong>I = U/R（电流与电压成正比，与电阻成反比）</li>
+                        <li><strong>基尔霍夫电流定律（KCL）：</strong>流入节点电流之和 = 流出节点电流之和</li>
+                        <li><strong>基尔霍夫电压定律（KVL）：</strong>回路中各段电压代数和等于零</li>
+                        <li><strong>电阻串联：</strong>R = R₁ + R₂ + R₃（分压）</li>
+                        <li><strong>电阻并联：</strong>1/R = 1/R₁ + 1/R₂（分流）</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="point-group">
+                <div class="point-title">2. 单相交流电路 <span class="tag hot">高频</span></div>
+                <div class="point-content">
+                    <ul>
+                        <li><strong>正弦交流电三要素：</strong>最大值（幅值）、角频率（ω）、初相位（φ）</li>
+                        <li><strong>有效值与最大值关系：</strong>U = Um/√2 ≈ 0.707Um，I = Im/√2</li>
+                        <li><strong>我国工频：</strong>50Hz，周期 T = 0.02s，角频率 ω = 314 rad/s</li>
+                        <li><strong>纯电阻电路：</strong>电压与电流同相位，P = UI = I²R</li>
+                        <li><strong>纯电感电路：</strong>电压超前电流90°，XL = ωL = 2πfL</li>
+                        <li><strong>纯电容电路：</strong>电流超前电压90°，XC = 1/(ωC) = 1/(2πfC)</li>
+                    </ul>
+                    <div class="memory-formula">
+                        功率关系速记：<br>
+                        有功功率 P = UIcosφ（瓦特W）<br>
+                        无功功率 Q = UIsinφ（乏var）<br>
+                        视在功率 S = UI（伏安VA）<br>
+                        功率三角形：S² = P² + Q²
+                    </div>
+                </div>
+            </div>
+
+            <div class="point-group">
+                <div class="point-title">3. 三相交流电路 <span class="tag hot">高频</span> <span class="tag easy-wrong">易错</span></div>
+                <div class="point-content">
+                    <ul>
+                        <li><strong>三相电动势特点：</strong>幅值相等、频率相同、相位互差120°</li>
+                        <li><strong>星形（Y）连接：</strong>线电压 = √3 × 相电压，线电流 = 相电流</li>
+                        <li><strong>三角形（△）连接：</strong>线电压 = 相电压，线电流 = √3 × 相电流</li>
+                        <li><strong>三相功率：</strong>P = √3 × U线 × I线 × cosφ</li>
+                        <li><strong>中性线作用：</strong>保证星形连接不对称负载相电压对称</li>
+                    </ul>
+                    <div class="danger">
+                        <strong>易错点：</strong>星形连接中"线电压是相电压的√3倍"成立的前提是三相对称。中性线断开会导致中性点位移，造成某相电压升高烧坏设备。
+                    </div>
+                </div>
+            </div>
+
+            <div class="point-group">
+                <div class="point-title">4. 电磁与电磁感应</div>
+                <div class="point-content">
+                    <ul>
+                        <li><strong>右手定则（发电机定则）：</strong>判断感应电动势方向</li>
+                        <li><strong>左手定则（电动机定则）：</strong>判断通电导体受力方向</li>
+                        <li><strong>楞次定律：</strong>感应电流的磁场总是阻碍原磁通的变化</li>
+                        <li><strong>法拉第电磁感应定律：</strong>e = -N(ΔΦ/Δt)</li>
+                        <li><strong>自感与互感：</strong>自感电动势阻碍电流变化；互感是变压器工作原理</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 模块二 -->
+        <div class="module" id="m2">
+            <div class="module-title">二、电力系统基本知识</div>
+
+            <div class="point-group">
+                <div class="point-title">1. 电力系统组成与电压等级 <span class="tag hot">高频</span></div>
+                <div class="point-content">
+                    <ul>
+                        <li><strong>电力系统组成：</strong>发电、输电、变电、配电、用电</li>
+                        <li><strong>电力网：</strong>输电线路 + 变电所（升压/降压）</li>
+                        <li><strong>我国额定电压等级：</strong>220V、380V、3kV、6kV、10kV、35kV、110kV、220kV、330kV、500kV、750kV、1000kV</li>
+                        <li><strong>高压与低压分界：</strong>对地电压250V以上为高压，250V及以下为低压</li>
+                        <li><strong>安全电压：</strong>42V、36V、24V、12V、6V（特别潮湿环境12V）</li>
+                    </ul>
+                    <div class="tip">
+                        <strong>记忆技巧：</strong>"高压看250，安全电压42起步，潮湿减半"
+                    </div>
+                </div>
+            </div>
+
+            <div class="point-group">
+                <div class="point-title">2. 电力系统中性点运行方式 <span class="tag hot">高频</span> <span class="tag easy-wrong">易错</span></div>
+                <div class="point-content">
+                    <table class="compare-table">
+                        <tr>
+                            <th>运行方式</th>
+                            <th>适用范围</th>
+                            <th>单相接地故障特点</th>
+                            <th>优缺点</th>
+                        </tr>
+                        <tr>
+                            <td><strong>中性点不接地</strong></td>
+                            <td>3-10kV系统</td>
+                            <td>可继续运行2小时，非故障相电压升高√3倍</td>
+                            <td>供电可靠性高，绝缘要求高</td>
+                        </tr>
+                        <tr>
+                            <td><strong>中性点经消弧线圈接地</strong></td>
+                            <td>35-66kV系统，电容电流大的10kV系统</td>
+                            <td>补偿电容电流，减小接地电弧</td>
+                            <td>供电可靠性高，投资大</td>
+                        </tr>
+                        <tr>
+                            <td><strong>中性点直接接地</strong></td>
+                            <td>110kV及以上系统</td>
+                            <td>立即跳闸，短路电流大</td>
+                            <td>绝缘要求低，供电可靠性低</td>
+                        </tr>
+                    </table>
+                    <div class="danger">
+                        <strong>必考陷阱：</strong>中性点不接地系统发生单相接地时，允许继续运行<strong>2小时</strong>，但非故障相电压会升高为线电压（√3倍）。
+                    </div>
+                </div>
+            </div>
+
+            <div class="point-group">
+                <div class="point-title">3. 短路及其危害</div>
+                <div class="point-content">
+                    <ul>
+                        <li><strong>短路类型：</strong>三相短路（对称）、两相短路、两相接地短路、单相接地短路（不对称）</li>
+                        <li><strong>短路危害：</strong>电流急剧增大（可达额定电流几十倍）、电压骤降、设备发热、电动力破坏、系统稳定性破坏</li>
+                        <li><strong>限制短路电流方法：</strong>选择适当的主接线形式和运行方式、加装限流电抗器、采用分裂低压绕组变压器</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 模块三 -->
+        <div class="module" id="m3">
+            <div class="module-title">三、电力变压器</div>
+
+            <div class="point-group">
+                <div class="point-title">1. 变压器基本原理与结构 <span class="tag hot">高频</span></div>
+                <div class="point-content">
+                    <ul>
+                        <li><strong>工作原理：</strong>电磁感应原理（互感），只能改变交流电压，不能改变直流电压</li>
+                        <li><strong>变比：</strong>K = U₁/U₂ = N₁/N₂ = I₂/I₁</li>
+                        <li><strong>核心部件：</strong>铁芯（硅钢片叠成，减少涡流损耗）、绕组（高压绕组在外，低压绕组在内）</li>
+                        <li><strong>冷却方式：</strong>油浸自冷（ONAN）、油浸风冷（ONAF）、强迫油循环风冷（OFAF）、干式</li>
+                        <li><strong>油的作用：</strong>绝缘、散热、灭弧</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="point-group">
+                <div class="point-title">2. 变压器技术参数 <span class="tag hot">高频</span></div>
+                <div class="point-content">
+                    <ul>
+                        <li><strong>额定容量SN：</strong>视在功率，单位kVA或MVA</li>
+                        <li><strong>额定电压：</strong>一次额定电压、二次额定电压（空载时）</li>
+                        <li><strong>额定电流：</strong>I₁N = SN/(√3·U₁N)，I₂N = SN/(√3·U₂N)</li>
+                        <li><strong>阻抗电压（短路电压）：</strong>短路阻抗占额定电压的百分比，一般4%-10.5%</li>
+                        <li><strong>空载电流：</strong>一般为额定电流的2%-10%</li>
+                        <li><strong>连接组别：</strong>Yyn0、Yd11、Dyn11等（时钟表示法）</li>
+                    </ul>
+                    <div class="memory-formula">
+                        容量计算速记：<br>
+                        单相：S = UI<br>
+                        三相：S = √3 × U线 × I线<br>
+                        例：10/0.4kV, 100kVA变压器，高压侧电流 = 100/(√3×10) ≈ 5.77A
+                    </div>
+                </div>
+            </div>
+
+            <div class="point-group">
+                <div class="point-title">3. 变压器运行与维护 <span class="tag easy-wrong">易错</span></div>
+                <div class="point-content">
+                    <ul>
+                        <li><strong>允许过负荷：</strong>正常过负荷（油浸式1.3倍2小时）、事故过负荷（1.3倍2小时，1.45倍80分钟，1.6倍45分钟）</li>
+                        <li><strong>并列运行条件：</strong>①连接组别相同 ②变比相等（误差≤±0.5%）③短路阻抗相等（误差≤±10%）④容量比不超过3:1</li>
+                        <li><strong>油位异常：</strong>油面过低会导致绝缘击穿，过高会造成溢油和使油枕失去作用</li>
+                        <li><strong>温度计：</strong>上层油温一般不超过85℃，最高不超过95℃</li>
+                    </ul>
+                    <div class="danger">
+                        <strong>高频考题：</strong>变压器并列运行时，短路阻抗电压不等会导致负载分配不合理，阻抗小的变压器先满载。
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 模块四 -->
+        <div class="module" id="m4">
+            <div class="module-title">四、高压电器及成套配电装置</div>
+
+            <div class="point-group">
+                <div class="point-title">1. 高压断路器 <span class="tag hot">高频</span> <span class="tag easy-wrong">易错</span></div>
+                <div class="point-content">
+                    <ul>
+                        <li><strong>作用：</strong>正常运行时接通断开负荷电流，故障时切断短路电流</li>
+                        <li><strong>灭弧介质：</strong>油（多油/少油）、真空、SF6、压缩空气</li>
+                        <li><strong>真空断路器：</strong>灭弧室真空度，适用于频繁操作，35kV及以下</li>
+                        <li><strong>SF6断路器：</strong>灭弧能力强，适用于110kV及以上</li>
+                        <li><strong>操作机构：</strong>电磁式、弹簧储能式、液压式、气动式</li>
+                    </ul>
+                    <div class="danger">
+                        <strong>必考点：</strong>断路器与隔离开关的根本区别——断路器有灭弧装置，能切断负荷电流和短路电流；隔离开关无灭弧装置，只能隔离电源。
+                    </div>
+                </div>
+            </div>
+
+            <div class="point-group">
+                <div class="point-title">2. 隔离开关</div>
+                <div class="point-content">
+                    <ul>
+                        <li><strong>作用：</strong>隔离电源，形成明显断开点；倒闸操作；接通断开小电流电路</li>
+                        <li><strong>操作顺序：</strong>停电时先拉断路器，后拉隔离开关；送电时先合隔离开关，后合断路器</li>
+                        <li><strong>严禁：</strong>带负荷拉合隔离开关（会产生电弧，造成短路）</li>
+                    </ul>
+                    <div class="tip">
+                        <strong>记忆口诀：</strong>"停电先断后隔离，送电先隔离后断，隔离开关无负荷"
+                    </div>
+                </div>
+            </div>
+
+            <div class="point-group">
+                <div class="point-title">3. 负荷开关、熔断器与互感器 <span class="tag hot">高频</span></div>
+                <div class="point-content">
+                    <ul>
+                        <li><strong>负荷开关：</strong>能切断负荷电流，不能切断短路电流，常与熔断器配合使用</li>
+                        <li><strong>高压熔断器：</strong>过载和短路保护，RN1型用于保护变压器，RN2型用于保护电压互感器</li>
+                        <li><strong>电压互感器（PT/VT）：</strong>二次侧额定电压100V，严禁短路（相当于短路运行）</li>
+                        <li><strong>电流互感器（CT/TA）：</strong>二次侧额定电流5A或1A，严禁开路（会产生高电压）</li>
+                        <li><strong>互感器接地：</strong>二次侧必须有一点可靠接地，防止绝缘击穿时高压窜入低压侧</li>
+                    </ul>
+                    <div class="danger">
+                        <strong>致命区别：</strong>PT二次侧短路会烧坏PT；CT二次侧开路会产生数千伏高压，危及人身安全，可能引发火灾。
+                    </div>
+                </div>
+            </div>
+
+            <div class="point-group">
+                <div class="point-title">4. 成套配电装置（开关柜）</div>
+                <div class="point-content">
+                    <ul>
+                        <li><strong>"五防"功能：</strong>①防止误分误合断路器 ②防止带负荷拉合隔离开关 ③防止带电挂接地线 ④防止带接地线合断路器 ⑤防止误入带电间隔</li>
+                        <li><strong>手车式开关柜：</strong>工作位置、试验位置、检修位置</li>
+                        <li><strong>母线涂色：</strong>A相黄色、B相绿色、C相红色、中性线淡蓝色、保护线黄绿双色</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 模块五 -->
+        <div class="module" id="m5">
+            <div class="module-title">五、高压电力线路</div>
+
+            <div class="point-group">
+                <div class="point-title">1. 架空线路</div>
+                <div class="point-content">
+                    <ul>
+                        <li><strong>组成：</strong>导线、避雷线（地线）、杆塔、绝缘子、金具</li>
+                        <li><strong>导线排列：</strong>水平排列、三角形排列、垂直排列</li>
+                        <li><strong>安全距离：</strong>10kV线路对地最小距离：居民区6.5m，非居民区5.5m</li>
+                        <li><strong>杆塔类型：</strong>直线杆、耐张杆、转角杆、终端杆、跨越杆</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="point-group">
+                <div class="point-title">2. 电力电缆</div>
+                <div class="point-content">
+                    <ul>
+                        <li><strong>结构：</strong>导体、绝缘层、屏蔽层、保护层</li>
+                        <li><strong>敷设方式：</strong>直埋、电缆沟、电缆隧道、排管、桥架</li>
+                        <li><strong>试验：</strong>绝缘电阻测量、直流耐压试验、泄漏电流测量</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 模块六 -->
+        <div class="module" id="m6">
+            <div class="module-title">六、过电压保护与接地装置</div>
+
+            <div class="point-group">
+                <div class="point-title">1. 过电压分类 <span class="tag hot">高频</span></div>
+                <div class="point-content">
+                    <ul>
+                        <li><strong>内部过电压：</strong>操作过电压（切合空载线路、空载变压器）、谐振过电压、工频过电压</li>
+                        <li><strong>外部过电压（大气过电压）：</strong>直击雷、感应雷、雷电波侵入</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="point-group">
+                <div class="point-title">2. 防雷保护设备 <span class="tag hot">高频</span></div>
+                <div class="point-content">
+                    <ul>
+                        <li><strong>避雷针：</strong>保护建筑物和露天变配电设备，单支避雷针保护范围按滚球法计算</li>
+                        <li><strong>避雷线（架空地线）：</strong>保护架空输电线路</li>
+                        <li><strong>避雷器：</strong>限制雷电过电压和操作过电压，与被保护设备并联</li>
+                        <li><strong>阀型避雷器：</strong>火花间隙 + 阀片电阻，用于3-10kV系统</li>
+                        <li><strong>氧化锌避雷器：</strong>无间隙，残压低，保护性能好，应用广泛</li>
+                    </ul>
+                    <div class="tip">
+                        <strong>记忆技巧：</strong>避雷针"引雷上身"保护周围，避雷器"限制过电压"保护设备。
+                    </div>
+                </div>
+            </div>
+
+            <div class="point-group">
+                <div class="point-title">3. 接地装置 <span class="tag hot">高频</span> <span class="tag easy-wrong">易错</span></div>
+                <div class="point-content">
+                    <ul>
+                        <li><strong>工作接地：</strong>保证系统正常运行（如变压器中性点接地），接地电阻≤4Ω</li>
+                        <li><strong>保护接地：</strong>将设备金属外壳接地，防止绝缘损坏时外壳带电</li>
+                        <li><strong>保护接零：</strong>将设备金属外壳接到零线上，适用于TN系统</li>
+                        <li><strong>重复接地：</strong>零线上的一处或多处再次接地，降低漏电设备对地电压</li>
+                        <li><strong>接地电阻要求：</strong>高压设备接地电阻≤4Ω，低压设备≤4Ω，重复接地≤10Ω，防雷接地≤10Ω</li>
+                    </ul>
+                    <div class="danger">
+                        <strong>高频考题：</strong>保护接地适用于IT系统；保护接零适用于TN系统。在同一供电系统中，不允许一部分设备保护接地、另一部分设备保护接零。
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 模块七 -->
+        <div class="module" id="m7">
+            <div class="module-title">七、电气安全技术</div>
+
+            <div class="point-group">
+                <div class="point-title">1. 触电方式与电流危害 <span class="tag hot">高频</span></div>
+                <div class="point-content">
+                    <ul>
+                        <li><strong>触电方式：</strong>单相触电、两相触电、跨步电压触电、接触电压触电、感应电压触电</li>
+                        <li><strong>两相触电：</strong>最危险，人体承受线电压（380V），危险性最大</li>
+                        <li><strong>跨步电压：</strong>高压接地故障时，人在故障点周围行走，两脚之间的电压，离接地点越近越大，20米以外为零</li>
+                        <li><strong>电流危害分级：</strong>感知电流（男1.1mA，女0.7mA）、摆脱电流（男16mA，女10.5mA）、室颤电流（50mA以上致命）</li>
+                        <li><strong>安全电流：</strong>30mA·s（交流）</li>
+                    </ul>
+                    <div class="danger">
+                        <strong>必考点：</strong>电流通过人体最危险的途径是<strong>左手到前胸</strong>（经过心脏）。
+                    </div>
+                </div>
+            </div>
+
+            <div class="point-group">
+                <div class="point-title">2. 触电急救 <span class="tag hot">高频</span></div>
+                <div class="point-content">
+                    <ul>
+                        <li><strong>脱离电源：</strong>拉闸断电、用绝缘物挑开电线、单手拽触电者干燥衣服</li>
+                        <li><strong>心肺复苏（CPR）：</strong>胸外按压 + 人工呼吸 = 30:2，按压频率100-120次/分，按压深度5-6cm</li>
+                        <li><strong>口对口人工呼吸：</strong>每次吹气1秒以上，看到胸廓起伏</li>
+                        <li><strong>抢救原则：</strong>迅速、就地、准确、坚持（"八字原则"），医生到来前不得放弃抢救</li>
+                    </ul>
+                    <div class="tip">
+                        <strong>操作要点：</strong>判断意识→呼救→判断呼吸→胸外按压→开放气道→人工呼吸
+                    </div>
+                </div>
+            </div>
+
+            <div class="point-group">
+                <div class="point-title">3. 安全用具与标识 <span class="tag hot">高频</span></div>
+                <div class="point-content">
+                    <ul>
+                        <li><strong>绝缘安全用具：</strong>绝缘棒（操作隔离开关）、绝缘夹钳、验电器、绝缘手套、绝缘靴、绝缘垫、绝缘台</li>
+                        <li><strong>一般防护安全用具：</strong>安全带、安全帽、携带型接地线、临时遮栏、标示牌</li>
+                        <li><strong>验电器使用：</strong>使用前在有电设备上试验确认良好，验电时戴绝缘手套，逐相验电</li>
+                        <li><strong>安全标识：</strong>禁止合闸有人工作（红底白字）、禁止合闸线路有人工作（红底白字）、止步高压危险（白底红边黑字）、在此工作（绿底白字）</li>
+                        <li><strong>安全色：</strong>红色（禁止/停止）、黄色（警告/注意）、蓝色（指令/必须遵守）、绿色（提示/安全状态）</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="point-group">
+                <div class="point-title">4. 保证安全的组织措施与技术措施 <span class="tag hot">高频</span> <span class="tag easy-wrong">易错</span></div>
+                <div class="point-content">
+                    <ul>
+                        <li><strong>组织措施：</strong>工作票制度、工作许可制度、工作监护制度、工作间断转移和终结制度</li>
+                        <li><strong>技术措施：</strong>停电、验电、装设接地线、悬挂标示牌和装设遮栏</li>
+                        <li><strong>装设接地线顺序：</strong>先接接地端，后接导体端；拆除时相反</li>
+                        <li><strong>工作票类型：</strong>第一种工作票（高压设备停电工作）、第二种工作票（高压设备不停电工作、低压带电作业）</li>
+                        <li><strong>工作许可人：</strong>负责审查工作票所列安全措施是否正确完备</li>
+                    </ul>
+                    <div class="danger">
+                        <strong>必考陷阱：</strong>装设接地线必须<strong>先接接地端，后接导体端</strong>，顺序绝对不能反！拆除时相反。
+                    </div>
+                </div>
+            </div>
+
+            <div class="point-group">
+                <div class="point-title">5. 电气防火防爆 <span class="tag hot">高频</span></div>
+                <div class="point-content">
+                    <ul>
+                        <li><strong>电气火灾原因：</strong>短路、过载、接触不良、散热不良、电火花、电弧</li>
+                        <li><strong>电气火灾扑救：</strong>先断电后灭火；带电灭火用二氧化碳、干粉、1211灭火器，严禁用泡沫灭火器和水</li>
+                        <li><strong>爆炸危险环境：</strong>0区（连续出现爆炸性气体）、1区（可能出现）、2区（不太可能出现）</li>
+                        <li><strong>防爆电气设备类型：</strong>隔爆型（d）、增安型（e）、本质安全型（i）、正压型（p）、充油型（o）、充砂型（q）、无火花型（n）</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 模块八 -->
+        <div class="module" id="m8">
+            <div class="module-title">八、判断题常见陷阱</div>
+
+            <div class="question-box">
+                <div class="q-title">陷阱1：偷换概念</div>
+                <p><strong>题目：</strong>"保护接地适用于TN系统。"</p>
+                <p><strong>答案：</strong>错误。保护接地适用于IT系统，保护接零才适用于TN系统。</p>
+            </div>
+
+            <div class="question-box">
+                <div class="q-title">陷阱2：数字陷阱</div>
+                <p><strong>题目：</strong>"我国安全电压额定值为42V、36V、24V、12V、6V，其中特别潮湿场所应使用24V。"</p>
+                <p><strong>答案：</strong>错误。特别潮湿场所应使用12V。</p>
+            </div>
+
+            <div class="question-box">
+                <div class="q-title">陷阱3：绝对化表述</div>
+                <p><strong>题目：</strong>"变压器油的主要作用是绝缘和冷却，因此油位越高越好。"</p>
+                <p><strong>答案：</strong>错误。油位过高会导致溢油和使油枕失去作用。</p>
+            </div>
+
+            <div class="question-box">
+                <div class="q-title">陷阱4：顺序颠倒</div>
+                <p><strong>题目：</strong>"装设接地线时，应先接导体端，后接接地端。"</p>
+                <p><strong>答案：</strong>错误。必须先接接地端，后接导体端。</p>
+            </div>
+
+            <div class="question-box">
+                <div class="q-title">陷阱5：条件缺失</div>
+                <p><strong>题目：</strong>"中性点不接地系统发生单相接地时，可以长期继续运行。"</p>
+                <p><strong>答案：</strong>错误。只能继续运行2小时。</p>
+            </div>
+
+            <div class="question-box">
+                <div class="q-title">陷阱6：因果混淆</div>
+                <p><strong>题目：</strong>"电流互感器二次侧开路会产生大电流，烧坏互感器。"</p>
+                <p><strong>答案：</strong>错误。CT二次侧开路会产生高电压，危及人身和设备安全。</p>
+            </div>
+
+            <div class="question-box">
+                <div class="q-title">陷阱7：范围扩大/缩小</div>
+                <p><strong>题目：</strong>"高压断路器只能切断负荷电流，不能切断短路电流。"</p>
+                <p><strong>答案：</strong>错误。断路器既能切断负荷电流，也能切断短路电流。</p>
+            </div>
+
+            <div class="question-box">
+                <div class="q-title">陷阱8：张冠李戴</div>
+                <p><strong>题目：</strong>"电压互感器二次侧严禁开路。"</p>
+                <p><strong>答案：</strong>错误。PT二次侧严禁短路，CT二次侧严禁开路。</p>
+            </div>
+        </div>
+
+        <!-- 模块九 -->
+        <div class="module" id="m9">
+            <div class="module-title">九、单选题速记要点</div>
+
+            <div class="point-group">
+                <div class="point-title">数字类考点速记</div>
+                <div class="point-content">
+                    <ul>
+                        <li>安全电压：42/36/24/12/6V，潮湿环境12V</li>
+                        <li>高压低压分界：250V</li>
+                        <li>中性点不接地系统单相接地允许运行：2小时</li>
+                        <li>接地电阻：工作接地≤4Ω，重复接地≤10Ω，防雷接地≤10Ω</li>
+                        <li>感知电流：男1.1mA，女0.7mA；摆脱电流：男16mA，女10.5mA；室颤电流：50mA</li>
+                        <li>心肺复苏：按压30次 + 吹气2次，频率100-120次/分，深度5-6cm</li>
+                        <li>变压器上层油温：一般不超过85℃，最高95℃</li>
+                        <li>跨步电压安全距离：离接地点20米以外为零</li>
+                        <li>10kV线路对地距离：居民区6.5m，非居民区5.5m</li>
+                        <li>绝缘手套试验周期：6个月；绝缘靴：6个月；绝缘棒：1年</li>
+                        <li>特种作业操作证有效期：6年，每3年复审一次</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="point-group">
+                <div class="point-title">分类类考点速记</div>
+                <div class="point-content">
+                    <ul>
+                        <li>触电方式：单相、两相、跨步电压、接触电压、感应电压</li>
+                        <li>过电压：内部（操作、谐振、工频）、外部（直击雷、感应雷、雷电波侵入）</li>
+                        <li>短路类型：三相（对称）、两相、两相接地、单相接地（不对称）</li>
+                        <li>变压器并列条件：组别相同、变比相等、阻抗相等、容量比≤3:1</li>
+                        <li>"五防"：防误分误合、防带负荷拉合、防带电挂地线、防带地线合闸、防误入带电间隔</li>
+                        <li>组织措施：工作票、工作许可、工作监护、工作间断转移终结</li>
+                        <li>技术措施：停电、验电、装设接地线、悬挂标示牌装设遮栏</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="point-group">
+                <div class="point-title">公式类考点速记</div>
+                <div class="point-content">
+                    <ul>
+                        <li>欧姆定律：I = U/R</li>
+                        <li>电阻串联：R = R₁ + R₂；并联：1/R = 1/R₁ + 1/R₂</li>
+                        <li>单相功率：P = UIcosφ；三相功率：P = √3·U线·I线·cosφ</li>
+                        <li>变压器变比：K = U₁/U₂ = N₁/N₂ = I₂/I₁</li>
+                        <li>星形：U线 = √3·U相，I线 = I相；三角形：U线 = U相，I线 = √3·I相</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 模块十 -->
+        <div class="module" id="m10">
+            <div class="module-title">十、易混淆知识点辨析</div>
+
+            <table class="compare-table">
+                <tr>
+                    <th>对比项</th>
+                    <th>保护接地</th>
+                    <th>保护接零</th>
+                </tr>
+                <tr>
+                    <td>适用系统</td>
+                    <td>IT系统</td>
+                    <td>TN系统</td>
+                </tr>
+                <tr>
+                    <td>原理</td>
+                    <td>限制设备对地电压</td>
+                    <td>促使保护装置动作切断电源</td>
+                </tr>
+                <tr>
+                    <td>接地电阻要求</td>
+                    <td>≤4Ω</td>
+                    <td>重复接地≤10Ω</td>
+                </tr>
+                <tr>
+                    <td>能否混用</td>
+                    <td colspan="2">同一供电系统中不允许一部分接地、一部分接零</td>
+                </tr>
+            </table>
+
+            <table class="compare-table">
+                <tr>
+                    <th>对比项</th>
+                    <th>电压互感器（PT）</th>
+                    <th>电流互感器（CT）</th>
+                </tr>
+                <tr>
+                    <td>二次侧额定值</td>
+                    <td>100V</td>
+                    <td>5A或1A</td>
+                </tr>
+                <tr>
+                    <td>运行禁忌</td>
+                    <td>严禁短路</td>
+                    <td>严禁开路</td>
+                </tr>
+                <tr>
+                    <td>原因</td>
+                    <td>短路电流很大，烧坏PT</td>
+                    <td>开路产生高电压，危及安全</td>
+                </tr>
+                <tr>
+                    <td>二次侧接地</td>
+                    <td>必须有一点可靠接地</td>
+                    <td>必须有一点可靠接地</td>
+                </tr>
+            </table>
+
+            <table class="compare-table">
+                <tr>
+                    <th>对比项</th>
+                    <th>断路器</th>
+                    <th>隔离开关</th>
+                </tr>
+                <tr>
+                    <td>灭弧装置</td>
+                    <td>有</td>
+                    <td>无</td>
+                </tr>
+                <tr>
+                    <td>切断负荷电流</td>
+                    <td>可以</td>
+                    <td>不可以</td>
+                </tr>
+                <tr>
+                    <td>切断短路电流</td>
+                    <td>可以</td>
+                    <td>不可以</td>
+                </tr>
+                <tr>
+                    <td>作用</td>
+                    <td>控制+保护</td>
+                    <td>隔离电源，形成明显断开点</td>
+                </tr>
+            </table>
+
+            <table class="compare-table">
+                <tr>
+                    <th>对比项</th>
+                    <th>第一种工作票</th>
+                    <th>第二种工作票</th>
+                </tr>
+                <tr>
+                    <td>适用工作</td>
+                    <td>高压设备上需要全部停电或部分停电的工作</td>
+                    <td>高压设备上不停电的工作、低压带电作业</td>
+                </tr>
+                <tr>
+                    <td>安全措施</td>
+                    <td>需要停电、验电、装设接地线等</td>
+                    <td>不需要停电</td>
+                </tr>
+            </table>
+
+            <div class="highlight">
+                <strong>考前冲刺建议：</strong>最后三天重点看本手册第八、九、十部分，配合刷题软件查漏补缺。考试时先做有把握的题，标记不确定的题目，做完后回头检查。判断题拿不准时，注意绝对化词汇（"一定""必须""所有""只要"）往往是错误选项。
+            </div>
+        </div>
+
+        <footer>
+            <p>高压电工证备考背题手册 · 依据最新《特种作业人员安全技术培训考核管理规定》编制</p>
+            <p>祝考试顺利，一次通过！</p>
+        </footer>
+    </div>
+</body>
+</html>

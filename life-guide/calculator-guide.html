@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>江苏专转本考场计算器合规指南｜政策·机型·全流程</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f0f2f5; color: #333; line-height: 1.6; padding-bottom: 80px;
+}
+.header {
+    background: linear-gradient(135deg, #0f3d2e 0%, #166534 100%);
+    color: #fff; padding: 18px 15px; text-align: center;
+    position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,.15);
+}
+.header h1 { font-size: 18px; letter-spacing: 1px; }
+.header p { font-size: 12px; opacity: .9; margin-top: 4px; }
+.tabs {
+    display: flex; background: #fff; border-bottom: 1px solid #e5e7eb;
+    position: sticky; top: 64px; z-index: 99; overflow-x: auto;
+}
+.tab {
+    flex: 1; min-width: 72px; padding: 11px 4px; text-align: center;
+    font-size: 13px; color: #666; background: none; border: none;
+    border-bottom: 2px solid transparent; cursor: pointer; white-space: nowrap;
+}
+.tab.active { color: #166534; font-weight: bold; border-bottom-color: #166534; }
+.content { padding: 12px; max-width: 760px; margin: 0 auto; }
+.section { display: none; }
+.section.active { display: block; }
+.card {
+    background: #fff; border-radius: 10px; padding: 14px; margin-bottom: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.06);
+}
+.card-title {
+    font-size: 15px; font-weight: bold; color: #0f3d2e; padding-bottom: 8px;
+    margin-bottom: 10px; border-bottom: 1px solid #f0f0f0;
+}
+.warn {
+    background: #fef2f2; border-left: 3px solid #dc2626; padding: 10px 12px;
+    font-size: 13px; border-radius: 0 6px 6px 0; margin-bottom: 12px; color: #7f1d1d;
+}
+.warn b { color: #b91c1c; }
+.notes {
+    background: #fef3c7; border-left: 3px solid #f59e0b; padding: 10px 12px;
+    font-size: 13px; border-radius: 0 6px 6px 0; margin-bottom: 12px; color: #78350f;
+}
+.tip {
+    background: #dcfce7; border-left: 3px solid #16a34a; padding: 10px 12px;
+    font-size: 13px; border-radius: 0 6px 6px 0; margin-bottom: 12px; color: #14532d;
+}
+.quote {
+    background: #f8fafc; border: 1px solid #e2e8f0; border-left: 3px solid #166534;
+    border-radius: 0 6px 6px 0; padding: 11px 13px; font-size: 12.5px; color: #475569;
+    margin: 8px 0; white-space: pre-wrap;
+}
+.quote .src { display: block; margin-top: 6px; font-size: 11px; color: #94a3b8; }
+table { width: 100%; border-collapse: collapse; font-size: 12.5px; margin: 6px 0; }
+th, td { border: 1px solid #e5e7eb; padding: 8px 7px; text-align: center; vertical-align: top; }
+th { background: #f0fdf4; color: #0f3d2e; font-weight: 600; }
+td.l { text-align: left; }
+td.ok { background: #f0fdf4; color: #15803d; font-weight: 600; }
+td.no { background: #fef2f2; color: #b91c1c; font-weight: 600; }
+.step {
+    display: flex; align-items: flex-start; padding: 10px 6px;
+    border-bottom: 1px dashed #e5e7eb;
+}
+.step:last-child { border-bottom: none; }
+.step-num {
+    width: 26px; height: 26px; border-radius: 50%; background: #166534; color: #fff;
+    font-size: 13px; font-weight: bold; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0; margin-right: 10px; margin-top: 1px;
+}
+.step-body { font-size: 13px; color: #444; }
+.step-body b { color: #0f3d2e; }
+.prod {
+    border: 2px solid #e5e7eb; border-radius: 10px; padding: 13px; margin-bottom: 12px;
+    background: #fff;
+}
+.prod.rec { border-color: #16a34a; background: #f6fef9; }
+.prod-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px; }
+.prod-name { font-size: 15px; font-weight: bold; color: #0f3d2e; }
+.badge {
+    font-size: 11px; padding: 2px 9px; border-radius: 20px; font-weight: 600;
+}
+.badge.rec { background: #16a34a; color: #fff; }
+.badge.alt { background: #e5e7eb; color: #475569; }
+.prod-price { font-size: 13px; color: #b45309; font-weight: 600; margin: 3px 0 8px; }
+.prod h4 { font-size: 12.5px; color: #166534; margin: 8px 0 3px; }
+.prod p, .prod li { font-size: 12.5px; color: #444; }
+.prod ul { padding-left: 18px; }
+.key-cap {
+    display: inline-block; background: #f1f5f9; border: 1px solid #cbd5e1;
+    border-bottom-width: 2px; border-radius: 4px; padding: 0 6px; font-size: 12px;
+    font-family: Consolas, monospace; color: #0f3d2e; margin: 1px 0;
+}
+.check-row {
+    display: flex; align-items: flex-start; padding: 11px 8px;
+    border-bottom: 1px dashed #e5e7eb; border-radius: 6px; cursor: pointer;
+}
+.check-row:last-child { border-bottom: none; }
+.checkbox {
+    width: 22px; height: 22px; border: 2px solid #d1d5db; border-radius: 5px;
+    margin-right: 10px; flex-shrink: 0; display: flex; align-items: center;
+    justify-content: center; font-size: 13px; color: #fff; transition: all .15s; margin-top: 1px;
+}
+.checkbox.done { background: #16a34a; border-color: #16a34a; }
+.check-label { font-size: 13px; color: #444; line-height: 1.5; }
+.check-label b { color: #0f3d2e; }
+.check-label.done { text-decoration: line-through; color: #9ca3af; }
+.group-label {
+    font-size: 13px; font-weight: bold; color: #166534; padding: 10px 6px 4px;
+}
+.progress-wrap { background: #e5e7eb; border-radius: 20px; height: 14px; overflow: hidden; margin: 6px 0 2px; }
+.progress-bar { height: 100%; background: linear-gradient(90deg, #16a34a, #22c55e); width: 0; transition: width .3s; }
+.progress-text { font-size: 12px; color: #666; text-align: center; margin-bottom: 8px; }
+.footer-actions {
+    position: fixed; bottom: 16px; right: 16px; display: flex; gap: 10px; z-index: 100;
+}
+.btn {
+    border: none; padding: 10px 16px; border-radius: 25px; font-size: 12.5px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.18); cursor: pointer; color: #fff;
+}
+.btn-print { background: #166534; }
+.btn-reset { background: #ef4444; }
+a { color: #166534; }
+.small { font-size: 11.5px; color: #888; }
+ul.body { padding-left: 20px; font-size: 13px; color: #444; }
+ul.body li { margin-bottom: 5px; }
+@media print {
+    body { background: #fff; padding-bottom: 0; }
+    .header { position: static; box-shadow: none; }
+    .tabs, .footer-actions { display: none; }
+    .section { display: block !important; page-break-inside: auto; }
+    .card, .prod { box-shadow: none; border: 1px solid #ddd; }
+    .check-row { cursor: default; }
+}
+@media (max-width: 380px) {
+    .header h1 { font-size: 16px; }
+    .tab { font-size: 12px; min-width: 64px; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>江苏专转本·考场计算器合规指南</h1>
+    <p>政策依据 → 机型推荐 → 考前/考场/应急全流程 ｜ 依据2026年官方文件，2027年以当年通知为准</p>
+</div>
+
+<div class="tabs">
+    <button class="tab active" data-tab="policy">政策规定</button>
+    <button class="tab" data-tab="models">机型推荐</button>
+    <button class="tab" data-tab="before">考前准备</button>
+    <button class="tab" data-tab="exam">考场操作</button>
+    <button class="tab" data-tab="emergency">应急处理</button>
+    <button class="tab" data-tab="check">清单打卡</button>
+</div>
+
+<div class="content">
+
+<!-- ============ 政策规定 ============ -->
+<div id="policy" class="section active">
+
+    <div class="warn"><b>一句话结论：</b>计算机（电脑/平板/PDA）<b>任何科目一律严禁带入</b>；计算器<b>分科区别对待</b>——仅7类专业综合科目允许携带「不具备存储记忆功能的普通计算器」，高等数学、英语、大学语文等科目<b>严禁携带</b>。</div>
+
+    <div class="card">
+        <div class="card-title">官方政策依据</div>
+        <p style="font-size:13px;color:#444">江苏省教育考试院《江苏省2026年普通高等学校"专转本"选拔考试考前提醒》（2026-03-16发布，考试3月21—22日）原文：</p>
+        <div class="quote">考生只准携带2B铅笔、0.5毫米黑色墨水的签字笔、直尺、圆规、量角器、三角板、无封套橡皮、小刀、空白垫纸板和透明笔袋进入考场，其他任何物品不准带入考场；考场内不得自行传递文具和其他用品等，否则按违规论处。
+
+电子信息类（基础理论和操作技能）、土木建筑类（基础理论和操作技能）、化工生物类（基础理论和操作技能）、财经类（基础理论和操作技能）、资源环境类（基础理论和操作技能）、机械工程类（基础理论和操作技能）、食品类（操作技能）考试时可携带不具备存储记忆功能的普通计算器进入考场，但不允许互相借用。其他考试科目严禁携带计算器进入考场。
+
+考生严禁携带手机等各种具有发送或者接收信息功能的设备进入考场，开考后无论是否使用，一律按作弊处理。
+<span class="src">来源：江苏省教育考试院 jseea.cn ｜ 2025年考点版《考生指南》条文相同，政策口径近年稳定</span></div>
+        <p style="font-size:12.5px;color:#444">另据省考试院《考生守则》第四条：严禁携带"电子存储记忆录放设备、<b>手表</b>（考场内设置时钟）"等物品入场，携带者考前不交出，开考后一律按违规论处。</p>
+    </div>
+
+    <div class="card">
+        <div class="card-title">各科目对照表（对号入座）</div>
+        <table>
+            <tr><th>考试科目</th><th>计算器</th><th>说明</th></tr>
+            <tr><td class="l">高等数学（150分）</td><td class="no">严禁</td><td class="l">全程笔算，连座位都不能放</td></tr>
+            <tr><td class="l">英语 / 日语（120分）</td><td class="no">严禁</td><td class="l">—</td></tr>
+            <tr><td class="l">大学语文</td><td class="no">严禁</td><td class="l">—</td></tr>
+            <tr><td class="l">电子信息类 专业综合</td><td class="ok">可带</td><td class="l">基础理论+操作技能两场均可</td></tr>
+            <tr><td class="l">机械工程类 专业综合</td><td class="ok">可带</td><td class="l">基础理论+操作技能两场均可</td></tr>
+            <tr><td class="l">土木建筑类 专业综合</td><td class="ok">可带</td><td class="l">基础理论+操作技能两场均可</td></tr>
+            <tr><td class="l">化工生物类 专业综合</td><td class="ok">可带</td><td class="l">基础理论+操作技能两场均可</td></tr>
+            <tr><td class="l">财经类 专业综合</td><td class="ok">可带</td><td class="l">基础理论+操作技能两场均可</td></tr>
+            <tr><td class="l">资源环境类 专业综合</td><td class="ok">可带</td><td class="l">基础理论+操作技能两场均可</td></tr>
+            <tr><td class="l">食品类</td><td class="ok">仅技能场</td><td class="l">只有操作技能一场可带</td></tr>
+            <tr><td class="l">其余大类、美术设计类等</td><td class="no">严禁</td><td class="l">美术类另有专门画具清单</td></tr>
+        </table>
+        <div class="tip" style="margin-bottom:0;margin-top:8px"><b>与你相关：</b>电气工程及其自动化在江苏专转本划入<b>电子信息类</b>，专业综合（电路、模电、数电）可带普通计算器；但高数和英语两科全程无机。</div>
+    </div>
+
+    <div class="card">
+        <div class="card-title">什么样的机器才算"普通计算器"</div>
+        <table>
+            <tr><th>合规（可以带）</th><th>违规/高风险（不要带）</th></tr>
+            <tr>
+                <td class="l">无编程（无PROGRAM键）<br>无图形显示（非GRAPH）<br>无文本/公式储存<br>无蓝牙/无线通讯接口<br>仅有M+临时记忆、A-F临时变量（关机即清空）</td>
+                <td class="l">图形计算器（TI-84等）<br>可编程机型（fx-5800P等）<br>fx-991CN X（可解方程/复数/矩阵，属"普通计算器"口径下的灰色高风险机型）<br>手机、智能手表、带计算功能的电子表<br>任何"82升级991"破解改装机</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="card">
+        <div class="card-title">违规后果（不要心存侥幸）</div>
+        <ul class="body">
+            <li>依《国家教育考试违规处理办法》（教育部令第33号）：考试作弊的，<b>取消本次专转本各科成绩和录取资格</b>，记入国家教育考试诚信档案，生源院校另行纪律处分。</li>
+            <li>开考后在禁带科目座位上发现计算器，即按夹带违规处理。</li>
+            <li>组织作弊、替考、提供作弊器材等，依《刑法》追究刑事责任。</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <div class="card-title">退役士兵特别提醒（2027年）</div>
+        <ul class="body">
+            <li>2026年文件明确：退役大学生士兵4月报名、安排另行通知。<b>2027年1月省考试院通知发布后，第一时间核对你所走通道的规则。</b></li>
+            <li>若走退役士兵职业技能综合考查（免文化课统考）：考场规则由组织院校/联考委在考查须知中明确，实务普遍参照统考禁带清单执行，可直接致电招生院校招办确认。</li>
+            <li>若参加统一大类考试：直接适用本页分科目规定。</li>
+            <li>真正的拉分主线是高数（150分无机可用）和手算功底，计算器只是提高算术速度的配角。</li>
+        </ul>
+    </div>
+</div>
+
+<!-- ============ 机型推荐 ============ -->
+<div id="models" class="section">
+
+    <div class="notes">选购三原则：①只买<b>官方旗舰店/授权店国行正品</b>，不碰二手和"破解升级版"；②机身无贴纸无刻字、功能越朴素越安全；③提前2-4周购入并练熟，绝不能考试当天用新机器。</div>
+
+    <div class="prod rec">
+        <div class="prod-head">
+            <span class="prod-name">① 卡西欧 fx-82ES PLUS A 2</span>
+            <span class="badge rec">首推·监考零争议</span>
+        </div>
+        <div class="prod-price">参考价 ¥65-89 ｜ 双重电源（太阳能+纽扣电池）约170g</div>
+        <h4>核心基础功能</h4>
+        <p>自然书写显示（分数、根号、π原样输入输出）；三角/反三角函数、对数指数、乘方开方、阶乘、排列组合、基础统计与回归、随机数。</p>
+        <h4>考试适配优势</h4>
+        <p>全国考场保有量最大的函数机，监考一眼认识、几乎不被刁难；<b>没有</b>编程、文本储存、解方程、复数、矩阵功能——合规性最干净。欧姆定律、阻抗模值、对数频率、统计小题都够用。</p>
+        <h4>使用注意</h4>
+        <ul>
+            <li>不能做复数（相量）运算和解方程：正弦稳态相量题要自己手算代数形式⇄极坐标换算，平时必须练；</li>
+            <li>严禁买二手或"82升级991破解版"（改装机是考场重点嫌疑对象）；</li>
+            <li>进场后用 <span class="key-cap">SHIFT</span>+<span class="key-cap">9</span> → <span class="key-cap">3</span>(All) 复位清空历史。</li>
+        </ul>
+    </div>
+
+    <div class="prod">
+        <div class="prod-head">
+            <span class="prod-name">② 卡西欧 fx-350CN X</span>
+            <span class="badge alt">中文界面之选</span>
+        </div>
+        <div class="prod-price">参考价 ¥100-130 ｜ 中文按键+中文菜单 ｜ 双电源</div>
+        <h4>核心基础功能</h4>
+        <p>与82ES同级函数机，中文标识；自然书写显示，覆盖三角、对数、指数、统计等专业综合常用运算；同样无编程、无文本储存、无解方程、无复数。</p>
+        <h4>考试适配优势</h4>
+        <p>一建/二建等执业资格考场多年验证的"考试专用"型号，合规口碑稳；紧张时中文菜单防按错模式（COMP/STAT看得懂），按键手感比入门款扎实。</p>
+        <h4>使用注意</h4>
+        <ul>
+            <li>价格贵约一半，功能几乎同级，多花的钱买中文界面和做工；</li>
+            <li>考前练熟"模式初始化"和 DEG/RAD 角度切换路径；</li>
+            <li>认准国行正品可查验，不要海外版（机身标识不一致反惹监考反复检查）。</li>
+        </ul>
+    </div>
+
+    <div class="prod">
+        <div class="prod-head">
+            <span class="prod-name">③ 得力 D991ES 函数计算器</span>
+            <span class="badge alt">高性价比平替</span>
+        </div>
+        <div class="prod-price">参考价 ¥25-45 ｜ 自然书写双行显示 ｜ 双电源</div>
+        <h4>核心基础功能</h4>
+        <p>三角、对数、指数、乘方开方、分数、统计等专业综合常用功能齐全，外观与82ES同构型。</p>
+        <h4>考试适配优势</h4>
+        <p>价格最低，适合先买来练手；覆盖电子信息类专业综合80%以上的计算需求。</p>
+        <h4>使用注意</h4>
+        <ul>
+            <li>考场识别度不如卡西欧，个别严格监考可能反复检查——到手先确认机身<b>没有"解方程/TABLE/复数/CMPLX"标识</b>；</li>
+            <li>不同批次按键手感有差异，建议当备用机而非唯一用机；</li>
+            <li>别买彩壳、带电子表等花哨款式。</li>
+        </ul>
+    </div>
+
+    <div class="tip"><b>双机策略：</b>fx-82ES PLUS A 2 主力 + 一台十几元的卡西欧 MX-12B 纯算术机备用。万一考点对函数机尺度异常严格，纯算术机不存在任何争议。规定只禁止"互相借用"，自带两台自用不违规，进场一并交监考查验、听其安排。</div>
+</div>
+
+<!-- ============ 考前准备 ============ -->
+<div id="before" class="section">
+
+    <div class="card">
+        <div class="card-title">时间线</div>
+        <div class="step"><div class="step-num">1</div><div class="step-body"><b>大纲发布后：</b>确认报考本科专业所属大类（电气=电子信息类），以准考证"考生须知"栏和考点公告为最终准据。</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-body"><b>考前2-4周：</b>官方渠道购机，留足熟练时间，绝不考试当天用新机。</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-body"><b>考前1周：</b>致电考点院校考务或省考试院，对政策口径做最终确认；退役士兵综合考查通道直接问招生院校招办。</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-body"><b>考前1天：</b>机器复位、外观检查、物品分装、电池备用（见清单打卡页）。</div></div>
+    </div>
+
+    <div class="card">
+        <div class="card-title">必须练熟的7个保命操作（82ES / 350CN）</div>
+        <table>
+            <tr><th style="width:34%">操作</th><th>用途</th></tr>
+            <tr><td><span class="key-cap">SHIFT</span>+<span class="key-cap">9</span> → <span class="key-cap">3</span> All Reset</td><td class="l">清空全部记忆和历史，进场后当众复位</td></tr>
+            <tr><td>只留 COMP 普通计算模式</td><td class="l">退出 STAT / TABLE 等模式</td></tr>
+            <tr><td>DEG / RAD 角度制切换</td><td class="l"><b>每年都有人栽在这</b>：电路 sinωt 用弧度，几何题用角度</td></tr>
+            <tr><td><span class="key-cap">S⇔D</span> 键</td><td class="l">分数/小数显示互转</td></tr>
+            <tr><td>括号嵌套 + <span class="key-cap">ANS</span></td><td class="l">避免连环抄写错误</td></tr>
+            <tr><td><span class="key-cap">STO</span>/<span class="key-cap">RCL</span> 临时变量</td><td class="l">中间结果存 A/B/X/M，关机即清，不违规</td></tr>
+            <tr><td>背面 RESET 复位孔</td><td class="l">死机时用回形针戳</td></tr>
+        </table>
+    </div>
+
+    <div class="card">
+        <div class="card-title">同步练"脱机手算"</div>
+        <ul class="body">
+            <li>复数运算、方程求解、简单求导积分本就不许靠它，高数全程无机；</li>
+            <li>专业综合也要保证计算器突然失灵时：相量换算、有效值、分压分流能笔算完成；</li>
+            <li>建议每次做专业综合题，先用计算器算一遍，再挑30%的题手算复核。</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <div class="card-title">外观与物品规范</div>
+        <ul class="body">
+            <li>机身<b>零改装</b>：不贴任何纸条、公式贴、贴纸，不刻字；包装盒、说明书留宿舍；</li>
+            <li>备一颗同型号纽扣电池放透明笔袋（更换前须举手征得同意）；</li>
+            <li>透明笔袋内：计算器 + 2B铅笔 + 0.5mm黑色签字笔（多备2支）+ 无封套橡皮 + 直尺/圆规/三角板/量角器 + 小刀 + 空白垫板；</li>
+            <li>手机、智能手表/手环、电子耳机放宿舍或考场外存放处——<b>连机械手表都不要带</b>，考场内设时钟。</li>
+        </ul>
+    </div>
+</div>
+
+<!-- ============ 考场操作 ============ -->
+<div id="exam" class="section">
+    <div class="card">
+        <div class="card-title">入场到交卷标准流程</div>
+        <div class="step"><div class="step-num">1</div><div class="step-body">入场时计算器拿在手里或置于透明笔袋，主动配合金属探测器和身份核验，不要塞口袋深处。</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-body">入座后把计算器放在桌面靠走道一角（与准考证、身份证同侧），等监考指示，发卷前不随意按键。</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-body"><b>发卷后第一件事：当众执行 All Reset 清零</b>（SHIFT+9→3），然后确认 COMP 模式与角度单位。</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-body">只当计算工具用：不敲键打节奏，不与旁人的机器有任何交互——<b>借进借出都按违规论</b>。</div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-body">关键中间结果同步抄草稿纸，不依赖历史记录；每题算完复核量级（低压小电阻电路算出几十千欧立即重算）。</div></div>
+        <div class="step"><div class="step-num">6</div><div class="step-body"><b>高数、英语场次：</b>出门前就把计算器留宿舍/存到考场外指定区域，切勿带进座位。</div></div>
+        <div class="step"><div class="step-num">7</div><div class="step-body">结束信号一响立即停笔，计算器收回笔袋，按指令错峰离场，不在考场附近逗留。</div></div>
+    </div>
+    <div class="notes">时间规则参考：考前30分钟入场（首场提前40分钟），开考15分钟后不得入场，结束前30分钟方可交卷出场。</div>
+</div>
+
+<!-- ============ 应急处理 ============ -->
+<div id="emergency" class="section">
+    <div class="card">
+        <div class="card-title">突发情况对照表</div>
+        <table>
+            <tr><th style="width:38%">情况</th><th>处理办法</th></tr>
+            <tr><td class="l">监考认为机器不合规</td><td class="l"><b>不争执。</b>礼貌说明"无编程、无存储记忆功能的普通函数计算器"，当场演示 All Reset；仍不被允许就立即上交指定位置，改手算坚持考完，考后通过考点考务组/省考试院渠道申诉复核。当场对抗的代价远大于一台计算器。</td></tr>
+            <tr><td class="l">忘带 / 机器损坏</td><td class="l">不能向任何人借用，考点也不租借——只能纯手算。这就是平时必须练脱机运算的原因。</td></tr>
+            <tr><td class="l">死机、黑屏、按键无响应</td><td class="l">先按背面 RESET 孔复位；无效则举手报告，经同意后更换自备电池（不要自己低头拆半天，易被误会）。</td></tr>
+            <tr><td class="l">算出的数明显不对</td><td class="l">SHIFT+9 全清后重算；优先排查三件事：<b>角度/弧度制 → 括号是否配对 → 是否误留在 STAT 模式</b>。</td></tr>
+            <tr><td class="l">禁带科目发现身上带着</td><td class="l">开考前<b>主动</b>举手交监考暂存——主动上交与开考后被查出，性质完全不同。</td></tr>
+            <tr><td class="l">对政策口径不放心</td><td class="l">考前一周打考点院校考务电话或省考试院咨询确认；综合考查通道直接问组织院校。</td></tr>
+        </table>
+    </div>
+</div>
+
+<!-- ============ 清单打卡 ============ -->
+<div id="check" class="section">
+    <div class="card">
+        <div class="card-title">完成进度（自动保存在本机）</div>
+        <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+        <div class="progress-text" id="progressText">0 / 0</div>
+
+        <div class="group-label">一、考前采购与确认</div>
+        <div class="check-row"><div class="checkbox">✓</div><div class="check-label">确认报考专业所属大类及准考证考生须知（电气=电子信息类）</div></div>
+        <div class="check-row"><div class="checkbox">✓</div><div class="check-label">官方旗舰店购入合规计算器（82ES PLUS A 2 / 350CN X 等）</div></div>
+        <div class="check-row"><div class="checkbox">✓</div><div class="check-label">核对机身无"编程/图形/解方程/复数/CMPLX"标识、无改装无刻字</div></div>
+        <div class="check-row"><div class="checkbox">✓</div><div class="check-label">（可选）备一台纯算术机作双机保险</div></div>
+        <div class="check-row"><div class="checkbox">✓</div><div class="check-label">备一颗同型号纽扣电池</div></div>
+
+        <div class="group-label">二、操作训练</div>
+        <div class="check-row"><div class="checkbox">✓</div><div class="check-label">练熟 All Reset 复位（SHIFT+9→3）</div></div>
+        <div class="check-row"><div class="checkbox">✓</div><div class="check-label">练熟 DEG/RAD 角度弧度切换，知道电路题用哪个</div></div>
+        <div class="check-row"><div class="checkbox">✓</div><div class="check-label">练熟 COMP 模式确认、S⇔D、括号、ANS、STO/RCL</div></div>
+        <div class="check-row"><div class="checkbox">✓</div><div class="check-label">找到背面 RESET 孔，备回形针</div></div>
+        <div class="check-row"><div class="checkbox">✓</div><div class="check-label">完成至少3套专业综合真题的脱机手算训练（相量换算/有效值/分压分流）</div></div>
+
+        <div class="group-label">三、考前一天</div>
+        <div class="check-row"><div class="checkbox">✓</div><div class="check-label">计算器执行全清，机身无任何贴纸</div></div>
+        <div class="check-row"><div class="checkbox">✓</div><div class="check-label">透明笔袋装好：计算器、2B铅笔、签字笔×3、无封套橡皮、尺规、小刀、垫板</div></div>
+        <div class="check-row"><div class="checkbox">✓</div><div class="check-label">准考证 + 身份证放一起</div></div>
+        <div class="check-row"><div class="checkbox">✓</div><div class="check-label">手机、智能手表/手环、耳机留在宿舍或交给考场外存放</div></div>
+        <div class="check-row"><div class="checkbox">✓</div><div class="check-label">确认第二天不带任何手表（考场设时钟）</div></div>
+
+        <div class="group-label">四、高数/英语场次（无机场）出门前</div>
+        <div class="check-row"><div class="checkbox">✓</div><div class="check-label">计算器已留在宿舍或放进考场外指定存放区，<b>不在身上</b></div></div>
+
+        <div class="group-label">五、专业综合场次（可带场）入场后</div>
+        <div class="check-row"><div class="checkbox">✓</div><div class="check-label">主动配合安检，计算器放桌面靠走道一角</div></div>
+        <div class="check-row"><div class="checkbox">✓</div><div class="check-label">发卷后当众 All Reset，确认 COMP 模式与角度单位</div></div>
+        <div class="check-row"><div class="checkbox">✓</div><div class="check-label">中间结果同步抄草稿纸，每题复核量级</div></div>
+        <div class="check-row"><div class="checkbox">✓</div><div class="check-label">全程不借用、不出借，交卷信号响即停笔</div></div>
+    </div>
+    <p class="small">勾选数据仅保存在本浏览器 localStorage，不上传。可点右下角「打印」打印纸质版考前逐项核对。</p>
+</div>
+
+</div>
+
+<div class="footer-actions">
+    <button class="btn btn-print" onclick="window.print()">打印 / 存PDF</button>
+    <button class="btn btn-reset" id="resetBtn">清空打卡</button>
+</div>
+
+<script>
+// Tab switching
+document.querySelectorAll('.tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+        document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+        document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.tab).classList.add('active');
+        window.scrollTo(0,0);
+    });
+});
+
+// Checklist with localStorage
+var STORE_KEY = 'zhuanzhuanben_calc_checklist_v1';
+var rows = document.querySelectorAll('#check .check-row');
+var saved = {};
+try { saved = JSON.parse(localStorage.getItem(STORE_KEY) || '{}'); } catch(e) { saved = {}; }
+
+function updateProgress(){
+    var done = document.querySelectorAll('#check .checkbox.done').length;
+    var total = rows.length;
+    var pct = total ? Math.round(done/total*100) : 0;
+    document.getElementById('progressBar').style.width = pct + '%';
+    document.getElementById('progressText').textContent = done + ' / ' + total + ' 已完成（' + pct + '%）';
+}
+
+rows.forEach(function(row, idx){
+    var box = row.querySelector('.checkbox');
+    var label = row.querySelector('.check-label');
+    if (saved[idx]) { box.classList.add('done'); label.classList.add('done'); }
+    row.addEventListener('click', function(){
+        box.classList.toggle('done');
+        label.classList.toggle('done');
+        saved[idx] = box.classList.contains('done');
+        localStorage.setItem(STORE_KEY, JSON.stringify(saved));
+        updateProgress();
+    });
+});
+updateProgress();
+
+document.getElementById('resetBtn').addEventListener('click', function(){
+    if (!confirm('确定清空全部打卡记录？')) return;
+    saved = {};
+    localStorage.removeItem(STORE_KEY);
+    rows.forEach(function(row){
+        row.querySelector('.checkbox').classList.remove('done');
+        row.querySelector('.check-label').classList.remove('done');
+    });
+    updateProgress();
+});
+</script>
+</body>
+</html>

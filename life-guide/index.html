@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>个人手册库</title>
+<style>
+  :root{
+    --ink:#1f2430; --sub:#6b7280; --line:#e8e3dd; --bg:#faf8f6;
+    --acc:#c2185b;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB","Segoe UI",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.8;font-size:15px;
+    padding:40px 20px 80px;
+  }
+  .wrap{max-width:880px;margin:0 auto}
+  header{margin-bottom:34px}
+  header h1{font-size:27px;color:#ad1457;margin-bottom:8px}
+  header p{font-size:14px;color:var(--sub)}
+
+  .group{margin-bottom:34px}
+  .group > h2{
+    font-size:14px;letter-spacing:2px;color:#8d6e63;font-weight:700;
+    padding-bottom:10px;border-bottom:1px solid var(--line);margin-bottom:16px;
+  }
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+  a.card{
+    display:block;background:#fff;border:1px solid var(--line);border-radius:14px;
+    padding:20px 22px;text-decoration:none;color:inherit;transition:.18s;
+  }
+  a.card:hover{border-color:#f48fb1;transform:translateY(-2px);box-shadow:0 6px 20px rgba(194,24,91,.08)}
+  a.card .t{font-size:16px;font-weight:700;margin-bottom:6px;color:#37474f}
+  a.card:hover .t{color:var(--acc)}
+  a.card .d{font-size:12.8px;color:var(--sub);line-height:1.65}
+  a.card .tagline{
+    display:inline-block;margin-top:10px;font-size:11px;padding:2px 9px;
+    border-radius:5px;background:#fce4ec;color:#ad1457;font-weight:600;
+  }
+  footer{text-align:center;font-size:12px;color:#b0a8a0;margin-top:40px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>个人手册库</h1>
+  <p>自己整理的资料，放在这里随时查。共 11 份。</p>
+</header>
+
+<div class="group">
+  <h2>情感与沟通</h2>
+  <div class="grid">
+    <a class="card" href="love-guide-overview.html">
+      <div class="t">恋爱关系全阶段指南</div>
+      <div class="d">从线上预热到长期相处的七个阶段，每阶段含核心目标、底层逻辑、常见误区、实操措施与话术。</div>
+      <span class="tagline">总纲</span>
+    </a>
+    <a class="card" href="love-guide-detailed.html">
+      <div class="t">恋爱关系全阶段详解</div>
+      <div class="d">同一个框架的大白话版。每阶段配完整场景案例：你说什么、对方怎么回、出问题怎么救。</div>
+      <span class="tagline">案例最多</span>
+    </a>
+    <a class="card" href="emotion-communication.html">
+      <div class="t">情感沟通指南</div>
+      <div class="d">八个独立栏目，从初识破冰到止损退出。含聊天四阶段判定表、升温五信号、L0–L4 尺度阶梯。</div>
+      <span class="tagline">结构最细</span>
+    </a>
+    <a class="card" href="love-4week-training.html">
+      <div class="t">恋爱能力 4 周训练表</div>
+      <div class="d">把沟通能力拆成四周可打卡的训练任务，按周推进。</div>
+      <span class="tagline">训练计划</span>
+    </a>
+    <a class="card" href="love-guide-programming.html">
+      <div class="t">恋爱关系编程教程</div>
+      <div class="d">用程序员视角重写的版本：每个阶段当作模块，话术当代码，含输入参数、预期输出、失败排查、边界 case。</div>
+      <span class="tagline">技术流改写</span>
+    </a>
+  </div>
+</div>
+
+<div class="group">
+  <h2>备考与证书</h2>
+  <div class="grid">
+    <a class="card" href="exam-schedule.html">
+      <div class="t">备考日程规划</div>
+      <div class="d">专转本与各类证书考试的时间线排布与阶段目标。</div>
+      <span class="tagline">时间线</span>
+    </a>
+    <a class="card" href="calculator-guide.html">
+      <div class="t">专转本计算器考场指南</div>
+      <div class="d">哪些机型会被拦、哪些合规、怎么选。含 fx-991 全系风险说明与合规替代型号。</div>
+      <span class="tagline">考场规则</span>
+    </a>
+    <a class="card" href="high-voltage-electrician.html">
+      <div class="t">高压电工证备考背题手册</div>
+      <div class="d">按考点模块整理的背诵填空与速查表，适合考前集中过一遍。</div>
+      <span class="tagline">背题</span>
+    </a>
+    <a class="card" href="fire-operator.html">
+      <div class="t">初级消防设施操作员证备考背题手册</div>
+      <div class="d">核心概念、关键参数、技术标准的填空专项，章末附答案。</div>
+      <span class="tagline">背题</span>
+    </a>
+  </div>
+</div>
+
+<div class="group">
+  <h2>自我管理</h2>
+  <div class="grid">
+    <a class="card" href="breakthrough-tracker.html">
+      <div class="t">破局行动追踪器</div>
+      <div class="d">只追踪三个动作：手机物理隔离、每周三句话复盘、48 小时粗糙交付。带打卡热力图与数据本地保存。</div>
+      <span class="tagline">可交互</span>
+    </a>
+    <a class="card" href="psych-quiz.html">
+      <div class="t">个人发展深度心理测验</div>
+      <div class="d">长线投入、复盘机制等维度的自测，建议隔一段时间重做对比选项变化。</div>
+      <span class="tagline">自测</span>
+    </a>
+  </div>
+</div>
+
+<footer>个人资料 · 仅供自用查阅</footer>
+
+</div>
+</body>
+</html>

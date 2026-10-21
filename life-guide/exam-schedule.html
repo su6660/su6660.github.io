@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>三考备考日程规划台 · 专转本 / 教资 / 社工</title>
+<style>
+  :root{
+    --zhuan:#2563eb;      /* 专转本 主线 */
+    --jiao:#ea580c;       /* 教资 */
+    --she:#059669;        /* 社工 */
+    --bg:#f5f7fb;
+    --card:#ffffff;
+    --line:#e5e9f0;
+    --txt:#1e2533;
+    --sub:#6b7488;
+    --warn:#b45309;
+    --warnbg:#fef6e7;
+    --danger:#b91c1c;
+    --dangerbg:#fef2f2;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;background:var(--bg);color:var(--txt);
+    font-family:"Microsoft YaHei","PingFang SC","Segoe UI",system-ui,sans-serif;
+    font-size:14px;line-height:1.65;
+  }
+  .wrap{max-width:1120px;margin:0 auto;padding:28px 20px 80px}
+  header.top{
+    background:linear-gradient(135deg,#1e293b,#334155);color:#fff;
+    border-radius:16px;padding:26px 28px;margin-bottom:20px;
+  }
+  header.top h1{margin:0 0 8px;font-size:24px;letter-spacing:.5px}
+  header.top p{margin:0;color:#cbd5e1;font-size:13px}
+  .badges{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
+  .badge{padding:3px 10px;border-radius:999px;font-size:12px;font-weight:600}
+  .badge.b1{background:rgba(37,99,235,.25);color:#bfdbfe;border:1px solid rgba(96,165,250,.5)}
+  .badge.b2{background:rgba(234,88,12,.22);color:#fed7aa;border:1px solid rgba(251,146,60,.5)}
+  .badge.b3{background:rgba(5,150,105,.22);color:#a7f3d0;border:1px solid rgba(52,211,153,.5)}
+  .badge.b4{background:rgba(255,255,255,.14);color:#e2e8f0;border:1px solid rgba(255,255,255,.28)}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:18px}
+  .card h2{margin:0 0 14px;font-size:17px;display:flex;align-items:center;gap:8px}
+  .card h2 .dot{width:8px;height:8px;border-radius:50%;background:var(--zhuan)}
+  .muted{color:var(--sub);font-size:12.5px}
+
+  .assume{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+  .assume div{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13px}
+  .assume b{color:var(--zhuan)}
+
+  .alert{border-radius:12px;padding:14px 16px;margin-bottom:14px;font-size:13.5px;border:1px solid}
+  .alert.warn{background:var(--warnbg);border-color:#fcd34d;color:#78350f}
+  .alert.danger{background:var(--dangerbg);border-color:#fca5a5;color:#7f1d1d}
+  .alert b{display:block;margin-bottom:4px}
+
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:#f1f5f9;font-weight:700;color:#334155}
+  tr:nth-child(even) td{background:#fbfcfe}
+  .tag{display:inline-block;padding:1px 7px;border-radius:5px;font-size:11.5px;font-weight:700;color:#fff}
+  .tag.z{background:var(--zhuan)} .tag.j{background:var(--jiao)} .tag.s{background:var(--she)}
+
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+  .tab{padding:7px 15px;border-radius:9px;border:1px solid var(--line);background:#f8fafc;cursor:pointer;font-size:13px;font-weight:600;color:var(--sub)}
+  .tab.on{color:#fff;border-color:transparent}
+  .tab.on.z{background:var(--zhuan)} .tab.on.j{background:var(--jiao)} .tab.on.s{background:var(--she)}
+  .pane{display:none} .pane.on{display:block}
+
+  .phase{border-left:3px solid var(--zhuan);background:#f8fafc;border-radius:0 10px 10px 0;padding:12px 15px;margin-bottom:10px}
+  .phase h4{margin:0 0 6px;font-size:14px}
+  .phase .meta{font-size:12.5px;color:var(--sub);margin-bottom:7px}
+  .phase p{margin:3px 0;font-size:13px}
+
+  .week{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+  .day{border:1px solid var(--line);border-radius:10px;padding:9px;background:#fbfcfe;font-size:12px}
+  .day h5{margin:0 0 6px;font-size:12.5px;color:#334155}
+  .day .it{display:block;margin:3px 0;padding-left:8px;border-left:2px solid #cbd5e1}
+  .day .it.z{border-color:var(--zhuan)} .day .it.j{border-color:var(--jiao)} .day .it.s{border-color:var(--she)}
+  .day.rest{background:#f1f5f9;color:var(--sub)}
+
+  .checkrow{display:flex;align-items:flex-start;gap:9px;padding:7px 9px;border-radius:8px;margin-bottom:5px;background:#f8fafc;border:1px solid var(--line);cursor:pointer}
+  .checkrow:hover{background:#eff4fc}
+  .checkrow input{margin-top:3px;flex:0 0 auto;width:15px;height:15px;cursor:pointer}
+  .checkrow.done{opacity:.55}
+  .checkrow.done .lbl{text-decoration:line-through}
+  .lbl{flex:1}
+  .mins{color:var(--sub);font-size:12px;white-space:nowrap}
+
+  .bar{height:9px;border-radius:6px;background:#e2e8f0;overflow:hidden;margin:8px 0}
+  .bar > i{display:block;height:100%;background:linear-gradient(90deg,#2563eb,#60a5fa);width:0;transition:width .3s}
+  .statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:10px}
+  .stat{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px 12px;text-align:center}
+  .stat b{display:block;font-size:20px;color:var(--zhuan)}
+  .stat span{font-size:12px;color:var(--sub)}
+
+  .navline{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+  .btn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:6px 13px;cursor:pointer;font-size:13px;font-weight:600;color:#334155}
+  .btn:hover{background:#eef2f9}
+  .btn.primary{background:var(--zhuan);border-color:var(--zhuan);color:#fff}
+  .btn.primary:hover{filter:brightness(1.08)}
+  .datenow{font-weight:700;font-size:14px;min-width:150px}
+
+  .src li{margin:4px 0;font-size:13px}
+  a{color:var(--zhuan)}
+  footer{color:var(--sub);font-size:12px;text-align:center;padding-top:10px}
+  @media(max-width:860px){ .week{grid-template-columns:1fr 1fr} }
+  @media(max-width:520px){ .week{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <h1>八项备考日程规划台</h1>
+    <p>覆盖八项：江苏"专转本"（电子信息类·退役大学生士兵）｜ 小学教师资格证 ｜ 初级社工 ｜ 计算机一级 ｜ 计算机二级 ｜ 高压电工特种作业操作证 ｜ 消防设施操作员初级（监控）｜ CAAC 超视距无人机执照　·　生成于 2026-10-15　·　数据保存在本机浏览器，可长期跟踪</p>
+    <div class="badges">
+      <span class="badge b1">① 专转本（主线·优先）</span>
+      <span class="badge b3">② 计算机二级（国网硬门槛）</span>
+      <span class="badge b3">③ 高压电工证（服务国网·短平快）</span>
+      <span class="badge b2">④ 教资 · ⑤ 社工</span>
+      <span class="badge b4">⑥ 消防设施操作员初级 · ⑦ CAAC超视距（暑期整块）· ⑧ 计算机一级（建议省略）</span>
+    </div>
+  </header>
+
+  <!-- 关键假设 -->
+  <div class="card">
+    <h2><span class="dot"></span>关键假设（可调参数）</h2>
+    <div class="assume">
+      <div>报考身份：<b>退役大学生士兵</b>（2024–2026 服役，2 年）</div>
+      <div>专转本：<b>江苏 · 电子信息类</b>；通道待省考试院 2027 年 1 月通知后定（免试考查 / 统考）</div>
+      <div>教资：<b>小学</b>（笔试 2 科：综合素质、教育教学知识与能力）</div>
+      <div>社工：<b>初级 · 助理社工师</b>（2 科：综合能力、实务）</div>
+      <div>电工证：<b>高压电工特种作业操作证</b>（应急管理局发证，滚动开班）</div>
+      <div>消防证：<b>消防设施操作员 初级（五级）· 监控方向</b>（鉴定站按月/半月批次）</div>
+      <div>无人机：<b>CAAC 超视距（BVLOS）执照</b>（培训机构制，需整块训练期）</div>
+      <div>计算机：<b>一级 + 二级</b>（二级为国网/国企硬门槛；一级与二级重叠，建议只考二级）</div>
+      <div>每日可支配学习：<b>平日 90 分钟 + 周末 2 小时块</b>（与现有力量速度计划共用晚间 19:00–20:30 学习档）</div>
+      <div>证书训练期：<b>需额外整块时间</b>（白天/连续数日至 1 个月），走下方"串行队列"占档</div>
+      <div>备考起点：<b>2026-10-15</b>（今日）</div>
+    </div>
+    <p class="muted" style="margin-top:12px">
+      说明：以下<b>具体日期均为依据 2026 年官方日程推算</b>，2027 年正式公告尚未发布（教资约 2026 年 12 月、社工约 2027 年 3 月、江苏专转本约 2026 年 12 月–2027 年 4 月发布）。所有节点以官方公告为准，公告发布后在本文更新即可。
+    </p>
+  </div>
+
+  <!-- 冲突预警 -->
+  <div class="card">
+    <h2><span class="dot" style="background:var(--danger)"></span>时间冲突预警（务必先看）</h2>
+    <div class="alert danger">
+      <b>风险 1：5 月下旬「社工笔试」↔「专转本退役士兵职业技能综合考查」高度撞车</b>
+      2026 年实证：社工笔试 5 月 23–24 日，退役士兵考查 5 月底前完成，两者仅相隔数天。若 2027 年延续该节奏，二者无法同时全力冲刺。
+      <div style="margin-top:6px">应对（二选一）：<br>
+        · <b>方案 A（推荐）</b>：社工顺延至 <b>2028 年</b>再考，2027 年 5 月全力保专转本考查；<br>
+        · <b>方案 B</b>：社工 2027 年照考，但 5 月以专转本为唯一冲刺对象，社工只保底（考前 1 周突击法规记忆），接受"一次不成再补考"。
+      </div>
+    </div>
+    <div class="alert warn">
+      <b>风险 2：若改走「统考」通道，3 月教资笔试 ↔ 3 月下旬专转本统考同月</b>
+      2026 年实证：专转本统考 3 月 21–22 日，教资上半年笔试 3 月上旬，中间仅约 2 周。
+      <div style="margin-top:6px">应对：优先锁定<b>退役士兵免试考查通道</b>（免文化课、考查在 5 月底），即可让 3 月上旬的教资笔试"独占"该时段，冲突自然化解。<b>注意：退役士兵考查与统考不可兼报</b>，一旦报名统考即失去退役士兵政策。</div>
+    </div>
+    <div class="alert warn">
+      <b>风险 3：1 月是教资报名 + 专转本统考报名（若走统考）的双报名窗口</b>
+      应对：1 月第 1 周设"报名专项"提醒，两头都别漏（见时间节点表）。
+    </div>
+    <div class="alert danger">
+      <b>风险 4（新增）：八项不能并行——总负荷红线</b>
+      现有安排已占满平日 90 分钟 + 周末 2 小时（还与力量速度训练共用晚间档）。再叠加三张技能证书的<b>白日整块训练期</b>必然全线崩盘，违反"每周任务 80% 可完成"原则。因此三证一律走<b>串行队列</b>（一次只训一张），且必须占用日历空档，不与三考冲刺期抢时间。
+      <div style="margin-top:6px">取舍降序（撞车时按此砍）：<b>专转本 → 计算机二级 → 高压电工证 → 消防设施操作员 → 教资 → 社工 → CAAC超视距</b>。任一科连续两周完成率 &lt; 60%，触发"减量谈判"，砍最低优先级当周任务，而不是熬夜硬补。</div>
+    </div>
+    <div class="alert warn">
+      <b>风险 5（新增）：3 月可能"四考挤一月"</b>
+      2027 年 3 月理论上叠加：教资笔试（3 月上旬）、江苏专转本统考（3 月下旬）、全国计算机等级考试（3 月最后一个周六）。若走专转本"统考"通道，三场考试挤在同一个月，加上 1 月两份报名，几乎没有复习余量。
+      <div style="margin-top:6px">应对：① <b>计算机二级放在 9 月那一次考</b>（报名约 6–7 月），彻底避开 3 月；② 专转本坚持走<b>退役士兵免试考查通道</b>，3 月就只剩教资一场。两招合用，3 月只留 1 场考试。</div>
+    </div>
+  </div>
+
+  <!-- 关键时间节点 -->
+  <div class="card">
+    <h2><span class="dot"></span>各考试关键时间节点（2027 年度 · 推算值）</h2>
+    <table>
+      <thead>
+        <tr><th style="width:96px">考试</th><th>报名</th><th>准考证打印</th><th>笔试 / 考查日期</th><th>成绩查询</th><th style="width:118px">费用（江苏·参考）</th><th>官方渠道</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="tag z">专转本</span></td>
+          <td><b>退役士兵：2027 年 4 月</b>（2026 年为 4 月）<br>统考考生：2027 年 1 月</td>
+          <td>考前 3 天，登录省教育考试院网站打印</td>
+          <td><b>退役士兵考查：2027 年 5 月底前</b><br>统考：2027 年 3 月下旬（约 3/20–21）</td>
+          <td>考查/统考后约 1 个月，<br>约 2027 年 4 月下旬–6 月初</td>
+          <td>退役士兵通道：<b>10 元</b>（仅报名费）<br>统考通道：145 元（报名费 10 + 45×3 科）</td>
+          <td>江苏省教育考试院<br>jseea.cn</td>
+        </tr>
+        <tr>
+          <td><span class="tag j">教资</span></td>
+          <td><b>2027 年 1 月中上旬</b><br>（2026 上为 1 月，下为 7 月）</td>
+          <td>考前一周，登录 NTCE 打印</td>
+          <td><b>2027 年 3 月上旬</b><br>（2026 上为 3 月 7 日）</td>
+          <td>考后约 1 个月，<br>约 2027 年 4 月中旬</td>
+          <td>笔试 <b>65 元/科</b>×2 = 130 元<br>面试另 200 元/次</td>
+          <td>中国教育考试网<br>ntce.neea.edu.cn</td>
+        </tr>
+        <tr>
+          <td><span class="tag s">社工</span></td>
+          <td><b>2027 年 3 月中旬</b><br>（2026 为 3/13–3/25）</td>
+          <td><b>2027 年 5 月中旬</b><br>（2026 为 5/18 起）</td>
+          <td><b>2027 年 5 月下旬</b><br>（2026 为 5/23–5/24）</td>
+          <td>考后约 2 个月，<br>约 2027 年 7 月下旬</td>
+          <td>客观题 62 元/科×2 + 报名费 10 = <b>134 元</b></td>
+          <td>中国人事考试网<br>cpta.com.cn</td>
+        </tr>
+        <tr>
+          <td><span class="tag z">计算机</span></td>
+          <td>3 月场：约上年 12 月–当年 1 月<br>9 月场：约 6–7 月（各省自定）</td>
+          <td>考前一周，登录 ncre-bm.neea.edu.cn 打印</td>
+          <td><b>3 月最后一个周六起</b> / <b>9 月倒数第二个周六起</b><br>（2026 为 3/28–30、9/19–21；一级 90′、二级 120′，全上机）</td>
+          <td>考后约 1 个月，<br>ncre.neea.edu.cn 查询</td>
+          <td>1–3 级 <b>70 元/人</b><br>（一级、二级各 70 元）</td>
+          <td>中国教育考试网<br>ncre.neea.edu.cn</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="muted" style="margin-top:10px">成绩有效期提示：教资笔试单科成绩保留 2 年；社工单科合格成绩保留 1 个考试年度（初级需两科同年度通过）。可据此安排补考节奏。</p>
+    <p class="muted">三张技能证书（高压电工、消防设施操作员、CAAC）为<b>滚动批次制</b>，无固定年度窗口，节点见下方"三张技能证书 · 串行队列"。</p>
+  </div>
+
+  <!-- 全局时间分配路线 -->
+  <div class="card">
+    <h2><span class="dot"></span>时间分配优先级路线（2026.10 → 2027.06）</h2>
+    <table>
+      <thead><tr><th style="width:150px">时段</th><th>主线（专转本 70%）</th><th>次线（教资 20%）</th><th>保底（社工 10%）</th></tr></thead>
+      <tbody>
+        <tr><td><b>2026.10–12</b></td><td>专业综合 + 高数/英语基础恢复</td><td>通读 2 科教材、搭框架</td><td>暂不启动</td></tr>
+        <tr><td><b>2027.01–02</b></td><td>真题专题强化（维持）</td><td><b>强化冲刺（3 月考前）</b></td><td>1 月轻量启动（每周 1 章）</td></tr>
+        <tr><td><b>2027.03</b></td><td>专业综合强化</td><td><b>3 月上旬笔试 → 收尾</b></td><td>3 月报名 + 强化</td></tr>
+        <tr><td><b>2027.04–05 中</b></td><td><b>全力冲刺（考查期）</b></td><td>等待成绩 / 准备面试（若过）</td><td>5 月保底冲刺 or 顺延 2028</td></tr>
+        <tr><td><b>2027.05 底–06</b></td><td>考查结束、等待录取</td><td>面试（5 月中下旬，2026 为 5/16–17）</td><td>社工笔试 / 收尾</td></tr>
+        <tr><td><b>2027.06–08</b></td><td colspan="3">暑期整块空档：启动 ⑦ CAAC 超视距训练（约 1 个月，报名截至每月 5 日前）；⑥ 消防初级若 2 月未考则在此补</td></tr>
+        <tr><td><b>2027.09</b></td><td colspan="3">② 计算机二级（NCRE 9 月场，报名 6–7 月）——此时已入学本科第一学期，课业与备考并行</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 证书串行队列 -->
+  <div class="card">
+    <h2><span class="dot" style="background:var(--she)"></span>三张技能证书 · 串行队列（一次只训一张，占日历空档）</h2>
+    <table>
+      <thead><tr><th style="width:56px">队列</th><th style="width:150px">证书</th><th style="width:130px">排期窗口</th><th>训练 / 考试形态</th><th>报名渠道</th><th style="width:130px">参考费用</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><b>1</b></td>
+          <td><span class="tag s">高压电工操作证</span><br><span class="muted">应急管理局</span></td>
+          <td><b>2026.11 – 12</b></td>
+          <td>培训机构集中培训约 2–4 周（理论 + 实操），结业即考；取证后全国通用、3 年复审。与专转本基础阶段并行，占用周末整块 + 周三/周日弹性档。</td>
+          <td>当地应急管理局备案培训机构（常州）</td>
+          <td>1200 – 2500 元<br><span class="muted">含培训+考试</span></td>
+        </tr>
+        <tr>
+          <td><b>2</b></td>
+          <td><span class="tag s">消防设施操作员</span><br><span class="muted">初级（五级）· 监控</span></td>
+          <td><b>2027.02 首批</b><br>（或顺延 2027.06）</td>
+          <td>鉴定站按月/半月批次，理论与技能操作一天考完。初级门槛：年满 18 周岁且拟从事本职业。选 2 月档可避开 5 月专转本考查撞车。</td>
+          <td>消防职业技能鉴定考试网<br>xfhyjd.119.gov.cn</td>
+          <td>报考 100 – 300 元<br><span class="muted">培训另计 1000–2500</span></td>
+        </tr>
+        <tr>
+          <td><b>3</b></td>
+          <td><span class="tag s">CAAC 超视距</span><br><span class="muted">BVLOS · 民航局</span></td>
+          <td><b>2027.06 – 08</b><br><span class="muted">专转本考查后整块暑期</span></td>
+          <td>需连续约 1 个月真机实操（地面理论 + 模拟飞行 + 户外实操），无法用碎片时间完成，故只能排在 5 月底考查结束后的整块暑期。</td>
+          <td>民航局授权培训机构（报名截至每月 5 日前）</td>
+          <td>8000 – 15000 元<br><span class="muted">视机构/机型</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="muted" style="margin-top:10px">
+      <b>排期逻辑：</b>2026.12–2027.06 已被教资（1 月报名/3 月笔试）、社工（3 月报名/5 月笔试）、专转本（4 月报名/5 月考查）占满，6 月前只能塞进"周期最短、且服务主线"的一张——即高压电工证。消防初级靠"2 月首批"避开 5 月撞车；CAAC 耗时最长、费用最高，只能等暑假。<br>
+      <b>升级路径：</b>消防初级取证后，累计从事本职业/相关职业满 3 年可申报中级（四级）；专科相关专业学历亦可走学历路径（以鉴定站公告为准）。<br>
+      <b>费用合计：</b>三证约 <b>1.0 – 1.8 万元</b>，加上报名差旅，建议在启动每张证前单独确认报价，不盲目一次全报。
+    </p>
+    <div class="alert warn" style="margin-top:12px;margin-bottom:0">
+      <b>每周时间预算台账</b>
+      平日 90 分钟 ×5 + 周末 2 小时 ×2 ≈ <b>11.5 小时/周</b>；三考日常消耗约 9 小时，留 2.5 小时缓冲。<br>
+      <b>证书训练窗口期</b>额外占 6–10 小时/天（整块），因此窗口期当周三考任务量须主动降至 60%，用弹性档补，不得挤占睡眠与训练。
+    </div>
+  </div>
+
+  <!-- 分阶段计划 -->
+  <div class="card">
+    <h2><span class="dot"></span>分阶段学习计划（基础夯实 → 强化刷题 → 冲刺模考）</h2>
+    <div class="tabs">
+      <div class="tab on z" data-p="p-z">专转本 · 电子信息类</div>
+      <div class="tab j" data-p="p-j">教资 · 小学</div>
+      <div class="tab s" data-p="p-s">社工 · 初级</div>
+    </div>
+
+    <div class="pane on" id="p-z">
+      <div class="phase">
+        <h4>阶段一 · 基础夯实</h4>
+        <div class="meta">2026-10-15 ~ 2026-12-31　共 11 周</div>
+        <p><b>目标：</b>把专业综合（电子信息类）与公共课（高等数学、英语）过一遍，建立章节知识框架，明确薄弱点清单。</p>
+        <p><b>任务量：</b>专业综合每周 2 章（含课后题全做）；高数每周 1 章、英语每日 30 词 + 每周 1 篇阅读精读；每周日把当周错题归入错题本。</p>
+        <p><b>阶段小测：</b>12 月最后一周做"基础自测卷"1 套（不计时），标记掌握度等级（★/★★/★★★）。</p>
+      </div>
+      <div class="phase" style="border-color:var(--zhuan)">
+        <h4>阶段二 · 强化刷题</h4>
+        <div class="meta">2027-01-01 ~ 2027-03-31　共 13 周</div>
+        <p><b>目标：</b>用近 5 年真题 + 专题册突破，把错题从"会看"练到"会做"。</p>
+        <p><b>任务量：</b>每周 1 套专业课真题（限时半套）+ 1 套高数专题；错题二刷周期 7 天；英语每周 1 套阅读 + 1 篇翻译。</p>
+        <p><b>阶段小测：</b>每月末 1 次限时模拟（专业综合 120 分钟），记录分数曲线。</p>
+        <p class="muted">※ 若 1 月通知明确走"统考"通道，本阶段同步把高数、英语权重提到 40%。</p>
+      </div>
+      <div class="phase" style="border-color:var(--zhuan)">
+        <h4>阶段三 · 冲刺模考</h4>
+        <div class="meta">2027-04-01 ~ 2027-05-25（考查前）　共 8 周</div>
+        <p><b>目标：</b>全真模考节奏化，查漏补缺，锁定退役士兵考查（职业技能综合）题型与评分点。</p>
+        <p><b>任务量：</b>每周 2 次全真模考（严格计时）+ 考后逐题归因；考前 10 天只做错题本与背诵清单，不再刷新题。</p>
+        <p><b>阶段小测：</b>每周模考 ≥2 次，第 8 周做"临考终测"1 次并做时间分配彩排。</p>
+      </div>
+    </div>
+
+    <div class="pane" id="p-j">
+      <div class="phase" style="border-color:var(--jiao)">
+        <h4>阶段一 · 基础夯实</h4>
+        <div class="meta">2026-10-15 ~ 2026-12-15　共 9 周</div>
+        <p><b>目标：</b>通读《综合素质》《教育教学知识与能力》两科教材，各章画 1 张思维导图。</p>
+        <p><b>任务量：</b>每周 1 科 1 章 + 该章 20 题；每周积累 1 个作文素材；阶段末做 1 套章节自测。</p>
+        <p><b>阶段小测：</b>12 月中旬"双科基础卷"各 1 套（不计时）。</p>
+      </div>
+      <div class="phase" style="border-color:var(--jiao)">
+        <h4>阶段二 · 强化刷题</h4>
+        <div class="meta">2026-12-16 ~ 2027-01-31　共 7 周（含 1 月报名）</div>
+        <p><b>目标：</b>真题驱动，简答题、材料分析题背诵模板化，作文成稿。</p>
+        <p><b>任务量：</b>每周 2 套真题（单科各 1 套）+ 简答/辨析背 30 条；每周写 1 篇大作文。</p>
+        <p><b>阶段小测：</b>1 月底各科 1 次限时模拟（综合素质 120 分钟）。</p>
+        <p class="muted">※ <b>1 月第 1 周务必完成网上报名 + 缴费</b>，报名与专转本报名窗口重合。</p>
+      </div>
+      <div class="phase" style="border-color:var(--jiao)">
+        <h4>阶段三 · 冲刺模考</h4>
+        <div class="meta">2027-02-01 ~ 2027-03-06（考前）　共 5 周</div>
+        <p><b>目标：</b>进入考试节奏，作文与材料分析形成个人模板，控制失分点。</p>
+        <p><b>任务量：</b>每周 2 次全真模考 + 作文 2 篇；考前 1 周只背"简答/辨析必背 + 作文模板 + 高频考点"。</p>
+        <p><b>阶段小测：</b>每周 ≥2 次限时模考，最后一次安排在考前 3 天做手感保持。</p>
+      </div>
+    </div>
+
+    <div class="pane" id="p-s">
+      <div class="phase" style="border-color:var(--she)">
+        <h4>阶段一 · 基础夯实</h4>
+        <div class="meta">2027-01-15 ~ 2027-03-15　共 9 周（轻量，配合教资冲刺）</div>
+        <p><b>目标：</b>通读《社会工作综合能力（初级）》《社会工作实务（初级）》，理解社工价值观与三大工作方法。</p>
+        <p><b>任务量：</b>每周 1 章 + 20 题；每周整理 1 页"法规与政策"速记卡。</p>
+        <p><b>阶段小测：</b>3 月中"双科基础卷"各 1 套。</p>
+      </div>
+      <div class="phase" style="border-color:var(--she)">
+        <h4>阶段二 · 强化刷题</h4>
+        <div class="meta">2027-03-16 ~ 2027-04-30　共 7 周（含 3 月报名）</div>
+        <p><b>目标：</b>真题 + 案例题（实务）专项突破，法规记忆点固化。</p>
+        <p><b>任务量：</b>每周 2 套真题（两科各 1 套）+ 案例题 3 道；错题按"概念/法规/实务"分类归档。</p>
+        <p><b>阶段小测：</b>4 月底各科 1 次限时模拟。</p>
+        <p class="muted">※ <b>3 月中旬完成报名与缴费</b>；此时专转本正处强化期，报名当天只做这一件事。</p>
+      </div>
+      <div class="phase" style="border-color:var(--she)">
+        <h4>阶段三 · 冲刺模考</h4>
+        <div class="meta">2027-05-01 ~ 考前　共 3–4 周（保底模式）</div>
+        <p><b>目标：</b>在专转本冲刺的夹缝里保住通过线，重点抓"法规与政策"记忆型分数。</p>
+        <p><b>任务量：</b>每周 2 次限时模考 + 法规速记卡每日 10 分钟；考前 1 周只背诵。</p>
+        <p><b>阶段小测：</b>每周 ≥2 次模考；考前 3 天做 1 次"手感卷"。</p>
+        <p class="muted">※ 若采纳"方案 A"（顺延 2028），本阶段暂停，把时间全部并入专转本冲刺。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 每周复盘与弹性 -->
+  <div class="card">
+    <h2><span class="dot" style="background:var(--she)"></span>每周复盘节点与弹性机制</h2>
+    <p><b>固定复盘：</b>每周日 19:00–19:30 复盘 30 分钟，回答 4 个问题并写入下方打卡区：</p>
+    <ol style="margin:6px 0 12px;padding-left:20px">
+      <li>本周三科各完成了多少？（对照任务量，算出完成率）</li>
+      <li>哪个知识点反复错？→ 下周加 1 个专项。</li>
+      <li>有没有被临时事务打断？→ 是否需要启用弹性日。</li>
+      <li>下周优先级是否要调整？（临近考试的科目自动加权）</li>
+    </ol>
+    <div class="alert warn" style="margin-bottom:0">
+      <b>弹性设计（不把计划排满）</b>
+      · 每周固定保留 <b>周三晚</b> 与 <b>周日下午</b> 为弹性时段：完不成的内容顺延到这里，<b>不挤占睡眠与训练</b>。<br>
+      · 每周任务量按 <b>80% 可完成</b>设定，剩余 20% 作为缓冲。<br>
+      · 任一科目连续两周完成率 &lt; 60%，触发一次"减量谈判"：砍掉最低优先级科目当周任务，而不是熬夜硬补。<br>
+      · 遇报名、现场确认、打印准考证等行政事务，当天以事务为唯一任务，学习顺延。
+    </div>
+  </div>
+
+  <!-- 每日日程模板 -->
+  <div class="card">
+    <h2><span class="dot"></span>每周日程模板（与力量速度计划并行，共用 19:00–20:30 学习档）</h2>
+    <div class="week">
+      <div class="day"><h5>周一</h5><span class="it z">专业综合 60′</span><span class="it j">教资综合素质 30′</span></div>
+      <div class="day"><h5>周二</h5><span class="it z">高数/英语 60′</span><span class="it s">社工综合能力 30′</span></div>
+      <div class="day" style="background:#f3f6fb"><h5>周三 ⚡弹性</h5><span class="it z">专业综合 45′</span><span class="it z">错题复盘 45′</span></div>
+      <div class="day"><h5>周四</h5><span class="it z">英语 60′</span><span class="it j">教育知识 30′</span></div>
+      <div class="day"><h5>周五</h5><span class="it z">专业综合 60′</span><span class="it s">社工实务 30′</span></div>
+      <div class="day"><h5>周六</h5><span class="it j">上午 教资强化 120′</span><span class="it z">晚间 专转本真题 90′</span></div>
+      <div class="day rest"><h5>周日 ☕</h5><span class="it">上午 周复盘+补漏 60′</span><span class="it">下午 弹性 / 完全休息</span></div>
+    </div>
+    <p class="muted" style="margin-top:10px">阶段加权规则：进入 2–3 月（教资考前）把周一/周四的教资时段延长至 45′；进入 4–5 月（专转本考查冲刺）把社工时段并入专转本，社工只保留每日 10′ 法规速记。</p>
+    <p class="muted">证书窗口规则：<b>2026.11–12（高压电工）</b>与 <b>2027.02（消防初级）</b>的训练窗口期，把"周三弹性档 + 周日下午"整块并入证书训练，当周三考任务量按 60% 执行；CAAC 不占用本表，整块放入 2027 暑期。</p>
+  </div>
+
+  <!-- 打卡跟踪 -->
+  <div class="card">
+    <h2><span class="dot" style="background:var(--jiao)"></span>每日打卡跟踪（自动保存本机）</h2>
+    <div class="navline">
+      <button class="btn" id="prevDay">◀ 前一天</button>
+      <span class="datenow" id="curDate">—</span>
+      <button class="btn" id="nextDay">后一天 ▶</button>
+      <button class="btn primary" id="todayBtn">回到今天</button>
+      <button class="btn" id="resetDay">清空当日</button>
+    </div>
+    <div id="taskList"></div>
+    <div id="dayStat" class="muted" style="margin-top:8px"></div>
+  </div>
+
+  <!-- 统计 -->
+  <div class="card">
+    <h2><span class="dot" style="background:var(--she)"></span>完成情况统计</h2>
+    <div class="statgrid">
+      <div class="stat"><b id="stWeek">0%</b><span>本周完成率</span></div>
+      <div class="stat"><b id="stStreak">0</b><span>连续打卡天数</span></div>
+      <div class="stat"><b id="stTotal">0</b><span>累计完成项数</span></div>
+      <div class="stat"><b id="stDays">0</b><span>累计有记录天数</span></div>
+    </div>
+    <div class="bar"><i id="weekBar"></i></div>
+    <h2 style="margin-top:18px"><span class="dot"></span>阶段目标清单（勾选即保存）</h2>
+    <div id="phaseChecks"></div>
+    <div class="navline" style="margin-top:12px">
+      <button class="btn" id="resetAll">重置全部数据</button>
+      <span class="muted">数据存于浏览器 localStorage，换设备不通用；建议每周截图留档。</span>
+    </div>
+  </div>
+
+  <!-- 资料清单 -->
+  <div class="card">
+    <h2><span class="dot"></span>备考资料清单</h2>
+    <table>
+      <thead><tr><th style="width:96px">考试</th><th>纸质/网课主教材</th><th>题库 / 真题</th><th>推荐节奏</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="tag z">专转本</span></td>
+          <td>江苏专转本电子信息类专业综合考试大纲指定教材（按大类联考委公布大纲采购）；高等数学同济版；专转本英语高频词汇书</td>
+          <td>近 5 年专转本真题（专业综合 + 高数 + 英语）；电子信息类职业技能综合考查样题/大纲</td>
+          <td>大纲每年底在大类联考委/省考试院更新，先按上一届大纲起步</td>
+        </tr>
+        <tr>
+          <td><span class="tag j">教资</span></td>
+          <td>《综合素质（小学）》《教育教学知识与能力（小学）》官方/主流机构教材；作文素材本</td>
+          <td>近 5 年真题卷（小学）2 科；简答/辨析/材料分析必背手册</td>
+          <td>报名后立即买最新版；每年 1 月出新版</td>
+        </tr>
+        <tr>
+          <td><span class="tag s">社工</span></td>
+          <td>《社会工作综合能力（初级）》《社会工作实务（初级）》；社会工作法规与政策速记卡</td>
+          <td>近 3–5 年真题；实务案例题库</td>
+          <td>初级教材每年随考纲微调，3 月报名后按最新版</td>
+        </tr>
+        <tr>
+          <td><span class="tag s">高压电工</span></td>
+          <td>《电工作业（高压）安全技术培训教材》（应急管理部统编）；高压安全用具使用规范</td>
+          <td>培训机构配套题库 + 实操考核项目清单（倒闸操作、验电、接地等）</td>
+          <td>报名培训机构后随班发放，重点在实操</td>
+        </tr>
+        <tr>
+          <td><span class="tag s">消防初级</span></td>
+          <td>《消防设施操作员（基础知识）》《消防设施操作员（初级）》国家职业技能标准及统编教材</td>
+          <td>鉴定站理论题库 + 技能操作考核大纲（监控方向）</td>
+          <td>按鉴定站批次配套，教材随标准更新</td>
+        </tr>
+        <tr>
+          <td><span class="tag s">CAAC超视距</span></td>
+          <td>培训机构提供的理论教材 + 模拟器训练 + 真机实操（含航线规划、应急处置）</td>
+          <td>民航局《民用无人机驾驶员管理规定》对应等级考核大纲；机构内部题库</td>
+          <td>报名截至每月 5 日前，随班训练约 1 个月</td>
+        </tr>
+        <tr>
+          <td><span class="tag z">计算机二/一级</span></td>
+          <td>二级：MS Office 高级应用（或 C 语言 / Python，按国网岗位要求选）；一级：MS Office 应用教程（若考）</td>
+          <td>未来教育 / 无忧考吧等授权题库（全上机模拟）；近年真题原题率高，操作题靠练</td>
+          <td>9 月场 6–7 月报名；暑期集中刷题库并练上机操作</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="muted" style="margin-top:10px">优先买"大纲指定 + 近 5 年真题"两类，精题一遍胜过泛题十遍。</p>
+  </div>
+
+  <!-- 费用总清单 -->
+  <div class="card">
+    <h2><span class="dot" style="background:var(--jiao)"></span>费用总清单（8 项全含 · 江苏现行标准）</h2>
+    <table>
+      <thead><tr><th style="width:170px">项目</th><th>报考 / 考试费</th><th>教材 / 题库</th><th>培训 / 训练</th><th style="width:130px">小计（参考）</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag z">①</span> 专转本（退役士兵通道）</td><td>10 元（仅报名费）</td><td>300–600 元</td><td>0（自学）</td><td><b>310–610 元</b></td></tr>
+        <tr><td><span class="tag z">②</span> 计算机二级</td><td>70 元/人</td><td>60–150 元（题库）</td><td>0</td><td><b>130–220 元</b></td></tr>
+        <tr><td><span class="tag s">③</span> 高压电工特种作业操作证</td><td>含在培训费内</td><td>随班发放</td><td>1200–2500 元</td><td><b>1200–2500 元</b></td></tr>
+        <tr><td><span class="tag j">④</span> 教师资格证（小学 · 笔试）</td><td>65 元/科×2 = 130 元<br>（面试另 200 元/次）</td><td>200–400 元</td><td>0–500 元（可选网课）</td><td><b>330–1030 元</b></td></tr>
+        <tr><td><span class="tag s">⑤</span> 社工初级</td><td>客观题 62 元/科×2 + 报名费 10 元 = 134 元</td><td>150–300 元</td><td>0</td><td><b>284–434 元</b></td></tr>
+        <tr><td><span class="tag s">⑥</span> 消防设施操作员初级（监控）</td><td>100–300 元</td><td>100–300 元</td><td>0–2500 元（可选培训）</td><td><b>200–3100 元</b></td></tr>
+        <tr><td><span class="tag s">⑦</span> CAAC 超视距（BVLOS）</td><td>含在培训费内</td><td>随班发放</td><td>8000–15000 元</td><td><b>8000–15000 元</b></td></tr>
+        <tr><td><span class="tag z">⑧</span> 计算机一级（建议省略）</td><td>70 元/人</td><td>60–150 元</td><td>0</td><td><b>130–220 元</b></td></tr>
+        <tr><td colspan="4" style="text-align:right"><b>合计（必考 ①–⑤）</b></td><td><b>约 2300–4800 元</b></td></tr>
+        <tr><td colspan="4" style="text-align:right">再加 ⑥ 消防初级</td><td>约 2500–7900 元</td></tr>
+        <tr><td colspan="4" style="text-align:right">再加 ⑦ CAAC（全考齐）</td><td><b>约 1.05–2.3 万元</b></td></tr>
+      </tbody>
+    </table>
+    <p class="muted" style="margin-top:10px">
+      <b>标准来源：</b>退役士兵专转本报名费 10 元、教资笔试 65 元/科、社工客观题 62 元/科＋报名费 10 元、NCRE 1–3 级 70 元/人，均为江苏现行文件核定；电工 / 消防 / CAAC 为培训市场价区间，<b>以机构实际报价为准</b>。<br>
+      <b>省钱提示：</b>教材优先买二手或机构 PDF；教资 / 社工 / NCRE 的题库可用免费在线题库替代；电工证若单位报销可先问；CAAC 费用最高，务必先比对 2–3 家授权机构再定。
+    </p>
+  </div>
+
+  <!-- 官方渠道 -->
+  <div class="card">
+    <h2><span class="dot"></span>官方查询渠道（一切以公告为准）</h2>
+    <ul class="src">
+      <li>江苏专转本：<a href="https://www.jseea.cn/" target="_blank" rel="noopener">江苏省教育考试院 jseea.cn</a>（报名、志愿、考查大纲与准考证均在此）</li>
+      <li>教师资格证：<a href="https://ntce.neea.edu.cn/" target="_blank" rel="noopener">中小学教师资格考试网 ntce.neea.edu.cn</a>（报名、准考证、成绩）</li>
+      <li>社会工作者：<a href="http://www.cpta.com.cn/" target="_blank" rel="noopener">中国人事考试网 cpta.com.cn</a>（全国统考报名与成绩）</li>
+      <li>高压电工（特种作业）：地方应急管理局备案培训机构；依据《特种作业人员安全技术培训考核管理规定》（应急管理部令第 19 号）</li>
+      <li>消防设施操作员：<a href="https://xfhyjd.119.gov.cn/" target="_blank" rel="noopener">消防职业技能鉴定考试网 xfhyjd.119.gov.cn</a>（批次公告、报名、成绩）</li>
+      <li>CAAC 无人机执照：<a href="http://www.caac.gov.cn/" target="_blank" rel="noopener">中国民用航空局 caac.gov.cn</a> + 民航局授权培训机构（报名、训练、考试）</li>
+      <li>计算机等级考试：<a href="https://ncre.neea.edu.cn/" target="_blank" rel="noopener">中国教育考试网 NCRE ncre.neea.edu.cn</a>（报名 ncre-bm.neea.edu.cn、准考证、成绩）</li>
+      <li>退役军人政策：《退役军人就业创业促进条例》（2026-08-01 施行）；江苏事业单位退役定向、国企 ≥10% 定向岗位</li>
+    </ul>
+  </div>
+
+  <footer>八项备考日程规划台 · 本地生成 · 每 3–6 个月复盘迭代一次 </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var LS_D = "sp:daily:", LS_P = "sp:phase:";
+  var D = {0:["周日"],1:["周一"],2:["周二"],3:["周三"],4:["周四"],5:["周五"],6:["周六"]};
+
+  // 每日任务模板（按星期几）：id, exam(z/j/s), title, mins
+  var TPL = {
+    0:[ {id:"sun-r",e:"z",t:"周复盘 + 查漏补缺（写下 4 问答案）",m:60},{id:"sun-f",e:"x",t:"弹性 / 完全休息",m:0} ],
+    1:[ {id:"mon-1",e:"z",t:"专转本·专业综合（看书+课后题）",m:60},{id:"mon-2",e:"j",t:"教资·综合素质（章节+思维导图）",m:30} ],
+    2:[ {id:"tue-1",e:"z",t:"专转本·高数 / 英语（30 词 + 精读）",m:60},{id:"tue-2",e:"s",t:"社工·综合能力（章节+20 题）",m:30} ],
+    3:[ {id:"wed-1",e:"z",t:"专转本·专业综合（轻量推进）",m:45},{id:"wed-2",e:"z",t:"错题复盘 / 弹性补做",m:45} ],
+    4:[ {id:"thu-1",e:"z",t:"专转本·英语（阅读+翻译）",m:60},{id:"thu-2",e:"j",t:"教资·教育教学知识与能力",m:30} ],
+    5:[ {id:"fri-1",e:"z",t:"专转本·专业综合",m:60},{id:"fri-2",e:"s",t:"社工·实务（案例题）",m:30} ],
+    6:[ {id:"sat-1",e:"j",t:"上午·教资强化（真题 / 背诵 / 作文）",m:120},{id:"sat-2",e:"z",t:"晚间·专转本真题（限时）",m:90} ]
+  };
+
+  // 阶段目标清单
+  var PHASE = [
+    {e:"z",n:"专转本",items:["阶段一 基础夯实（至 2026-12-31）完成","12 月基础自测卷 1 套并标注掌握度","错题本建立并当周归档","阶段二 强化刷题（至 2027-03-31）完成","近 5 年真题全部刷完第一遍","每月末限时模拟 ×3 并记录分数曲线","阶段三 冲刺模考（至 2027-05-25）完成","全真模考 ≥16 次","考前 10 天转入错题本+背诵清单"]},
+    {e:"j",n:"教资（小学）",items:["阶段一 基础夯实（至 2026-12-15）完成","两科思维导图各章齐全","1 月第 1 周完成报名+缴费","阶段二 强化刷题（至 2027-01-31）完成","真题 ≥14 套、简答/辨析背 150 条","作文完成 ≥8 篇","阶段三 冲刺模考（至 2027-03-06）完成","考前 1 周背诵清单过关"]},
+    {e:"s",n:"社工（初级）",items:["阶段一 基础夯实（至 2027-03-15）完成","3 月中旬完成报名+缴费","阶段二 强化刷题（至 2027-04-30）完成","法规速记卡整理成册","阶段三 冲刺模考（考前）完成","考前 1 周只背法规与实务模板","（若方案A顺延2028，本区整体挂起）"]},
+    {e:"s",n:"高压电工操作证（队列 1）",items:["确认常州应急管理局备案培训机构并询价","2026.11 完成报名并入班","理论题库刷完 1 遍","实操项目（倒闸/验电/接地/安全用具）练熟","2026.12 取得高压电工特种作业操作证"]},
+    {e:"s",n:"消防设施操作员初级（队列 2）",items:["选定 2027.02 或 06 批次并关注鉴定站公告","完成报名（xfhyjd.119.gov.cn）","通读基础知识 + 初级教材","监控方向技能操作考核项目练熟","取得初级（五级）职业技能等级证书"]},
+    {e:"s",n:"CAAC 超视距执照（队列 3）",items:["2027.06 前选定授权机构并比对报价","暑期完成报名（截至每月 5 日前）","完成地面理论 + 模拟飞行训练","完成真机实操并参加考试","取得超视距（BVLOS）驾驶员执照"]},
+    {e:"s",n:"计算机二级（NCRE）",items:["确认岗位要求的二级科目（MS Office / C / Python）","2027.06–07 完成 9 月场报名","暑期刷完题库 1 遍（重点练操作题）","全真上机模拟 ≥5 次","2027.09 通过计算机二级"]},
+    {e:"s",n:"计算机一级（建议省略）",items:["确认一级是否被某单位单独硬性要求","若确需：与二级同场报名并刷一级题库","（多数情况二级已覆盖一级要求，可整条删除）"]}
+  ];
+
+  var view = new Date(); view.setHours(0,0,0,0);
+  function key(d){ return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+  function dkey(d){ return LS_D + key(d); }
+  function loadD(d){ try{ return JSON.parse(localStorage.getItem(dkey(d))||"{}"); }catch(e){ return {}; } }
+  function saveD(d,o){ localStorage.setItem(dkey(d),JSON.stringify(o)); }
+
+  function renderDay(){
+    var dow = view.getDay();
+    var list = TPL[dow] || [];
+    var st = loadD(view);
+    var el = document.getElementById("taskList");
+    var html = "";
+    list.forEach(function(it){
+      var ck = st[it.id] ? "checked" : "";
+      var cls = st[it.id] ? "done" : "";
+      var ecls = (it.e==="z")?"z":(it.e==="j")?"j":(it.e==="s")?"s":"";
+      html += '<label class="checkrow '+cls+'" data-id="'+it.id+'">'
+           +  '<input type="checkbox" '+ck+'>'
+           +  '<span class="lbl"><span class="it '+ecls+'">'+it.t+'</span></span>'
+           +  '<span class="mins">'+ (it.m>0? it.m+" min" : "—") +'</span></label>';
+    });
+    el.innerHTML = html || '<div class="muted">该日无任务模板。</div>';
+    var total = list.filter(function(i){return i.m>0;}).length;
+    var done = list.filter(function(i){return i.m>0 && st[i.id];}).length;
+    document.getElementById("dayStat").textContent = "当日完成："+done+" / "+total+" 项";
+    document.getElementById("curDate").textContent = key(view) + "（" + D[dow][0] + "）";
+
+    Array.prototype.forEach.call(el.querySelectorAll(".checkrow"), function(row){
+      row.addEventListener("click", function(ev){
+        if(ev.target.tagName !== "INPUT"){ ev.preventDefault(); }
+        var id = row.getAttribute("data-id");
+        var s2 = loadD(view);
+        var cb = row.querySelector("input");
+        var nv = !s2[id];
+        s2[id] = nv;
+        if(!nv) delete s2[id];
+        saveD(view, s2);
+        renderDay(); renderStats();
+      });
+    });
+  }
+
+  function weekKeys(){
+    var t = new Date(); t.setHours(0,0,0,0);
+    var mondayOff = (t.getDay()+6)%7;
+    var mon = new Date(t); mon.setDate(t.getDate()-mondayOff);
+    var arr=[]; for(var i=0;i<7;i++){ var x=new Date(mon); x.setDate(mon.getDate()+i); arr.push(x); }
+    return arr;
+  }
+  function renderStats(){
+    var wk = weekKeys(), tot=0, done=0;
+    wk.forEach(function(d){
+      var list = TPL[d.getDay()]||[]; var st=loadD(d);
+      list.forEach(function(it){ if(it.m>0){ tot++; if(st[it.id]) done++; } });
+    });
+    var rate = tot? Math.round(done/tot*100):0;
+    document.getElementById("stWeek").textContent = rate+"%";
+    document.getElementById("weekBar").style.width = rate+"%";
+
+    // 累计扫描最近 120 天
+    var t=new Date(); t.setHours(0,0,0,0);
+    var totalDone=0, daysWith=0, streakN=0;
+    for(var i=0;i<120;i++){
+      var d=new Date(t); d.setDate(t.getDate()-i);
+      var st=loadD(d); var list=TPL[d.getDay()]||[];
+      var c=0, any=false;
+      list.forEach(function(it){ if(it.m>0 && st[it.id]) c++; });
+      Object.keys(st).forEach(function(k){ if(st[k]) any=true; });
+      if(any) daysWith++;
+      totalDone += c;
+      // 连续打卡：今天尚未打卡不算中断，往前遇空白即断
+      if(any) streakN++;
+      else if(i>0) break;
+    }
+    document.getElementById("stStreak").textContent = streakN;
+    document.getElementById("stTotal").textContent = totalDone;
+    document.getElementById("stDays").textContent = daysWith;
+  }
+
+  function renderPhase(){
+    var box = document.getElementById("phaseChecks");
+    var saved = {}; try{ saved = JSON.parse(localStorage.getItem(LS_P)||"{}"); }catch(e){}
+    var html="";
+    PHASE.forEach(function(g){
+      var col = g.e==="z"?"var(--zhuan)":g.e==="j"?"var(--jiao)":"var(--she)";
+      html += '<h4 style="font-size:14px;margin:12px 0 6px;color:'+col+'">'+g.n+'</h4>';
+      g.items.forEach(function(t,idx){
+        var id = g.e+"-"+idx;
+        var ck = saved[id]?"checked":"";
+        var cls = saved[id]?"done":"";
+        html += '<label class="checkrow '+cls+'" data-pid="'+id+'"><input type="checkbox" '+ck+'><span class="lbl">'+t+'</span></label>';
+      });
+    });
+    box.innerHTML = html;
+    Array.prototype.forEach.call(box.querySelectorAll(".checkrow"), function(row){
+      row.addEventListener("click", function(ev){
+        if(ev.target.tagName!=="INPUT") ev.preventDefault();
+        var id=row.getAttribute("data-pid");
+        var s={}; try{ s=JSON.parse(localStorage.getItem(LS_P)||"{}"); }catch(e){}
+        s[id] = !s[id]; if(!s[id]) delete s[id];
+        localStorage.setItem(LS_P, JSON.stringify(s));
+        renderPhase();
+      });
+    });
+  }
+
+  document.getElementById("prevDay").onclick=function(){ view.setDate(view.getDate()-1); renderDay(); };
+  document.getElementById("nextDay").onclick=function(){ view.setDate(view.getDate()+1); renderDay(); };
+  document.getElementById("todayBtn").onclick=function(){ view=new Date(); view.setHours(0,0,0,0); renderDay(); };
+  document.getElementById("resetDay").onclick=function(){ if(confirm("清空 "+key(view)+" 的打卡？")){ localStorage.removeItem(dkey(view)); renderDay(); renderStats(); } };
+  document.getElementById("resetAll").onclick=function(){ if(confirm("重置全部打卡与阶段清单？此操作不可恢复。")){ Object.keys(localStorage).forEach(function(k){ if(k.indexOf(LS_D)===0||k.indexOf(LS_P)===0) localStorage.removeItem(k); }); renderDay(); renderStats(); renderPhase(); } };
+
+  Array.prototype.forEach.call(document.querySelectorAll(".tab"), function(tb){
+    tb.addEventListener("click", function(){
+      Array.prototype.forEach.call(document.querySelectorAll(".tab"), function(x){ x.classList.remove("on","z","j","s"); });
+      var cls = tb.getAttribute("data-p"); // p-z / p-j / p-s
+      tb.classList.add("on", cls.split("-")[1]);
+      Array.prototype.forEach.call(document.querySelectorAll(".pane"), function(p){ p.classList.remove("on"); });
+      document.getElementById(cls).classList.add("on");
+    });
+  });
+
+  renderDay(); renderStats(); renderPhase();
+})();
+</script>
+</body>
+</html>
