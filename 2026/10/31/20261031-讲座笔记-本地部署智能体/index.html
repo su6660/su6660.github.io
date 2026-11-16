@@ -1,0 +1,216 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>讲座笔记：本地部署智能体（20261031） | 苏的博客</title><meta name="author"><meta name="copyright"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="熊瑞老师「0 成本本地实战部署」讲座速记整理：Agnes API、长期提示词铁律、AI 视频与自动化流程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="讲座笔记：本地部署智能体（20261031）">
+<meta property="og:url" content="http://example.com/2026/10/31/20261031-%E8%AE%B2%E5%BA%A7%E7%AC%94%E8%AE%B0-%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%E6%99%BA%E8%83%BD%E4%BD%93/index.html">
+<meta property="og:site_name" content="苏的博客">
+<meta property="og:description" content="熊瑞老师「0 成本本地实战部署」讲座速记整理：Agnes API、长期提示词铁律、AI 视频与自动化流程。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/avatar.jpg">
+<meta property="article:published_time" content="2026-10-31T01:00:00.000Z">
+<meta property="article:modified_time" content="2026-11-16T13:34:22.323Z">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="讲座笔记">
+<meta property="article:tag" content="智能体">
+<meta property="article:tag" content="本地部署">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/avatar.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2026/10/31/20261031-%E8%AE%B2%E5%BA%A7%E7%AC%94%E8%AE%B0-%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%E6%99%BA%E8%83%BD%E4%BD%93/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '讲座笔记：本地部署智能体（20261031）',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-11-16 21:34:22'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><style>body{background:url(/img/banner.jpg) center/cover no-repeat fixed;}</style><style>body{font-family:-apple-system,"PingFang SC","HarmonyOS Sans SC","Microsoft YaHei","Segoe UI",sans-serif}.recent-post-item,.card-widget{background:rgba(255,255,255,.72)!important;backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-radius:16px}.recent-post-item{box-shadow:0 8px 24px rgba(0,0,0,.08);transition:transform .3s ease,box-shadow .3s ease}.recent-post-item:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(0,0,0,.16)}#article-container.post-content{background:rgba(255,255,255,.6)!important;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:16px;padding:24px 32px;box-shadow:0 8px 24px rgba(0,0,0,.08);font-size:16px;line-height:1.9}#aside-content .card-widget{margin-bottom:16px}html[data-theme="dark"] .recent-post-item,html[data-theme="dark"] .card-widget,html[data-theme="dark"] #article-container.post-content{background:rgba(18,18,18,.72)!important}</style><style>.recent-post-item{overflow:hidden}.recent-post-item .article-title{font-size:1.25em;font-weight:700;line-height:1.4}.recent-post-item .article-meta-wrap{font-size:.8em;margin:.4em 0 .5em}.recent-post-item .content{font-size:.95em;line-height:1.8}#article-container h1{font-size:1.9em;margin:1.2em 0 .8em;font-weight:700}#article-container h2{font-size:1.55em;margin:1.2em 0 .7em;padding-left:.7rem;border-left:4px solid #5B8DEF;font-weight:700}#article-container h3{font-size:1.3em;margin:1em 0 .6em;padding-left:.6rem;border-left:3px solid #5B8DEF;font-weight:700}#article-container h4{font-size:1.15em;margin:.9em 0 .5em;font-weight:700}#article-container p{margin:.9em 0;line-height:1.9}#article-container blockquote{margin:1em 0;padding:.8em 1.3em;border-left:4px solid #5B8DEF;background:rgba(91,141,239,.1);border-radius:0 10px 10px 0}#article-container code{background:rgba(91,141,239,.12);padding:.2em .45em;border-radius:5px;font-family:Consolas,"SF Mono",monospace}#article-container figure.highlight{border-radius:10px;overflow:hidden}#article-container img{border-radius:10px}#article-container ul,#article-container ol{padding-left:1.7em}#article-container li{margin:.35em 0;line-height:1.8}.card-widget .item-headline{font-size:1em;font-weight:700;padding-bottom:.6em;margin-bottom:.8em;border-bottom:1px solid rgba(0,0,0,.07)}.card-info .avatar-img img{width:90px;height:90px}.author-info__name{font-size:1.15em;font-weight:700;margin-top:.6em}.card-tag-cloud a{display:inline-block;padding:.25em .7em;margin:.2em .15em;background:rgba(91,141,239,.12);border-radius:20px;font-size:.85em}</style><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">130</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">96</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/life-guide/"><i class="fa-fw fas fa-book-open"></i><span> 手册库</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/banner.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="苏的博客"><span class="site-name">苏的博客</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/life-guide/"><i class="fa-fw fas fa-book-open"></i><span> 手册库</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">讲座笔记：本地部署智能体（20261031）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-10-31T01:00:00.000Z" title="发表于 2026-10-31 09:00:00">2026-10-31</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-11-16T13:34:22.323Z" title="更新于 2026-11-16 21:34:22">2026-11-16</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="讲座笔记：本地部署智能体（20261031）"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
+<p>本文由现场速记整理，不是讲座逐字稿。原文中的工具名、网址按笔记原样保留，部分拼写疑似口误或速记误差，已在文中标注。</p>
+</blockquote>
+<h2 id="一句话总结"><a href="#一句话总结" class="headerlink" title="一句话总结"></a>一句话总结</h2><p>这场讲座的主线是「用最低成本把 AI 变成可复用的生产工具」：先用 Agnes 平台拿到 API，再用长期提示词约束 AI 的行为，最后用脚本和自动化流程把重复工作固化下来。</p>
+<h2 id="讲座信息"><a href="#讲座信息" class="headerlink" title="讲座信息"></a>讲座信息</h2><ul>
+<li>日期：2026-10-31</li>
+<li>讲师：熊瑞</li>
+<li>地点：和平假日大酒店</li>
+<li>主题：本地部署智能体 / 0 成本本地实战部署</li>
+</ul>
+<h2 id="核心结论"><a href="#核心结论" class="headerlink" title="核心结论"></a>核心结论</h2><ol>
+<li><strong>用 Agnes 创建 API</strong>，把大模型能力接进自己的程序，而不是只在网页里聊天。</li>
+<li><strong>先写长期提示词</strong>，把行为规则固定下来，再谈具体任务。</li>
+<li><strong>用 Agnes 的 API 做视频</strong>，配合提示词生成内容。</li>
+<li><strong>让 AI 自动化流程</strong>，减少人工搬运。</li>
+<li><strong>用 .bat 文件简化工作流程</strong>，把重复动作变成双击即执行。</li>
+</ol>
+<h2 id="内容梳理"><a href="#内容梳理" class="headerlink" title="内容梳理"></a>内容梳理</h2><h3 id="1-平台与入口"><a href="#1-平台与入口" class="headerlink" title="1. 平台与入口"></a>1. 平台与入口</h3><p>笔记中记录的工具与地址集中在 Agnes 生态：</p>
+<ul>
+<li>Agnes 文档站：<code>https://www.agnes-ai.cn/zh-Hans/docs/overview</code>，笔记标注「做视频不用钱」。</li>
+<li>API Key 管理：<code>https://platform.agnes-ai.cn/settings/apiKeys</code>。</li>
+<li>视频模型地址：<code>https://www.agnes-ai.cn/zh-Hans/docs/agnes-30-flash</code>。</li>
+<li>大模型排行榜：<code>https://aihot.news/leaderboard</code>。</li>
+<li>智能体平台：笔记写作 <code>telegent</code> / <code>teleageent</code>，并给出 <code>teleai.com.cn</code>，应指 TeleAI 的智能体平台，具体名称建议以官网为准。</li>
+<li>笔记还提到「用 DeepSeek 来操作 wubuuy 和 telegram」，<code>wubuuy</code> 疑为速记误差，待补。</li>
+</ul>
+<h3 id="2-用提示词生成一个-Web-应用的思路"><a href="#2-用提示词生成一个-Web-应用的思路" class="headerlink" title="2. 用提示词生成一个 Web 应用的思路"></a>2. 用提示词生成一个 Web 应用的思路</h3><p>现场记录了一段可直接复用的需求描述：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">按文档帮我创建一个 Web 应用。</span><br><span class="line">密钥放在后台管理，方便以后自行添加。</span><br><span class="line">功能：</span><br><span class="line">1. 调用大模型对话</span><br><span class="line">2. 后续增加模型，创建图形</span><br><span class="line">3. 后续增加模型，创建视频</span><br></pre></td></tr></table></figure>
+
+<p>这段提示词的结构值得借鉴：<strong>先给文档 → 再定权限与配置方式 → 最后列功能清单并标明优先级</strong>。</p>
+<h3 id="3-长期提示词「铁律」"><a href="#3-长期提示词「铁律」" class="headerlink" title="3. 长期提示词「铁律」"></a>3. 长期提示词「铁律」</h3><p>笔记中抄录了一套全局规则，属于讲座中强调的最高优先级设定：</p>
+<ol>
+<li><strong>改文件前必须备份</strong>：在项目根目录建 <code>.backup</code>，按模块、功能、时间打 <code>.bak</code>，无例外。</li>
+<li><strong>版本号递增</strong>：正式项目每次对话以 <code>0.0.01</code> 递增，临时文件不算；有数据库写数据库，没有就写 JSON。</li>
+<li><strong>服务启停交给用户</strong>：智能体只提示；确需代操作时设置监听机制，等待不超过 3 分钟。</li>
+<li><strong>有依赖的调用必须串行</strong>：并行只用于完全独立的操作，单批不超过 2 个。</li>
+<li><strong>不确定就直说「不确定」</strong>，靠经验判断时必须写明「这是经验判断」；每次回答末尾说明哪些确定、哪些需要验证。</li>
+</ol>
+<p>这套规则的价值不在技术，而在<strong>把 AI 的不确定性显式化</strong>，降低误改文件和假信息带来的风险。</p>
+<h3 id="4-附：如何提出一个好问题"><a href="#4-附：如何提出一个好问题" class="headerlink" title="4. 附：如何提出一个好问题"></a>4. 附：如何提出一个好问题</h3><p>笔记后半段粘贴了一段方法论，核心是四个要素：</p>
+<ul>
+<li><strong>差距明确</strong>：说得清自己不知道什么，而不是「怎么学好英语」这种糊成一片的问题。</li>
+<li><strong>带语境</strong>：目的、已知条件、已经试过什么。</li>
+<li><strong>答案可判定</strong>：能说清什么样的回答算答对。</li>
+<li><strong>有后果</strong>：拿到答案后行动会改变，否则那不是问题。</li>
+</ul>
+<p>操作上分五步：先写目标再写问题（警惕 XY 问题）→ 把大困惑拆成小缺口 → 交代「要达成什么、已知道什么、试过什么」→ 预演答案 → 迭代修正。作者也明确标注：四要素分析属逻辑推论，五步法属经验判断。</p>
+<h2 id="可以马上做的事"><a href="#可以马上做的事" class="headerlink" title="可以马上做的事"></a>可以马上做的事</h2><ul>
+<li><input disabled="" type="checkbox"> 注册 Agnes 并生成一个 API Key，跑通一次对话请求。</li>
+<li><input disabled="" type="checkbox"> 把「长期提示词铁律」落到自己的项目里，建立 <code>.backup</code> 目录约定。</li>
+<li><input disabled="" type="checkbox"> 用讲座给的提示词模板，做一个最小的「对话 + 图形 + 视频」Web 应用。</li>
+<li><input disabled="" type="checkbox"> 把每天重复的 2~3 个操作写成 <code>.bat</code>，先自动化最短的那条链路。</li>
+</ul>
+<h2 id="笔记完整度"><a href="#笔记完整度" class="headerlink" title="笔记完整度"></a>笔记完整度</h2><ul>
+<li>讲师现场演示的具体代码与参数未记录。</li>
+<li><code>telegent</code>、<code>wubuuy</code> 等名称存在速记误差，需对照录音或官网核实。</li>
+<li>录音文件 <code>本地部署.mp3.m4a</code>、<code>Recording 20261031120128.m4a</code> 已在笔记中引用，但未转写。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com"></a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2026/10/31/20261031-%E8%AE%B2%E5%BA%A7%E7%AC%94%E8%AE%B0-%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%E6%99%BA%E8%83%BD%E4%BD%93/">http://example.com/2026/10/31/20261031-%E8%AE%B2%E5%BA%A7%E7%AC%94%E8%AE%B0-%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%E6%99%BA%E8%83%BD%E4%BD%93/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">苏的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/AI/">AI</a><a class="post-meta__tags" href="/tags/%E8%AE%B2%E5%BA%A7%E7%AC%94%E8%AE%B0/">讲座笔记</a><a class="post-meta__tags" href="/tags/%E6%99%BA%E8%83%BD%E4%BD%93/">智能体</a><a class="post-meta__tags" href="/tags/%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2/">本地部署</a></div><div class="post_share"><div class="social-share" data-image="/img/avatar.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2026/10/31/20261031-%E8%AE%B2%E5%BA%A7%E7%AC%94%E8%AE%B0-%E5%B8%B8%E5%B7%9E%E9%80%80%E5%BD%B9%E5%86%9B%E4%BA%BA%E5%88%9B%E4%B8%9A%E6%94%BF%E7%AD%96%E8%A7%A3%E8%AF%BB/" title="讲座笔记：常州市退役军人创业政策解读（20261031）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">讲座笔记：常州市退役军人创业政策解读（20261031）</div></div></a></div><div class="next-post pull-right"><a href="/2026/10/30/20261030-%E8%AE%B2%E5%BA%A7%E7%AC%94%E8%AE%B0-%E7%94%A8AI%E5%81%9APPT%E4%B8%8E%E7%BB%93%E6%9E%84%E5%8C%96%E6%8F%90%E7%A4%BA%E8%AF%8D/" title="讲座笔记：用 AI 做 PPT 与结构化提示词（20261030）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">讲座笔记：用 AI 做 PPT 与结构化提示词（20261030）</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2026/10/30/20261030-%E8%AE%B2%E5%BA%A7%E7%AC%94%E8%AE%B0-%E5%BA%94%E7%94%A8%E7%BA%A7AI%E8%B5%8B%E8%83%BD%E9%AB%98%E6%95%88%E5%8A%9E%E5%85%AC/" title="讲座笔记：应用级 AI 赋能高效办公（20261030）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-30</div><div class="title">讲座笔记：应用级 AI 赋能高效办公（20261030）</div></div></a></div><div><a href="/2026/11/04/20261104-%E8%AE%B2%E5%BA%A7%E7%AC%94%E8%AE%B0-%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%E5%A4%A7%E6%A8%A1%E5%9E%8B/" title="讲座笔记：本地部署大模型入门（20261104）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-11-04</div><div class="title">讲座笔记：本地部署大模型入门（20261104）</div></div></a></div><div><a href="/2026/10/30/20261030-%E8%AE%B2%E5%BA%A7%E7%AC%94%E8%AE%B0-%E7%94%A8AI%E5%81%9APPT%E4%B8%8E%E7%BB%93%E6%9E%84%E5%8C%96%E6%8F%90%E7%A4%BA%E8%AF%8D/" title="讲座笔记：用 AI 做 PPT 与结构化提示词（20261030）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-30</div><div class="title">讲座笔记：用 AI 做 PPT 与结构化提示词（20261030）</div></div></a></div><div><a href="/2026/11/05/20261105-%E8%AE%B2%E5%BA%A7%E7%AC%94%E8%AE%B0-RAG%E4%BC%81%E4%B8%9A%E7%9F%A5%E8%AF%86%E5%BA%93/" title="讲座笔记：RAG 与企业知识库搭建（20261105）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-11-05</div><div class="title">讲座笔记：RAG 与企业知识库搭建（20261105）</div></div></a></div><div><a href="/2026/11/10/20261110-%E8%AE%B2%E5%BA%A7%E7%AC%94%E8%AE%B0-OPC%E4%B8%80%E4%BA%BA%E5%85%AC%E5%8F%B8%E4%B8%8EAI%E8%90%BD%E5%9C%B0/" title="讲座笔记：OPC 一人公司与 AI 能为企业做什么（20261110）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-11-10</div><div class="title">讲座笔记：OPC 一人公司与 AI 能为企业做什么（20261110）</div></div></a></div><div><a href="/2026/10/06/20261006-AI%E8%87%AA%E5%8A%A8%E6%8A%93%E5%8F%96%E7%A7%91%E6%8A%80%E8%B4%A2%E7%BB%8F%E6%96%B0%E9%97%BB/" title="每天用 AI 自动抓取科技财经新闻并发布博客"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-06</div><div class="title">每天用 AI 自动抓取科技财经新闻并发布博客</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name"></div><div class="author-info__description">选择有时候比努力更重要</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">130</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">96</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/su6660"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">我一定25岁之前练成大肌男</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%80%BB%E7%BB%93"><span class="toc-number">1.</span> <span class="toc-text">一句话总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%B2%E5%BA%A7%E4%BF%A1%E6%81%AF"><span class="toc-number">2.</span> <span class="toc-text">讲座信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E7%BB%93%E8%AE%BA"><span class="toc-number">3.</span> <span class="toc-text">核心结论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AE%B9%E6%A2%B3%E7%90%86"><span class="toc-number">4.</span> <span class="toc-text">内容梳理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%B9%B3%E5%8F%B0%E4%B8%8E%E5%85%A5%E5%8F%A3"><span class="toc-number">4.1.</span> <span class="toc-text">1. 平台与入口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%94%A8%E6%8F%90%E7%A4%BA%E8%AF%8D%E7%94%9F%E6%88%90%E4%B8%80%E4%B8%AA-Web-%E5%BA%94%E7%94%A8%E7%9A%84%E6%80%9D%E8%B7%AF"><span class="toc-number">4.2.</span> <span class="toc-text">2. 用提示词生成一个 Web 应用的思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%95%BF%E6%9C%9F%E6%8F%90%E7%A4%BA%E8%AF%8D%E3%80%8C%E9%93%81%E5%BE%8B%E3%80%8D"><span class="toc-number">4.3.</span> <span class="toc-text">3. 长期提示词「铁律」</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E9%99%84%EF%BC%9A%E5%A6%82%E4%BD%95%E6%8F%90%E5%87%BA%E4%B8%80%E4%B8%AA%E5%A5%BD%E9%97%AE%E9%A2%98"><span class="toc-number">4.4.</span> <span class="toc-text">4. 附：如何提出一个好问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E4%BB%A5%E9%A9%AC%E4%B8%8A%E5%81%9A%E7%9A%84%E4%BA%8B"><span class="toc-number">5.</span> <span class="toc-text">可以马上做的事</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%94%E8%AE%B0%E5%AE%8C%E6%95%B4%E5%BA%A6"><span class="toc-number">6.</span> <span class="toc-text">笔记完整度</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/11/16/20261115-%E7%A7%91%E6%8A%80%C2%B7%E8%B4%A2%E7%BB%8F%C2%B7%E5%8A%A0%E5%AF%86%E6%97%A5%E6%8A%A5/" title="科技·财经·加密日报（20261115）">科技·财经·加密日报（20261115）</a><time datetime="2026-11-15T23:03:15.743Z" title="发表于 2026-11-16 07:03:15">2026-11-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/11/14/20261113-%E7%A7%91%E6%8A%80%C2%B7%E8%B4%A2%E7%BB%8F%C2%B7%E5%8A%A0%E5%AF%86%E6%97%A5%E6%8A%A5/" title="科技·财经·加密日报（20261113）">科技·财经·加密日报（20261113）</a><time datetime="2026-11-13T23:01:09.854Z" title="发表于 2026-11-14 07:01:09">2026-11-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/11/14/20261114-%E7%A7%91%E6%8A%80%C2%B7%E8%B4%A2%E7%BB%8F%C2%B7%E5%8A%A0%E5%AF%86%E6%97%A5%E6%8A%A5/" title="科技·财经·加密日报（20261114）">科技·财经·加密日报（20261114）</a><time datetime="2026-11-13T21:00:00.000Z" title="发表于 2026-11-14 05:00:00">2026-11-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/11/12/20261112-%E8%AE%B2%E5%BA%A7%E7%AC%94%E8%AE%B0-%E5%B0%8F%E5%BE%AE%E4%BC%81%E4%B8%9A%E5%88%9B%E4%B8%9A%E8%80%85%E8%B4%A2%E5%8A%A1%E8%83%BD%E5%8A%9B/" title="讲座笔记：小微企业创业者的财务能力（20261112）">讲座笔记：小微企业创业者的财务能力（20261112）</a><time datetime="2026-11-12T01:00:00.000Z" title="发表于 2026-11-12 09:00:00">2026-11-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/11/12/20261111-%E4%B8%96%E7%95%8C%E6%97%A5%E6%8A%A5/" title="世界发生了什么·每日报（20261111）">世界发生了什么·每日报（20261111）</a><time datetime="2026-11-11T23:03:00.351Z" title="发表于 2026-11-12 07:03:00">2026-11-12</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2026 By null</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="https://cn.vercount.one/js"></script></div></body></html>
