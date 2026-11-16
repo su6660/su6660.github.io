@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>电子商务师 · 在线考试</title>
+<style>
+  :root{
+    --bg:#f3f5fa; --card:#ffffff; --text:#1f2937; --muted:#6b7280;
+    --line:#e5e7eb; --accent:#2563eb; --accent-soft:#eff4ff;
+    --green:#16a34a; --green-soft:#eefbf2; --red:#dc2626; --red-soft:#fef2f2;
+    --amber:#d97706; --shadow:0 8px 28px rgba(17,24,39,.07);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:system-ui,-apple-system,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:var(--bg);color:var(--text);font-size:15px;line-height:1.7;
+  }
+  button{font-family:inherit;cursor:pointer}
+  .hidden{display:none !important}
+
+  /* ---------- 通用 ---------- */
+  .btn{
+    border:1.5px solid var(--line);background:#fff;color:var(--text);
+    border-radius:10px;padding:9px 18px;font-size:14px;font-weight:600;
+    transition:.18s ease;
+  }
+  .btn:hover{border-color:#c7d2fe;background:#f8faff}
+  .btn:disabled{opacity:.45;cursor:not-allowed}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff;
+    box-shadow:0 6px 16px rgba(37,99,235,.22)}
+  .btn.primary:hover{background:#1d4ed8;border-color:#1d4ed8}
+  .btn.ghost{background:transparent}
+  .btn.danger{border-color:#fecaca;color:var(--red);background:#fff}
+  .btn.danger:hover{background:var(--red-soft)}
+
+  /* ---------- 首页 ---------- */
+  #startView{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+  .start-card{
+    width:min(720px,100%);background:var(--card);border-radius:20px;box-shadow:var(--shadow);
+    padding:44px 44px 36px;position:relative;overflow:hidden;
+  }
+  .start-card::before{
+    content:"";position:absolute;inset:0 0 auto 0;height:6px;
+    background:linear-gradient(90deg,#2563eb,#7c3aed 55%,#06b6d4);
+  }
+  .eyebrow{font-size:13px;font-weight:700;letter-spacing:.12em;color:var(--accent);text-transform:uppercase}
+  .start-card h1{font-size:30px;line-height:1.3;margin:10px 0 6px;letter-spacing:-.01em}
+  .start-sub{color:var(--muted);margin:0 0 26px}
+  .stat-row{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:28px}
+  .stat{
+    flex:1 1 120px;background:#f8fafc;border:1px solid var(--line);border-radius:14px;
+    padding:14px 16px;
+  }
+  .stat b{display:block;font-size:22px;line-height:1.2}
+  .stat span{font-size:12.5px;color:var(--muted)}
+  .start-label{font-size:13px;font-weight:700;color:var(--muted);margin:0 0 10px}
+  .mode-row{display:flex;gap:12px;margin-bottom:22px;flex-wrap:wrap}
+  .mode{
+    flex:1 1 220px;border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;
+    cursor:pointer;transition:.18s ease;background:#fff;position:relative;
+  }
+  .mode:hover{border-color:#bfdbfe}
+  .mode.active{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 3px rgba(37,99,235,.08)}
+  .mode b{display:block;font-size:15px;margin-bottom:2px}
+  .mode span{font-size:12.5px;color:var(--muted);line-height:1.5}
+  .mode .dot{
+    position:absolute;top:14px;right:14px;width:16px;height:16px;border-radius:50%;
+    border:2px solid #cbd5e1;background:#fff
+  }
+  .mode.active .dot{border-color:var(--accent);background:radial-gradient(circle,#2563eb 0 45%,#fff 47% 100%)}
+  .start-opts{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:26px}
+  .check{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--muted);cursor:pointer;user-select:none}
+  .check input{width:17px;height:17px;accent-color:var(--accent);cursor:pointer}
+  .start-actions{display:flex;gap:12px;flex-wrap:wrap}
+  .start-actions .btn{padding:12px 26px;font-size:15px;border-radius:12px}
+  .resume-tip{font-size:12.5px;color:var(--muted);margin-top:14px}
+  .resume-tip b{color:var(--accent);font-weight:600}
+
+  /* ---------- 顶栏 ---------- */
+  .topbar{
+    position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar-inner{
+    max-width:1180px;margin:0 auto;padding:12px 22px;display:flex;align-items:center;gap:18px;
+  }
+  .top-title{min-width:0;flex:1}
+  .top-title b{display:block;font-size:15.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .top-title span{font-size:12px;color:var(--muted)}
+  .top-progress{display:flex;align-items:center;gap:10px;min-width:180px}
+  .bar{width:120px;height:7px;border-radius:99px;background:#e5e7eb;overflow:hidden}
+  .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#2563eb,#7c3aed);transition:width .25s ease}
+  .top-progress em{font-style:normal;font-size:12.5px;color:var(--muted);white-space:nowrap}
+  .timer{
+    font-variant-numeric:tabular-nums;font-weight:700;font-size:15px;color:#334155;
+    background:#f1f5f9;border-radius:9px;padding:6px 12px;white-space:nowrap
+  }
+
+  /* ---------- 考试主体 ---------- */
+  #examView{padding-bottom:60px}
+  .layout{max-width:1180px;margin:26px auto 0;padding:0 22px;display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:22px;align-items:start}
+  .q-card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:30px 32px 24px;min-height:440px;display:flex;flex-direction:column}
+  .q-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+  .pill{font-size:12px;font-weight:700;border-radius:99px;padding:3px 11px}
+  .pill.single{background:#eef4ff;color:#1d4ed8}
+  .pill.multi{background:#f5f0ff;color:#7c3aed}
+  .pill.judge{background:#fff7ed;color:#c2410c}
+  .q-no{font-size:13px;color:var(--muted);font-weight:600}
+  .q-score{margin-left:auto;font-size:12.5px;color:var(--muted)}
+  .q-stem{font-size:18px;font-weight:600;line-height:1.75;margin:0 0 22px;white-space:pre-wrap}
+  .options{display:flex;flex-direction:column;gap:11px;margin-bottom:8px}
+  .opt{
+    display:flex;gap:13px;align-items:flex-start;border:1.5px solid var(--line);border-radius:13px;
+    padding:13px 16px;background:#fff;cursor:pointer;transition:.16s ease;text-align:left;width:100%;
+    font-size:15px;color:var(--text);line-height:1.65;
+  }
+  .opt:hover{border-color:#bfdbfe;background:#fbfdff}
+  .opt .key{
+    flex:0 0 26px;width:26px;height:26px;border-radius:50%;border:1.5px solid #cbd5e1;
+    display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#64748b;
+    margin-top:1px;transition:.16s ease
+  }
+  .opt .txt{flex:1;min-width:0;white-space:pre-wrap}
+  .opt.sel{border-color:var(--accent);background:var(--accent-soft)}
+  .opt.sel .key{background:var(--accent);border-color:var(--accent);color:#fff}
+  .opt.correct{border-color:#86efac;background:var(--green-soft)}
+  .opt.correct .key{background:var(--green);border-color:var(--green);color:#fff}
+  .opt.wrong{border-color:#fca5a5;background:var(--red-soft)}
+  .opt.wrong .key{background:var(--red);border-color:var(--red);color:#fff}
+  .opt[disabled]{cursor:default}
+  .opt[disabled]:hover{border-color:var(--line);background:#fff}
+  .opt.sel[disabled]:hover{border-color:var(--accent);background:var(--accent-soft)}
+  .opt.correct[disabled]:hover{border-color:#86efac;background:var(--green-soft)}
+  .opt.wrong[disabled]:hover{border-color:#fca5a5;background:var(--red-soft)}
+  .feedback{
+    margin-top:14px;border-radius:12px;padding:12px 16px;font-size:14px;font-weight:600;
+  }
+  .feedback.ok{background:var(--green-soft);color:#15803d}
+  .feedback.bad{background:var(--red-soft);color:#b91c1c}
+  .feedback span{font-weight:800;letter-spacing:.06em}
+  .q-foot{margin-top:auto;padding-top:24px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .q-foot .spacer{flex:1}
+  .confirm-btn{display:none}
+  .study .confirm-btn{display:inline-block}
+
+  /* ---------- 答题卡 ---------- */
+  .sheet{position:sticky;top:82px;background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px 20px}
+  .sheet-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:6px}
+  .sheet-head b{font-size:15px}
+  .sheet-head span{font-size:12.5px;color:var(--muted)}
+  .sheet-progress{font-size:12.5px;color:var(--muted);margin-bottom:16px}
+  .sheet-progress b{color:var(--accent)}
+  .sheet-group{margin-bottom:16px}
+  .sheet-group h4{font-size:12.5px;color:var(--muted);font-weight:600;margin:0 0 9px;display:flex;justify-content:space-between}
+  .grid{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}
+  .cell{
+    aspect-ratio:1/1;border:1.5px solid var(--line);border-radius:8px;background:#fff;
+    font-size:12.5px;font-weight:600;color:#64748b;display:flex;align-items:center;justify-content:center;
+    transition:.14s ease;padding:0
+  }
+  .cell:hover{border-color:#bfdbfe;color:var(--accent)}
+  .cell.done{background:var(--accent-soft);border-color:#bfdbfe;color:var(--accent)}
+  .cell.cur{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 4px 12px rgba(37,99,235,.28)}
+  .cell.right{background:var(--green-soft);border-color:#86efac;color:#15803d}
+  .cell.wrong{background:var(--red-soft);border-color:#fca5a5;color:#b91c1c}
+  .cell.miss{background:#f8fafc;border-color:var(--line);color:#94a3b8}
+  .legend{display:flex;flex-wrap:wrap;gap:10px 14px;margin-top:8px;font-size:12px;color:var(--muted)}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+
+  /* ---------- 结果页 ---------- */
+  #resultView{max-width:1000px;margin:0 auto;padding:30px 22px 70px}
+  .score-card{
+    background:linear-gradient(135deg,#1e3a8a,#2563eb 60%,#4f46e5);color:#fff;border-radius:20px;
+    padding:30px 34px;box-shadow:0 14px 36px rgba(30,58,138,.25);margin-bottom:22px;
+    display:flex;align-items:center;gap:30px;flex-wrap:wrap
+  }
+  .score-main{display:flex;align-items:baseline;gap:8px}
+  .score-main b{font-size:56px;line-height:1;letter-spacing:-.03em}
+  .score-main span{font-size:15px;opacity:.8}
+  .score-info{flex:1;min-width:220px}
+  .score-info h2{margin:0 0 6px;font-size:20px}
+  .score-info p{margin:0;font-size:13.5px;opacity:.85}
+  .score-stats{display:flex;gap:26px;margin-top:14px;flex-wrap:wrap}
+  .score-stats div{font-size:12.5px;opacity:.85}
+  .score-stats b{display:block;font-size:20px;opacity:1;font-weight:800}
+  .actions-row{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 20px}
+  .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+  .chip{
+    border:1.5px solid var(--line);background:#fff;color:var(--muted);border-radius:99px;
+    padding:7px 16px;font-size:13px;font-weight:600;transition:.16s ease
+  }
+  .chip.active{background:var(--text);border-color:var(--text);color:#fff}
+  .review-item{background:var(--card);border-radius:16px;box-shadow:0 4px 16px rgba(17,24,39,.05);padding:24px 26px;margin-bottom:14px}
+  .review-top{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:10px}
+  .verdict{font-size:12px;font-weight:700;border-radius:99px;padding:3px 11px}
+  .verdict.ok{background:var(--green-soft);color:#15803d}
+  .verdict.bad{background:var(--red-soft);color:#b91c1c}
+  .verdict.miss{background:#f1f5f9;color:#64748b}
+  .review-stem{font-size:15.5px;font-weight:600;margin:0 0 14px;white-space:pre-wrap;line-height:1.7}
+  .review-opts{display:flex;flex-direction:column;gap:8px}
+  .review-opt{border:1.5px solid var(--line);border-radius:11px;padding:10px 14px;font-size:14px;display:flex;gap:11px;line-height:1.6}
+  .review-opt .k{flex:0 0 22px;width:22px;height:22px;border-radius:50%;background:#f1f5f9;color:#64748b;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+  .review-opt.correct{border-color:#86efac;background:var(--green-soft)}
+  .review-opt.correct .k{background:var(--green);color:#fff}
+  .review-opt.wrong{border-color:#fca5a5;background:var(--red-soft)}
+  .review-opt.wrong .k{background:var(--red);color:#fff}
+  .answer-line{margin-top:12px;font-size:13.5px;color:var(--muted)}
+  .answer-line b{color:var(--text)}
+  .answer-line .c{color:var(--green);font-weight:800;letter-spacing:.06em}
+  .answer-line .w{color:var(--red);font-weight:800;letter-spacing:.06em}
+  .empty{padding:60px 20px;text-align:center;color:var(--muted);background:#fff;border-radius:16px}
+
+  /* ---------- 弹层 ---------- */
+  .mask{position:fixed;inset:0;background:rgba(15,23,42,.45);z-index:50;display:flex;align-items:center;justify-content:center;padding:20px}
+  .dialog{background:#fff;border-radius:18px;padding:28px;width:min(420px,100%);box-shadow:0 24px 60px rgba(15,23,42,.28)}
+  .dialog h3{margin:0 0 10px;font-size:18px}
+  .dialog p{margin:0 0 22px;color:var(--muted);font-size:14px;line-height:1.7}
+  .dialog-actions{display:flex;gap:10px;justify-content:flex-end}
+
+  .toast{
+    position:fixed;left:50%;bottom:34px;transform:translateX(-50%) translateY(20px);
+    background:#111827;color:#fff;font-size:13.5px;border-radius:10px;padding:10px 18px;
+    opacity:0;pointer-events:none;transition:.25s ease;z-index:80;box-shadow:0 10px 30px rgba(0,0,0,.25)
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  @media (max-width:900px){
+    .layout{grid-template-columns:1fr;padding:0 14px;margin-top:16px}
+    .sheet{position:static;order:2}
+    .q-card{padding:22px 18px 18px;min-height:0}
+    .q-stem{font-size:16.5px}
+    .grid{grid-template-columns:repeat(8,1fr)}
+    .top-progress{display:none}
+    .topbar-inner{padding:10px 14px;gap:10px}
+    .score-card{padding:24px}
+    .score-main b{font-size:46px}
+    #resultView{padding:20px 14px 60px}
+    .review-item{padding:18px 16px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== 首页 ========== -->
+<section id="startView">
+  <div class="start-card">
+    <div class="eyebrow">Online Exam · 2026</div>
+    <h1 id="startTitle">复习题库</h1>
+    <p class="start-sub">答案已内置。支持考试模式与背题模式，进度自动保存。</p>
+
+    <div class="stat-row">
+      <div class="stat"><b id="statTotal">146</b><span>总题数</span></div>
+      <div class="stat"><b id="statSingle">88</b><span>单选题</span></div>
+      <div class="stat"><b id="statMulti">49</b><span>多选题</span></div>
+      <div class="stat"><b id="statJudge">9</b><span>判断题</span></div>
+      <div class="stat"><b>1 分</b><span>每题分值</span></div>
+    </div>
+
+    <p class="start-label">选择模式</p>
+    <div class="mode-row">
+      <div class="mode active" data-mode="exam" role="button" tabindex="0">
+        <span class="dot"></span>
+        <b>考试模式</b>
+        <span>作答时不显示答案，交卷后统一批改并查看全部答案。</span>
+      </div>
+      <div class="mode" data-mode="study" role="button" tabindex="0">
+        <span class="dot"></span>
+        <b>背题模式</b>
+        <span>选完立即判定对错，并显示正确答案，适合边做边记。</span>
+      </div>
+    </div>
+
+    <div class="start-opts">
+      <label class="check"><input type="checkbox" id="shuffleChk"> 随机打乱题目顺序</label>
+      <span class="resume-tip hidden" id="resumeTip">检测到未完成的作答记录：<b id="resumeInfo"></b></span>
+    </div>
+
+    <div class="start-actions">
+      <button class="btn primary" id="startBtn">开始答题</button>
+      <button class="btn hidden" id="resumeBtn">继续上次进度</button>
+    </div>
+    <div class="resume-tip hidden" id="resumeHint">继续后将从上次停留的题号开始，已作答内容不会丢失。</div>
+  </div>
+</section>
+
+<!-- ========== 考试页 ========== -->
+<section id="examView" class="hidden">
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="top-title">
+        <b id="topTitle">复习题库</b>
+        <span id="topMode">考试模式</span>
+      </div>
+      <div class="top-progress">
+        <div class="bar"><i id="topBar"></i></div>
+        <em id="topCount">0 / 300</em>
+      </div>
+      <div class="timer" id="timer">00:00:00</div>
+      <button class="btn danger" id="submitBtn">交卷</button>
+    </div>
+  </div>
+
+  <div class="layout">
+    <main class="q-card" id="qCard">
+      <div class="q-meta">
+        <span class="pill single" id="typePill">单选题</span>
+        <span class="q-no" id="qNo">第 1 题 / 共 300 题</span>
+        <span class="q-score">本题 1 分</span>
+      </div>
+      <h2 class="q-stem" id="qStem"></h2>
+      <div class="options" id="options"></div>
+      <div class="feedback hidden" id="feedback"></div>
+      <div class="q-foot">
+        <button class="btn" id="prevBtn">上一题</button>
+        <button class="btn" id="nextBtn">下一题</button>
+        <button class="btn primary confirm-btn" id="confirmBtn">确认答案</button>
+        <span class="spacer"></span>
+        <button class="btn ghost" id="quitBtn">退出</button>
+      </div>
+    </main>
+
+    <aside class="sheet">
+      <div class="sheet-head"><b>答题卡</b><span id="sheetMode">考试模式</span></div>
+      <div class="sheet-progress">已答 <b id="doneCount">0</b> / <span id="doneTotal">146</span> 题</div>
+      <div id="sheetGroups"></div>
+      <div class="legend">
+        <span><i style="background:#2563eb"></i>当前</span>
+        <span><i style="background:#eff4ff;border:1px solid #bfdbfe"></i>已答</span>
+        <span><i style="background:#fff;border:1px solid #e5e7eb"></i>未答</span>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ========== 结果页 ========== -->
+<section id="resultView" class="hidden">
+  <div class="score-card">
+    <div class="score-main"><b id="scoreNum">0</b><span>分 / <span id="scoreTotal">146</span></span></div>
+    <div class="score-info">
+      <h2 id="resultTitle">本次成绩</h2>
+      <p id="resultSub"></p>
+      <div class="score-stats">
+        <div><b id="rightNum">0</b>答对</div>
+        <div><b id="wrongNum">0</b>答错</div>
+        <div><b id="missNum">0</b>未答</div>
+        <div><b id="accNum">0%</b>正确率</div>
+        <div><b id="timeNum">00:00</b>用时</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions-row">
+    <button class="btn primary" id="restartBtn">重新考试</button>
+    <button class="btn" id="homeBtn">返回首页</button>
+  </div>
+
+  <div class="filters">
+    <button class="chip active" data-filter="all" id="chipAll">全部 146</button>
+    <button class="chip" data-filter="wrong">只看错题 <span id="chipWrong">0</span></button>
+    <button class="chip" data-filter="miss">只看未答 <span id="chipMiss">0</span></button>
+  </div>
+  <div id="reviewList"></div>
+</section>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================= 数据 ================= */
+const DATA = {"meta":{"title":"2026 电子商务师复习题","tid":294876,"total":146,"single":88,"multi":49,"judge":9},"questions":[{"n":1,"id":"10071518","t":1,"q":"电子商务网站绩效评价的调查表中对社会效益评价的问题有( )。","o":[{"k":"A","v":"商务网站实施前商务伙伴企业电子商务应用普及率"},{"k":"B","v":"商务网站实施前商务伙伴企业总数;企业上网,开展电子商务的企业数;实施后一个会计年度内新增商务伙伴企业总数;其中带动商务伙伴进行企业上网,开展电子商务的企业数"},{"k":"C","v":"商务网站实施前国外用户数"},{"k":"D","v":"商务网站实施前物流费万元,商务网站实施后物流费万元"}],"a":"A","an":""},{"n":2,"id":"10071511","t":1,"q":"电子商务销售的业务流程是(  )。","o":[{"k":"A","v":"制定销售计划->建立销售渠道->培训销售队伍->跟踪管理"},{"k":"B","v":"建立销售渠道->制定销售计划->培训销售队伍->跟踪管理"},{"k":"C","v":"培训销售队伍->跟踪管理->建立销售渠道->制定销售计划"},{"k":"D","v":"跟踪管理->培训销售队伍->制定销售计划->建立销售渠道"}],"a":"A","an":""},{"n":3,"id":"10071532","t":1,"q":"目前应用最广泛的电子支付方式是:( )","o":[{"k":"A","v":"银行卡"},{"k":"B","v":"电子货币"},{"k":"C","v":"电子货币"},{"k":"D","v":"电子本票"}],"a":"A","an":""},{"n":4,"id":"10071485","t":1,"q":"用户数据维护属于()商应提供的服务内容。","o":[{"k":"A","v":"IAP"},{"k":"B","v":"ISP"},{"k":"C","v":"ASP"},{"k":"D","v":"IPP"}],"a":"A","an":""},{"n":5,"id":"10071519","t":1,"q":"数据库系统的安全隐患中的“隐秘通道”是指( )。","o":[{"k":"A","v":"数据库自己的安全隐患"},{"k":"B","v":"黑客通过OS工具窃取数据库文件内容"},{"k":"C","v":"操作系统自己的安全隐患"},{"k":"D","v":"互联网上的安全隐患"}],"a":"B","an":""},{"n":6,"id":"10071562","t":1,"q":"亚太经合组织(APEC)已建了_D,以监控本地区及全球各认证中心的发展。","o":[{"k":"A","v":"亚洲认证协调中心"},{"k":"B","v":"认证中心授权系统"},{"k":"C","v":"亚洲各国认证机构联合会"},{"k":"D","v":"一个现有鉴证授权机构的数据库"}],"a":"D","an":""},{"n":7,"id":"10071534","t":1,"q":"HTTP指的是:( )","o":[{"k":"A","v":"文件传输协议"},{"k":"B","v":"超文本传输协议"},{"k":"C","v":"网络协议"},{"k":"D","v":"用户数据表协议"}],"a":"B","an":""},{"n":8,"id":"10071488","t":1,"q":"1995年10月, 在美国诞生了全球第一家网上银行, ——(  )。","o":[{"k":"A","v":"安全第一网络银行"},{"k":"B","v":"密苏里Mark Twain银行"},{"k":"C","v":"西尔寺银行"},{"k":"D","v":"花旗银行"}],"a":"A","an":""},{"n":9,"id":"10071493","t":1,"q":"URL的格式为( )。","o":[{"k":"A","v":"(协议)://(主机名): (端口号)/(文件路径)/(文件名)"},{"k":"B","v":"(协议):\\\\(主机名): (端口号)/(文件路径)/(文件名)"},{"k":"C","v":"(协议)://(主机名): (文件路径)/(文件名)"},{"k":"D","v":"(协议):\\\\(主机名): (端口号)\\(文件路径)\\(文件名)"}],"a":"A","an":""},{"n":10,"id":"10071513","t":1,"q":"PKI可以解决的问题不包括(  )。","o":[{"k":"A","v":"数据加密"},{"k":"B","v":"数据完整性保护"},{"k":"C","v":"身份验证"},{"k":"D","v":"查毒杀毒"}],"a":"B","an":""},{"n":11,"id":"10071537","t":1,"q":"电子商务(电子商务培训 )基本形式中企业间网络交易是:( )","o":[{"k":"A","v":"G2B"},{"k":"B","v":"G2C"},{"k":"C","v":"B2C"},{"k":"D","v":"B2B"}],"a":"D","an":""},{"n":12,"id":"10071561","t":1,"q":"INTERNET是1989年由先前的(       )更名而来的。","o":[{"k":"A","v":"INTRANET"},{"k":"B","v":"EXTRANET"},{"k":"C","v":"ARPNET"},{"k":"D","v":"NSFNET"}],"a":"D","an":""},{"n":13,"id":"10071560","t":1,"q":"2000年内,中国电信出口带宽将从50M提高到(       )。","o":[{"k":"A","v":"250M"},{"k":"B","v":"100M"},{"k":"C","v":"150M"},{"k":"D","v":"80M"}],"a":"C","an":""},{"n":14,"id":"10071527","t":1,"q":"对上下游商务伙伴开展电子商务的带动作用评分得优的标准是( )。","o":[{"k":"A","v":"有很大带动作用,对90%以上的上、下游商务伙伴上网搞电子商务起带动作用,促使上网企业比例增长率40%~50%"},{"k":"B","v":"有较大带动作用,对85%的上游商务伙伴、下游商务伙伴上网搞电子商务起带动作用,促使上网企业比例增长率30%~40%"},{"k":"C","v":"有带动作用,对不足70%的上游商务伙伴、下游商务伙伴上网搞电子商务起带动作用,促使上网企业比例增长率25%~20%"},{"k":"D","v":"有带动作用,对不足50%的上游商务伙伴、下游商务伙伴上网搞电子商务起带动作用,促使上网企业比例增长率15%~20%"}],"a":"B","an":""},{"n":15,"id":"10071544","t":1,"q":"电子现金的支付过程可以分为(  )步:","o":[{"k":"A","v":"三"},{"k":"B","v":"四"},{"k":"C","v":"五"},{"k":"D","v":"六"}],"a":"B","an":""},{"n":16,"id":"10071486","t":1,"q":"Intranet的基础是企业内部管理信息系统, 而它的基础系统是( ) 管理系统。","o":[{"k":"A","v":"MIS"},{"k":"B","v":"DBMS"},{"k":"C","v":"DSS"},{"k":"D","v":"ERP"}],"a":"B","an":""},{"n":17,"id":"10071515","t":1,"q":"网络营销分析的对象是(  )。","o":[{"k":"A","v":"产品消费者"},{"k":"B","v":"产品竞争者"},{"k":"C","v":"合作伙伴"},{"k":"D","v":"以上三者"}],"a":"A","an":""},{"n":18,"id":"10071567","t":1,"q":"(       ),代替它的是由美国政府指定的三家私营企业。至此,Internet由商业机构正式接管,标志了Internet的商业化彻底完成。","o":[{"k":"A","v":"1991年2月22日,APRnet正式宣布停止运作"},{"k":"B","v":"1992年9月12日,PSInet正式宣布停止运作"},{"k":"C","v":"1994年11月16日,CERFnet正式宣布停止运作"},{"k":"D","v":"1995年4月30日,NSFnet正式宣布停止运作"}],"a":"D","an":""},{"n":19,"id":"10071538","t":1,"q":"网络营销对网络商务信息收集的要求是及时、()、适度和经济:( )","o":[{"k":"A","v":"全面"},{"k":"B","v":"准确"},{"k":"C","v":"新颖"},{"k":"D","v":"灵敏"}],"a":"B","an":""},{"n":20,"id":"10071521","t":1,"q":".www.yahoo.com是( )","o":[{"k":"A","v":"域名"},{"k":"B","v":"邮件地址"},{"k":"C","v":"口令"},{"k":"D","v":"ISP"}],"a":"B","an":""},{"n":21,"id":"10071540","t":1,"q":"智能卡能提供:( )","o":[{"k":"A","v":"嵌入式芯片"},{"k":"B","v":"集成电路"},{"k":"C","v":"存储器"},{"k":"D","v":"集成芯片"}],"a":"A","an":""},{"n":22,"id":"10071508","t":1,"q":"电子商务网站运行状况指标中有5项,其中本书推荐的权重最高的一项的是( )。","o":[{"k":"A","v":"商务网站访问率"},{"k":"B","v":"信息更新率"},{"k":"C","v":"电子商务采购率,电子商务销售率"},{"k":"D","v":"电子商务交易额"}],"a":"D","an":""},{"n":23,"id":"10071554","t":1,"q":"电子商务的B to G是()模式的电子商务:( )","o":[{"k":"A","v":"消费者对商业"},{"k":"B","v":"商业对政府"},{"k":"C","v":"商业对商业"},{"k":"D","v":"消费者对政府"}],"a":"B","an":""},{"n":24,"id":"10071525","t":1,"q":"关于Windows中的共享文件机制,说法正确的是( )。","o":[{"k":"A","v":"NT在安装后,无需任何配置,每个磁盘均可通过远程进行访问"},{"k":"B","v":"Windows中的共享文件服务只对局域网用户开放"},{"k":"C","v":"Internet上的用户不能直接访问Windows中的共享文件服务"},{"k":"D","v":"以上说法均不正确"}],"a":"C","an":""},{"n":25,"id":"10071501","t":1,"q":"客户机与服务器的建立连接称为()。","o":[{"k":"A","v":"上传"},{"k":"B","v":"登录"},{"k":"C","v":"握手"},{"k":"D","v":"连接"}],"a":"B","an":""},{"n":26,"id":"10071531","t":1,"q":"下面哪项主要来保证网上交易的安全:( )","o":[{"k":"A","v":"厂家"},{"k":"B","v":"认证中心"},{"k":"C","v":"银行"},{"k":"D","v":"信用卡中心"}],"a":"B","an":""},{"n":27,"id":"10071553","t":1,"q":"CA认证中心是发放(),以确认身份,保证电子支付的安全性:( )","o":[{"k":"A","v":"数字证书"},{"k":"B","v":"支付证书"},{"k":"C","v":"安全证书"},{"k":"D","v":"确认证书"}],"a":"A","an":""},{"n":28,"id":"10071528","t":1,"q":"商务网站实施的进度计划安排有如下哪个目的? ( )","o":[{"k":"A","v":"保证按时获利以补偿已经发生的费用支出并满足严格的完工时间约束"},{"k":"B","v":"协调资源、使资源在需要时可以利用"},{"k":"C","v":"预测在不同时间上所需的资金和资源的级别以便赋予各个任务以不同的优先级"},{"k":"D","v":"以上三项"}],"a":"A","an":""},{"n":29,"id":"10071517","t":1,"q":"电子商务网站运营目标的确立,需要参考( )。","o":[{"k":"A","v":"国外同行领先网站"},{"k":"B","v":"国内同行领先网站"},{"k":"C","v":"国外、国内同行领先网站"},{"k":"D","v":"可不参考"}],"a":"B","an":""},{"n":30,"id":"10071563","t":1,"q":"一般认为:(       )是最早出现的真正意义上的电子商务。","o":[{"k":"A","v":"SpreadSheet"},{"k":"B","v":"EDI"},{"k":"C","v":"EDP"},{"k":"D","v":"SSL"}],"a":"B","an":""},{"n":31,"id":"10071491","t":1,"q":"Internet临时文件默认的文件夹为( )。","o":[{"k":"A","v":"C: \\Windows\\System"},{"k":"B","v":"C: \\Windows\\History"},{"k":"C","v":"C: \\Windows\\Temporary Internet Files"},{"k":"D","v":"C: \\Windows\\Web"}],"a":"C","an":""},{"n":32,"id":"10071549","t":1,"q":"CA的指的是:( )","o":[{"k":"A","v":"电子中心"},{"k":"B","v":"金融中心"},{"k":"C","v":"银行中心"},{"k":"D","v":"认证中心"}],"a":"D","an":""},{"n":33,"id":"10071564","t":1,"q":"1991年,美国三家公司组成了’商用Internet协会’(CommercialInternetExchange.Association),宣布用户可以把它们的Internet子网用于任何的商业用途,这标志了(       )。","o":[{"k":"A","v":"Internet开始进入商业领域"},{"k":"B","v":"Internet的商业化彻底完成"},{"k":"C","v":"Internet已完全替代了NSFNET"},{"k":"D","v":"Internet已完全替代了ARPNET"}],"a":"A","an":""},{"n":34,"id":"10071533","t":1,"q":"电子支票支付方式不包括:( )","o":[{"k":"A","v":"E-check"},{"k":"B","v":"NetBill"},{"k":"C","v":"NetCheque"},{"k":"D","v":"电子邮件"}],"a":"D","an":""},{"n":35,"id":"10071558","t":1,"q":"INTERNET的前身最早是(       ),它首次实现了一些异地计算机的数据共享。","o":[{"k":"A","v":"INTRNET"},{"k":"B","v":"NSFNET"},{"k":"C","v":"ARPNET"},{"k":"D","v":"EXTRANET"}],"a":"C","an":""},{"n":36,"id":"10071526","t":1,"q":"电子商务网站的产品经理( )。","o":[{"k":"A","v":"仅负责产品的进货"},{"k":"B","v":"仅负责产品的销售"},{"k":"C","v":"既负责产品的进货,也负责产品的销售"},{"k":"D","v":"既负责产品的研发、策划,也负责产品的运营和管理"}],"a":"C","an":""},{"n":37,"id":"10071559","t":1,"q":"2000年6月21日___标志着我国电子商务的发展将进一步走向健康和规范。","o":[{"k":"A","v":"中国电子商务协会的正式成立"},{"k":"B","v":"中国互联网大会的召开"},{"k":"C","v":"由信息产业部等单位主持召开了电子商务法律专题研讨会"},{"k":"D","v":"国家信息化推广协调办公室的成立"}],"a":"A","an":""},{"n":38,"id":"10071542","t":1,"q":"PIN是指:( )","o":[{"k":"A","v":"个人代号"},{"k":"B","v":"个人识别码"},{"k":"C","v":"个人地址"},{"k":"D","v":"个人信用"}],"a":"B","an":""},{"n":39,"id":"10071497","t":1,"q":"在Internet Explorer地址栏中输入的不正确地址有(  )。","o":[{"k":"A","v":"166. 142. 16. 44"},{"k":"B","v":"www. hotmail. com"},{"k":"C","v":"menhou. com"},{"k":"D","v":"202. 12. 14"}],"a":"D","an":""},{"n":40,"id":"10071550","t":1,"q":"电子商务的B to B是(    )模式的电子商务","o":[{"k":"A","v":"消费者对政府"},{"k":"B","v":"商业对政府"},{"k":"C","v":"商业对商业"},{"k":"D","v":"消费者对政府"}],"a":"C","an":""},{"n":41,"id":"10071496","t":1,"q":"浏览Web网页, 应使用何种软件? ( )","o":[{"k":"A","v":"资源管理器"},{"k":"B","v":"浏览器软件"},{"k":"C","v":"电子邮件"},{"k":"D","v":"Office 2000"}],"a":"B","an":""},{"n":42,"id":"10071520","t":1,"q":"计算机机房中使用UPS的作用是( )","o":[{"k":"A","v":"当计算机运行突遇断电,能紧急提供电源,保护计算机中的数据免遭丢失"},{"k":"B","v":"提高计算机运行速度"},{"k":"C","v":"减少计算机运行时的发热量"},{"k":"D","v":"降低计算机工作时发出的噪声"}],"a":"A","an":""},{"n":43,"id":"10071568","t":1,"q":"电子商务的概念模型是(       )。","o":[{"k":"A","v":"建立在电子信息技术基础上的商务运作模式一般抽象描述"},{"k":"B","v":"对基于电子信息技术的商务运作活动的一般抽象描述"},{"k":"C","v":"对电子商务的整体运作框架一般抽象描述"},{"k":"D","v":"对特定研究对象或系统内在因素的相互关系和作用机理的一般抽象描述"}],"a":"B","an":""},{"n":44,"id":"10071539","t":1,"q":"ATM卡用()来储存信息:( )","o":[{"k":"A","v":"条码"},{"k":"B","v":"存储器"},{"k":"C","v":"集成电路"},{"k":"D","v":"磁条"}],"a":"D","an":""},{"n":45,"id":"10071507","t":1,"q":"商务网站功能评估的评价指标有哪些?( )","o":[{"k":"A","v":"电子商务模式创新度,功能覆盖率,目标符合度,技术性能指标"},{"k":"B","v":"电子商务交易与交易服务、信息服务、资源管理,目标符合度,技术性能指标"},{"k":"C","v":"业务流程改革、重组、改进优化的程度,功能覆盖率,技术性能指标"},{"k":"D","v":"先进性、实用性、可扩展性、伸缩性、易用性(使用方便性)、安全、可靠性等"}],"a":"A","an":""},{"n":46,"id":"10071546","t":1,"q":"电子商务是在因特网的环境下,借助()协议在网络上直接支付:( )","o":[{"k":"A","v":"DSA"},{"k":"B","v":"SET"},{"k":"C","v":"TCP/IP"},{"k":"D","v":"SSL"}],"a":"B","an":""},{"n":47,"id":"10071536","t":1,"q":"网上消费者利用信用卡进行网上支付,必须输入:( )","o":[{"k":"A","v":"信用卡卡号和密码"},{"k":"B","v":"用户名和密码"},{"k":"C","v":"电子邮件地址和密码"},{"k":"D","v":"家庭地址和电话"}],"a":"A","an":""},{"n":48,"id":"10071490","t":1,"q":"1997年7月1日, 美国政府发布了(  ),从政策法规的制订和信息安全, 技术标准为策略均给予原则上的指导。","o":[{"k":"A","v":"信息高速公路"},{"k":"B","v":"全球电子商务行动计划"},{"k":"C","v":"国际互联网二代"},{"k":"D","v":"全球电子商务纲要"}],"a":"D","an":""},{"n":49,"id":"10071541","t":1,"q":"目前我国智能卡的推广应用中还存在一些障碍,主要是()和成本问题:( )","o":[{"k":"A","v":"资金问题"},{"k":"B","v":"政策问题"},{"k":"C","v":"安全问题"},{"k":"D","v":"观念问题"}],"a":"C","an":""},{"n":50,"id":"10071509","t":1,"q":"建立电子商务销售渠道,最好的方式是( )。","o":[{"k":"A","v":"网络渠道"},{"k":"B","v":"传统渠道"},{"k":"C","v":"网络渠道与传统渠道相结合"},{"k":"D","v":"都不是"}],"a":"B","an":""},{"n":51,"id":"10071482","t":1,"q":"电子商务在人们最早出现的概念是电子贸易(ET) 它又称为( ) 贸易, 起先被用于一些大企业与其客户的交易中。","o":[{"k":"A","v":"EDI"},{"k":"B","v":"EC"},{"k":"C","v":"EB"},{"k":"D","v":"无纸"}],"a":"D","an":""},{"n":52,"id":"10071565","t":1,"q":"ARPAnet网络成功的最主要原因是其采用后来被称为互联网’通用语言’的(       )。","o":[{"k":"A","v":"安全套接层(SSL)协议"},{"k":"B","v":"CCITTX.509国际标准化协议"},{"k":"C","v":"TCP/IP标准网络协议"},{"k":"D","v":"安全电子交易的SET协议"}],"a":"C","an":""},{"n":53,"id":"10071499","t":1,"q":"协议和主机名之间应用()符号隔开。","o":[{"k":"A","v":"//"},{"k":"B","v":":\\\\"},{"k":"C","v":"://"},{"k":"D","v":"/"}],"a":"C","an":""},{"n":54,"id":"10071484","t":1,"q":"数据电文的(),系指可认定是由其或代表其发送或生成该数据电文然后获许予以存储的人。","o":[{"k":"A","v":"接收人"},{"k":"B","v":"中间人"},{"k":"C","v":"认证中心"},{"k":"D","v":"发送人"}],"a":"D","an":""},{"n":55,"id":"10071555","t":1,"q":"电子支票系统目前一般是:( )","o":[{"k":"A","v":"公众网络系统"},{"k":"B","v":"专用网络系统"},{"k":"C","v":"金融网络系统"},{"k":"D","v":"EDI传输网"}],"a":"B","an":""},{"n":56,"id":"10071547","t":1,"q":"电子支票使用( )技术来进行支票的验证:( )","o":[{"k":"A","v":"莫斯密码"},{"k":"B","v":"高新密码学"},{"k":"C","v":"公开密钥密码系统"},{"k":"D","v":"传统的密码学"}],"a":"D","an":""},{"n":57,"id":"10071530","t":1,"q":"Internet上提供的’广域信息服务’是_____。( )","o":[{"k":"A","v":"WAIS"},{"k":"B","v":"FTP"},{"k":"C","v":"Telnet"},{"k":"D","v":"gopher"}],"a":"B","an":""},{"n":58,"id":"10071510","t":1,"q":"电子商务交易率指标是在做什么方面的评估时要收集的数据?( )","o":[{"k":"A","v":"电子商务网站功能评估"},{"k":"B","v":"电子商务网站实施评估"},{"k":"C","v":"电子商务网站运行状况评估"},{"k":"D","v":"电子商务网站效绩评估"}],"a":"D","an":""},{"n":59,"id":"10071495","t":1,"q":"Internet中本地企业网区域的默认安全级别是( )。","o":[{"k":"A","v":"高"},{"k":"B","v":"中低"},{"k":"C","v":"低"},{"k":"D","v":"自定义"}],"a":"B","an":""},{"n":60,"id":"10071487","t":1,"q":"一九九六年12月, 联合国第51/162号决议正式通过了( )。 该法是世界上第一个关于电子商务的统一法。","o":[{"k":"A","v":"《电子商务法》"},{"k":"B","v":"《电子商务交易法》"},{"k":"C","v":"《电子商务示范法》"},{"k":"D","v":"《电子商务网络法》"}],"a":"C","an":""},{"n":61,"id":"10071529","t":1,"q":"有关于IP地址的说法正确的是( )。","o":[{"k":"A","v":"来访者的IP地址在理论上并不提供他的上网位置信息"},{"k":"B","v":"IP地址一定对应着相应的域名"},{"k":"C","v":"IP地址可以帮助管理员查找入侵者的连线单位信息"},{"k":"D","v":"如果来访IP地址是在企业内部网分配的私有地址,就不能查出来访者信息"}],"a":"B","an":""},{"n":62,"id":"10071543","t":1,"q":"电子商务活动中的电子钱包软件通常都是:( )","o":[{"k":"A","v":"免费提供"},{"k":"B","v":"有偿提供"},{"k":"C","v":"自己编制"},{"k":"D","v":"自己购买"}],"a":"A","an":""},{"n":63,"id":"10071502","t":1,"q":"用户匿名登录主机时,用户名为()。","o":[{"k":"A","v":"guest"},{"k":"B","v":"OK"},{"k":"C","v":"Admin"},{"k":"D","v":"anonymous"}],"a":"D","an":""},{"n":64,"id":"10071524","t":1,"q":"下列选项中,属于多媒体创作工具的是( )","o":[{"k":"A","v":"CoreDraw"},{"k":"B","v":"Publisher"},{"k":"C","v":"Delphi"},{"k":"D","v":"InfoPath"}],"a":"D","an":""},{"n":65,"id":"10071552","t":1,"q":"在整个支付流程中,资金最终流向:( )","o":[{"k":"A","v":"客户开户行"},{"k":"B","v":"商家开户行"},{"k":"C","v":"清算中心"},{"k":"D","v":"任何一个开户行"}],"a":"B","an":""},{"n":66,"id":"10071556","t":1,"q":"谈到电子商务的起源,人类利用电子手段开展各种商务活动的时代最早是通过(       )开始的。","o":[{"k":"A","v":"互联网"},{"k":"B","v":"电话"},{"k":"C","v":"电报"},{"k":"D","v":"电视"}],"a":"C","an":""},{"n":67,"id":"10071551","t":1,"q":"电子支票包括:( )","o":[{"k":"A","v":"购买方、销售方、认证中心"},{"k":"B","v":"购买方、销售方、清算中心"},{"k":"C","v":"购买方、销售方、金融中介"},{"k":"D","v":"购买方、销售方、支付网关"}],"a":"C","an":""},{"n":68,"id":"10071506","t":1,"q":"电子商务网站内容信息质量评价不包括哪些方面? ( )","o":[{"k":"A","v":"商品品种、规格"},{"k":"B","v":"商品质量,商品相关知识, 商品服务个性化,特色信息"},{"k":"C","v":"文字、图像、声音等多媒体信息"},{"k":"D","v":"网页版面是否友善、易见、规范、统一"}],"a":"B","an":""},{"n":69,"id":"10071548","t":1,"q":"在电子商务环境中,虚拟银行同时扮演着()的角色:( )","o":[{"k":"A","v":"接受银行与认证中心"},{"k":"B","v":"发送银行与清算中心"},{"k":"C","v":"发送银行与接受银行"},{"k":"D","v":"发送银行与认证中心"}],"a":"C","an":""},{"n":70,"id":"10071489","t":1,"q":"《电子商务示范法》第一条就对适用范围做出了规定,即“适用于在(  ) 方面使用的以一项数据电文为形式的任何种类的信息”。","o":[{"k":"A","v":"商业活动"},{"k":"B","v":"电子交易"},{"k":"C","v":"B2B"},{"k":"D","v":"C2C"}],"a":"A","an":""},{"n":71,"id":"10071545","t":1,"q":"电子支票更容易于EDI应用的(  )整合:","o":[{"k":"A","v":"应收帐款"},{"k":"B","v":"应付帐款"},{"k":"C","v":"往来帐"},{"k":"D","v":"流水帐"}],"a":"A","an":""},{"n":72,"id":"10071523","t":1,"q":"网站实施的评估机构有( )。","o":[{"k":"A","v":"财政部"},{"k":"B","v":"科技部、信息产业部及省市厅局"},{"k":"C","v":"受政府有关部门委托的社会团体、事业单位"},{"k":"D","v":"计划司"}],"a":"C","an":""},{"n":73,"id":"10071503","t":1,"q":"按照界面风格的不同,FTP软件可分为哪两类。(  )","o":[{"k":"A","v":"字符界面和图文界面"},{"k":"B","v":"文本界面和字符界面"},{"k":"C","v":"字符界面和图形界面"},{"k":"D","v":"图表界面和图形界面"}],"a":"C","an":""},{"n":74,"id":"10071500","t":1,"q":"在Internet上完成域名与地址间映射的系统称为(  )。","o":[{"k":"A","v":"URL"},{"k":"B","v":"DNS"},{"k":"C","v":"DBMS"},{"k":"D","v":"DHCP"}],"a":"B","an":""},{"n":75,"id":"10071512","t":1,"q":"以下哪个不是网站实施计划任务完成度中完成的内容( )。","o":[{"k":"A","v":"网络平台是否已经搭建完毕"},{"k":"B","v":"与财务的接口是否完成,以满足在线支付的功能;通过商务网站建立的交易是否完全可靠,有无意外风险的保障措施"},{"k":"C","v":"客户计算机是否配置完毕"},{"k":"D","v":"前台后台完成的交易是否可以和物流平台建立好接口,以便将用户购买的商品及时送达"}],"a":"D","an":""},{"n":76,"id":"10071483","t":1,"q":"网络层基础设施包括Telecom, CableTV.互联网和(  ) 通信网。","o":[{"k":"A","v":"LAN"},{"k":"B","v":"WAN"},{"k":"C","v":"Wireless"},{"k":"D","v":"ISDN"}],"a":"C","an":""},{"n":77,"id":"10071481","t":1,"q":"基于现代概念的电子商务,最早产生于20世纪( ) 年代, 发展于20世纪90年代。","o":[{"k":"A","v":"50"},{"k":"B","v":"60"},{"k":"C","v":"70"},{"k":"D","v":"80"}],"a":"B","an":""},{"n":78,"id":"10071504","t":1,"q":"HTML语言不能(  )。","o":[{"k":"A","v":"描述图像的位置"},{"k":"B","v":"描述图像的大小"},{"k":"C","v":"描述超链接"},{"k":"D","v":"直接描述图像上的像素"}],"a":"D","an":""},{"n":79,"id":"10071492","t":1,"q":"下列哪一个区域不属于Internet Explorer 5划分范围。( )","o":[{"k":"A","v":"受限站点"},{"k":"B","v":"本地Intranet区域"},{"k":"C","v":"A类区域"},{"k":"D","v":"Internet区域"}],"a":"C","an":""},{"n":80,"id":"10071516","t":1,"q":"以下选项中关于申请服务器证书的说法正确的是( )。","o":[{"k":"A","v":"不同的web服务器,证书的申请步骤是一样的"},{"k":"B","v":"对于IIS服务器,其分配的证书必须是一个已存在的证书"},{"k":"C","v":"证书的加密位长越大,安全性就越高"},{"k":"D","v":"证书的加密位长越大,所用的计算时间也就越短"}],"a":"C","an":""},{"n":81,"id":"10071498","t":1,"q":"下列哪个URL的格式是正确的。( )","o":[{"k":"A","v":"China\\Asia"},{"k":"B","v":"ftp//: 21cn. com"},{"k":"C","v":"telnet: \\\\www. win. com"},{"k":"D","v":"http: //mail. sohu. com"}],"a":"D","an":""},{"n":82,"id":"10071522","t":1,"q":"下列选项中完成局域网中IP地址自动分配的系统称是( )","o":[{"k":"A","v":"URL"},{"k":"B","v":"DNS"},{"k":"C","v":"DBMS"},{"k":"D","v":"DHCP"}],"a":"D","an":""},{"n":83,"id":"10071566","t":1,"q":"1994年美国(       )成立,随后开发并推出了安全套接层(SSL)协议,弥补了TCP/IP在安.全性能上存在的缺陷,支持电子证书的科学与规范。","o":[{"k":"A","v":"国际商业机器公司(IBM)"},{"k":"B","v":"微软(Microsoft)"},{"k":"C","v":"网景公司(Netscape)"},{"k":"D","v":"惠普(HP)"}],"a":"C","an":""},{"n":84,"id":"10071557","t":1,"q":"电子商务的标准英文缩写是(       )","o":[{"k":"A","v":"EB"},{"k":"B","v":"EC"},{"k":"C","v":"EDI"},{"k":"D","v":"DC"}],"a":"B","an":""},{"n":85,"id":"10071505","t":1,"q":"浏览器根据()对*. htm文件的内容加以处理。","o":[{"k":"A","v":"超链接关系"},{"k":"B","v":"Tag语法"},{"k":"C","v":"htm文档格式"},{"k":"D","v":"文字、 图片等数据格式"}],"a":"B","an":""},{"n":86,"id":"10071514","t":1,"q":"电子商务网站功能评估的组织由哪些部门组成?( )","o":[{"k":"A","v":"政府部门、中介机构、企业"},{"k":"B","v":"受政府委托的单位、政府部门、中介机构"},{"k":"C","v":"受政府委托的单位、中介机构、企业"},{"k":"D","v":"政府部门、受政府委托的单位、企业"}],"a":"D","an":""},{"n":87,"id":"10071494","t":1,"q":"关于FTP的说法不正确的是( )。","o":[{"k":"A","v":"FTP是用于TCP/IP网络的比较复杂的协议之一, 所以现在它的使用范围不如HTTP广"},{"k":"B","v":"FTP是一个客户/服务器系统"},{"k":"C","v":"FTP软件可分为两类: 窗口界面和图形界面"},{"k":"D","v":"在匿名FTP系统中, 用户仍需用密码才能进入FTP服务器, 只不过这个密码是公开的"}],"a":"A","an":""},{"n":88,"id":"10071535","t":1,"q":"电子钱包的高级功能不包括:( )","o":[{"k":"A","v":"管理账户信息"},{"k":"B","v":"管理电子证书"},{"k":"C","v":"处理交易纪录"},{"k":"D","v":"联接商家与银行网络的支付网关"}],"a":"D","an":""},{"n":89,"id":"10071580","t":2,"q":"Intranet接入Internet的几种方式 (  )","o":[{"k":"A","v":"DDN专线"},{"k":"B","v":"主机托管"},{"k":"C","v":"虚拟主机"},{"k":"D","v":"ISDN"}],"a":"ABC","an":""},{"n":90,"id":"10071605","t":2,"q":"在电子支票交易流程中涉及到:(   )","o":[{"k":"A","v":"消费者"},{"k":"B","v":"商家"},{"k":"C","v":"银行"},{"k":"D","v":"政府"}],"a":"ABC","an":""},{"n":91,"id":"10071612","t":2,"q":"电子商务对流通领域发展的分化作用体现在哪项方面?","o":[{"k":"A","v":"商品和服务的信息流将脱离传统市场,而在网络上出现和流通"},{"k":"B","v":"信息商品的生产、流通与消费都转移到网上,从而使信息商品的生产企业、信息商品的消费者、用于信息商品流通的市场都脱离实体经济而进入网络市场。"},{"k":"C","v":"资金流越来越脱离传统市场而倚重网络进行流通。"},{"k":"D","v":"流通企业业务流程重构"}],"a":"ABC","an":""},{"n":92,"id":"10071573","t":2,"q":"电子化企业的电子商务的交易过程主要有以下内容(  )。","o":[{"k":"A","v":"在线订单"},{"k":"B","v":"在线支付"},{"k":"C","v":"交货"},{"k":"D","v":"售后服务"}],"a":"ABCD","an":""},{"n":93,"id":"10071587","t":2,"q":"在电子商务安全服务中,下列情况需要用到数字签名技术( )","o":[{"k":"A","v":"身份验证"},{"k":"B","v":"源鉴别"},{"k":"C","v":"完整性服务"},{"k":"D","v":"不可否认服务"}],"a":"BCD","an":""},{"n":94,"id":"10071598","t":2,"q":"在网页中插入的FlAsh动画文件的扩展名不能为: ()","o":[{"k":"A","v":"flA"},{"k":"B","v":"swf"},{"k":"C","v":"fls"},{"k":"D","v":"flAsh"}],"a":"ABCD","an":""},{"n":95,"id":"10071596","t":2,"q":"计算机网络的分类标准很多,按拓扑结构可分为()。","o":[{"k":"A","v":"广播型"},{"k":"B","v":"星型"},{"k":"C","v":"总线型"},{"k":"D","v":"环型"}],"a":"AC","an":""},{"n":96,"id":"10071595","t":2,"q":"在HTML语言中color的属性除了可以用()名称表示外还可以用()来表示。","o":[{"k":"A","v":"英文"},{"k":"B","v":"拉丁文"},{"k":"C","v":"十进制的RGB代码"},{"k":"D","v":"十六进制的RGB代码"}],"a":"ABCD","an":""},{"n":97,"id":"10071570","t":2,"q":"电子商务概念中EB所包含的内容比EC大, 不仅有网上交易而且还包括了(  ) 等等。","o":[{"k":"A","v":"SCM"},{"k":"B","v":"CRM"},{"k":"C","v":"OPS(网上支付)"},{"k":"D","v":"ERP"}],"a":"ABCD","an":""},{"n":98,"id":"10071571","t":2,"q":"Internet覆盖全球, 已经成为一种无边界的媒体, 这使商务活动向3A即(  ) 的全方位服务方面迈进了一大步。","o":[{"k":"A","v":"Anywhere"},{"k":"B","v":"Anything"},{"k":"C","v":"Anytime"},{"k":"D","v":"Anyway"}],"a":"ACD","an":""},{"n":99,"id":"10071588","t":2,"q":"信道是信息传输的通路,信道的传输媒体有。()","o":[{"k":"A","v":"电话线"},{"k":"B","v":"双绞线"},{"k":"C","v":"电缆"},{"k":"D","v":"光缆"}],"a":"ABD","an":""},{"n":100,"id":"10071615","t":2,"q":"网上销售促进的主要形式包括( )。","o":[{"k":"A","v":"实物促销"},{"k":"B","v":"展览促销"},{"k":"C","v":"拍卖促销"},{"k":"D","v":"有奖促销"}],"a":"CD","an":""},{"n":101,"id":"10071582","t":2,"q":"Telnet在运行过程中, 实际上启动的程序是(  )。","o":[{"k":"A","v":"服务器程序"},{"k":"B","v":"运行在本地机上客户程序"},{"k":"C","v":"主程序"},{"k":"D","v":"子程序"}],"a":"AB","an":""},{"n":102,"id":"10071608","t":2,"q":"信息的采集不包括:(  )","o":[{"k":"A","v":"网络商务的采集和企业信息的收集"},{"k":"B","v":"客户信息的收集"},{"k":"C","v":"客户信息的收集和企业信息的收集"},{"k":"D","v":"网络商务信息的采集和企业信息的收集"}],"a":"BC","an":""},{"n":103,"id":"10071578","t":2,"q":"国家广播电影电视部将在“一个平台——互联互通的传输体制。 三个网——(  )” 的基础上, 扩大电子商务网的建设。","o":[{"k":"A","v":"电信网"},{"k":"B","v":"有线广播电视网"},{"k":"C","v":"卫星网"},{"k":"D","v":"计算机网"}],"a":"ABD","an":""},{"n":104,"id":"10071572","t":2,"q":"IBM公司认为电子商务等于(  ) 之有机组合而成。","o":[{"k":"A","v":"IT"},{"k":"B","v":"web"},{"k":"C","v":"EDI"},{"k":"D","v":"business"}],"a":"ABD","an":""},{"n":105,"id":"10071589","t":2,"q":"关于CSS的应用,正确的说法有()。","o":[{"k":"A","v":"外部样式是独立的CSS文件"},{"k":"B","v":"内联式样式只包含在与它有关的标记内"},{"k":"C","v":"应用嵌入式样式,要将CSS代码置于和之间"},{"k":"D","v":"应用嵌入式样式,要将CSS代码置于之间"}],"a":"ABC","an":""},{"n":106,"id":"10071592","t":2,"q":"移动存储设备按容量来区别,可分为( )三类","o":[{"k":"A","v":"袖珍设备"},{"k":"B","v":"小容量存储设备"},{"k":"C","v":"中等容量存储设备"},{"k":"D","v":"大容量存储设备"}],"a":"ABD","an":""},{"n":107,"id":"10071616","t":2,"q":"出现网上单证处理的故障时,一般应该()。","o":[{"k":"A","v":"首先想到是系统的问题"},{"k":"B","v":"立即通知系统管理员进行处理"},{"k":"C","v":"尽快进行订单处理流程的检查"},{"k":"D","v":"尽快进行与网上单证相关的处"}],"a":"AB","an":""},{"n":108,"id":"10071575","t":2,"q":"按电子商务的参与对象分类有(  ) 等内容。","o":[{"k":"A","v":"B to"},{"k":"B","v":"B to B"},{"k":"C","v":"B to G"},{"k":"D","v":"C to C"}],"a":"ABCD","an":""},{"n":109,"id":"10071602","t":2,"q":"以下属于电子邮件的主要特点的是:(  )","o":[{"k":"A","v":"完全免费"},{"k":"B","v":"速度快"},{"k":"C","v":"可传送多媒体信息"},{"k":"D","v":"价格低"}],"a":"BCD","an":""},{"n":110,"id":"10071569","t":2,"q":"信息在网上传输时可能会出现的状况有: (  )","o":[{"k":"A","v":"数据被篡改"},{"k":"B","v":"丢失或破坏"},{"k":"C","v":"虚假信息"},{"k":"D","v":"假冒身份"}],"a":"ABD","an":""},{"n":111,"id":"10071603","t":2,"q":"下面哪些项是网络商品直销的特点:(  )","o":[{"k":"A","v":"供需直接见面"},{"k":"B","v":"费用低"},{"k":"C","v":"环节多"},{"k":"D","v":"速度快"}],"a":"ABD","an":""},{"n":112,"id":"10071599","t":2,"q":"下面属于传统营销促销形式的是:(   )","o":[{"k":"A","v":"人员推销"},{"k":"B","v":"网络广告"},{"k":"C","v":"销售促进"},{"k":"D","v":"宣传推广"}],"a":"ACD","an":""},{"n":113,"id":"10071601","t":2,"q":"订单数据的完整性检查中会检查以下哪些选项:(  )","o":[{"k":"A","v":"商品名"},{"k":"B","v":"商品单价"},{"k":"C","v":"商品编码"},{"k":"D","v":"商品单价"}],"a":"ABD","an":""},{"n":114,"id":"10071597","t":2,"q":"电子商务的基本组成要素包括用户、商家以及()等。","o":[{"k":"A","v":"物流配送"},{"k":"B","v":"认证中心"},{"k":"C","v":"银行"},{"k":"D","v":"网络"}],"a":"ABC","an":""},{"n":115,"id":"10071594","t":2,"q":"下列关于字体标记color属性的描述正确的有()。","o":[{"k":"A","v":"定义文字的颜色"},{"k":"B","v":"定义文字的字体"},{"k":"C","v":"可以用颜色的英文名称表示颜色"},{"k":"D","v":"可以用16进制的RGB代码表示颜色"}],"a":"BCD","an":""},{"n":116,"id":"10071606","t":2,"q":"电子现金具备的特性是:(   )","o":[{"k":"A","v":"成本较低"},{"k":"B","v":"银行和商家之间应有协议和授权关系"},{"k":"C","v":"风险较大"},{"k":"D","v":"存在货币兑换问题"}],"a":"ABD","an":""},{"n":117,"id":"10071581","t":2,"q":"远程登录有哪几种形式? (  )。","o":[{"k":"A","v":"只需账号就可登录"},{"k":"B","v":"匿名登录"},{"k":"C","v":"用账号和口令访问远程主机"},{"k":"D","v":"不可匿名登录"}],"a":"BC","an":""},{"n":118,"id":"10071591","t":2,"q":"主机型IDS的缺点包括()。","o":[{"k":"A","v":"不便于跨平台"},{"k":"B","v":"增加系统负荷"},{"k":"C","v":"内部结构有着较大束缚"},{"k":"D","v":"安装量大"}],"a":"ABD","an":""},{"n":119,"id":"10071583","t":2,"q":"BBS主要有哪几种方式? (  )。","o":[{"k":"A","v":"完全基于Web的BBS"},{"k":"B","v":"Unix下的终端仿真并实行Web扩展功能的BBS"},{"k":"C","v":"DOS下的终端仿真并实行Web扩展功能的BBS"},{"k":"D","v":"完全基于Windows的BBS"}],"a":"AB","an":""},{"n":120,"id":"10071577","t":2,"q":"电子商务的微观经济效益表现在降低(  ) 等成本上。","o":[{"k":"A","v":"管理"},{"k":"B","v":"库存"},{"k":"C","v":"采购"},{"k":"D","v":"交易"}],"a":"ABCD","an":""},{"n":121,"id":"10071607","t":2,"q":"下列流中哪些构成电子商务的组成要素:(   )","o":[{"k":"A","v":"信息流"},{"k":"B","v":"资金流"},{"k":"C","v":"人员流"},{"k":"D","v":"实物流"}],"a":"ABD","an":""},{"n":122,"id":"10071585","t":2,"q":"从网络商务信息本身所具有的总体价格水平,可以将它粗略地分为四个等级,属于这四级的信息有()。","o":[{"k":"A","v":"推战略"},{"k":"B","v":"拉战略"},{"k":"C","v":"沟通战略"},{"k":"D","v":"逆反战略"}],"a":"ABC","an":""},{"n":123,"id":"10071586","t":2,"q":"网络促销方式可分为( )","o":[{"k":"A","v":"身份验证"},{"k":"B","v":"源鉴别"},{"k":"C","v":"完整性服务"},{"k":"D","v":"不可否认服务"}],"a":"ABD","an":""},{"n":124,"id":"10071590","t":2,"q":"从易用性角度来分析,所有的移动存储设备都具有( )特点","o":[{"k":"A","v":"安装简单"},{"k":"B","v":"方便携带"},{"k":"C","v":"存储量大"},{"k":"D","v":"自动加密"}],"a":"ABC","an":""},{"n":125,"id":"10071584","t":2,"q":"在电子商务条件下,买方应当承担的义务包括()。","o":[{"k":"A","v":"按照网络交易规定方式支付价款的义务"},{"k":"B","v":"按照合同规定的时间、地点和方式接受标的物的义务"},{"k":"C","v":"对标的物的质量承担担保义务"},{"k":"D","v":"对标的物验收的义务"}],"a":"ACD","an":""},{"n":126,"id":"10071604","t":2,"q":"下面哪些是信息失真的原因:(   )","o":[{"k":"A","v":"信源提供的信息不完全、不准确"},{"k":"B","v":"信息在编码、译码和传递过程中受到干扰"},{"k":"C","v":"信宿(信箱)接受信息出现偏差"},{"k":"D","v":"信息在理解上的偏差"}],"a":"ABC","an":""},{"n":127,"id":"10071614","t":2,"q":"调研问卷的格式是由以下哪三部分组成的(  )","o":[{"k":"A","v":"卷首说明"},{"k":"B","v":"调研内容"},{"k":"C","v":"结果统计"},{"k":"D","v":"结束语"}],"a":"ABD","an":""},{"n":128,"id":"10071600","t":2,"q":"下面为网络营销的主要内容的是:(  )","o":[{"k":"A","v":"网上市场调查,网络营销策略制订"},{"k":"B","v":"网上产品和服务"},{"k":"C","v":"网上价格营销策略"},{"k":"D","v":"网上安全性测试"}],"a":"ABC","an":""},{"n":129,"id":"10071579","t":2,"q":"为加快全社会的信息意识和观念的转变, 我们应确立以下新观念: (  )。","o":[{"k":"A","v":"信息化知识化管理"},{"k":"B","v":"知识是关键生产要素"},{"k":"C","v":"经营管理人性化"},{"k":"D","v":"企业无形资产作为企业的资产主体地位"}],"a":"ABCD","an":""},{"n":130,"id":"10071610","t":2,"q":"中小企业实施电子商务的具有哪些优势?(  )","o":[{"k":"A","v":"决策管理上的优势"},{"k":"B","v":"组织上的优势"},{"k":"C","v":"机制上的优势"},{"k":"D","v":"创新上的优势"}],"a":"ABCD","an":""},{"n":131,"id":"10071576","t":2,"q":"Internet信息系统包括以下部分(  )。","o":[{"k":"A","v":"软、 硬件平台"},{"k":"B","v":"支付、 加密系统"},{"k":"C","v":"CA身份认证"},{"k":"D","v":"网站"}],"a":"ABCD","an":""},{"n":132,"id":"10071611","t":2,"q":"电子商务对流通领域发展具有哪些作用?(  )","o":[{"k":"A","v":"分化作用"},{"k":"B","v":"节约成本"},{"k":"C","v":"重构作用"},{"k":"D","v":"优化结构"}],"a":"AC","an":""},{"n":133,"id":"10071593","t":2,"q":"10.在FrontPage中,能加入DHTML效果的事件有()。","o":[{"k":"A","v":"单击"},{"k":"B","v":"双击"},{"k":"C","v":"鼠标悬停"},{"k":"D","v":"网页加载"}],"a":"BC","an":""},{"n":134,"id":"10071609","t":2,"q":"电子商务给中小企业创造了哪些新的机遇(  )","o":[{"k":"A","v":"创造了决策管理上的优势"},{"k":"B","v":"扩大市场,获得新的商业机会"},{"k":"C","v":"共享信息,实现公平竞争"},{"k":"D","v":"降低成本,提高产品竞争力"}],"a":"BCD","an":""},{"n":135,"id":"10071574","t":2,"q":"按电子商务活动的性质分类电子事务有(  ) 等内容。","o":[{"k":"A","v":"电子政务"},{"k":"B","v":"电子教务"},{"k":"C","v":"电子军务"},{"k":"D","v":"电子医务"}],"a":"ABCD","an":""},{"n":136,"id":"10071613","t":2,"q":"企业电子商务模式有( )","o":[{"k":"A","v":"在线商店模式"},{"k":"B","v":"内联网模式"},{"k":"C","v":"中介模式"},{"k":"D","v":"专业服务模式"}],"a":"ABCD","an":""},{"n":137,"id":"10071617","t":2,"q":"安全证书体系结构采用的主要技术不包括( )。","o":[{"k":"A","v":"数字签名"},{"k":"B","v":"数字通信"},{"k":"C","v":"数字信封"},{"k":"D","v":"数字标签"}],"a":"BD","an":""},{"n":138,"id":"10071624","t":4,"q":"网络中HTTP协议端口号默认为80。但有时为了安全,也可以端口号重新定义。","o":[{"k":"A","v":"正确"},{"k":"B","v":"错误"}],"a":"A","an":""},{"n":139,"id":"10071626","t":4,"q":"源码病毒是在程序被编译之后才插入到源程序中去的,而且病程序一般是在语言处理程序或连接程序中。","o":[{"k":"A","v":"正确"},{"k":"B","v":"错误"}],"a":"B","an":""},{"n":140,"id":"10071623","t":4,"q":"URL的内容包括协议、服务器名称、路径及文件名。","o":[{"k":"A","v":"正确"},{"k":"B","v":"错误"}],"a":"A","an":""},{"n":141,"id":"10071618","t":4,"q":"数据库就是信息的集合,这种集合与特定的主题和目标相联系。","o":[{"k":"A","v":"正确"},{"k":"B","v":"错误"}],"a":"A","an":""},{"n":142,"id":"10071622","t":4,"q":"将成品、零部件等从供应商处运回厂内的物流称为采购物流。","o":[{"k":"A","v":"正确"},{"k":"B","v":"错误"}],"a":"B","an":""},{"n":143,"id":"10071621","t":4,"q":"机器人搜索引擎以某种策略手动地在Internet中搜集发现信","o":[{"k":"A","v":"正确"},{"k":"B","v":"错误"}],"a":"B","an":""},{"n":144,"id":"10071625","t":4,"q":"HTML通过使用标记和元素来建立文件,并利用标记来控制文件的结构的。","o":[{"k":"A","v":"正确"},{"k":"B","v":"错误"}],"a":"A","an":""},{"n":145,"id":"10071620","t":4,"q":"大幅度地降低交易成本是网络商品直销的优点。","o":[{"k":"A","v":"正确"},{"k":"B","v":"错误"}],"a":"A","an":""},{"n":146,"id":"10071619","t":4,"q":"ORACLE不使用SQL(Structuredguerylanguage)为数据库语言。","o":[{"k":"A","v":"正确"},{"k":"B","v":"错误"}],"a":"B","an":""}]};
+
+/* ================= 状态 ================= */
+const SAVE_KEY = 'ai_exam_294876_v1';
+const LS = {
+  read(){ try{ return JSON.parse(localStorage.getItem(SAVE_KEY) || 'null'); }catch(e){ return null; } },
+  write(v){ try{ localStorage.setItem(SAVE_KEY, JSON.stringify(v)); }catch(e){} },
+  clear(){ try{ localStorage.removeItem(SAVE_KEY); }catch(e){} }
+};
+
+const state = {
+  mode: 'exam',            // exam | study
+  order: [],               // 原始题目下标顺序
+  idx: 0,                  // 当前在 order 中的位置
+  answers: {},             // { 原始下标: ['A','B'] }
+  revealed: {},            // 背题模式已揭示的题目
+  started: false,
+  submitted: false,
+  elapsed: 0,              // 秒
+  timerId: null,
+  result: null,            // {rows, right, wrong, miss}
+  filter: 'all'
+};
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? '' : s)
+  .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+  .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+
+function fmtTime(sec){
+  sec = Math.max(0, Math.floor(sec));
+  const h = Math.floor(sec/3600), m = Math.floor(sec%3600/60), s = sec%60;
+  return [h,m,s].map(v => String(v).padStart(2,'0')).join(':');
+}
+function toast(msg){
+  const t = $('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => t.classList.remove('show'), 1800);
+}
+function sortLetters(arr){ return [...new Set(arr)].sort().join(''); }
+function correctOf(q){ return sortLetters(q.a.split('')); }
+function isAnswered(qIndex){ return (state.answers[qIndex] || []).length > 0; }
+function isCorrect(qIndex){
+  const q = DATA.questions[qIndex];
+  return sortLetters(state.answers[qIndex] || []) === correctOf(q);
+}
+
+/* ================= 首页 ================= */
+function initStart(){
+  $('startTitle').textContent = DATA.meta.title;
+  $('statTotal').textContent = DATA.meta.total;
+  $('statSingle').textContent = DATA.meta.single;
+  $('statMulti').textContent = DATA.meta.multi;
+  $('statJudge').textContent = DATA.meta.judge;
+  $('doneTotal').textContent = DATA.meta.total;
+
+  document.querySelectorAll('.mode').forEach(el => {
+    el.addEventListener('click', () => {
+      document.querySelectorAll('.mode').forEach(x => x.classList.remove('active'));
+      el.classList.add('active');
+      state.mode = el.dataset.mode;
+    });
+    el.addEventListener('keydown', e => {
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); el.click(); }
+    });
+  });
+
+  const saved = LS.read();
+  if(saved && !saved.submitted){
+    const done = Object.values(saved.answers || {}).filter(a => a && a.length).length;
+    $('resumeTip').classList.remove('hidden');
+    $('resumeHint').classList.remove('hidden');
+    $('resumeBtn').classList.remove('hidden');
+    $('resumeInfo').textContent = '已答 ' + done + ' 题 · ' + (saved.mode === 'study' ? '背题模式' : '考试模式') + ' · ' + fmtTime(saved.elapsed || 0);
+  } else if(saved && saved.submitted){
+    $('resumeTip').classList.remove('hidden');
+    $('resumeInfo').textContent = '上次已交卷，可查看成绩或重新开始';
+    $('resumeBtn').classList.remove('hidden');
+    $('resumeBtn').textContent = '查看上次成绩';
+  }
+
+  $('startBtn').addEventListener('click', () => startNew());
+  $('resumeBtn').addEventListener('click', () => resumeSaved());
+}
+
+function buildOrder(shuffle){
+  const arr = DATA.questions.map((_, i) => i);
+  if(shuffle){
+    for(let i = arr.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+  }
+  return arr;
+}
+
+function startNew(){
+  if(state.timerId){ clearInterval(state.timerId); state.timerId = null; }
+  state.mode = document.querySelector('.mode.active').dataset.mode;
+  state.order = buildOrder($('shuffleChk').checked);
+  state.idx = 0;
+  state.answers = {};
+  state.revealed = {};
+  state.elapsed = 0;
+  state.started = true;
+  state.submitted = false;
+  state.result = null;
+  state.filter = 'all';
+  LS.clear();
+  showExam();
+  startTimer();
+}
+
+function resumeSaved(){
+  const saved = LS.read();
+  if(!saved) return;
+  state.mode = saved.mode || 'exam';
+  state.order = saved.order && saved.order.length === DATA.meta.total ? saved.order : buildOrder(false);
+  state.answers = saved.answers || {};
+  state.revealed = saved.revealed || {};
+  state.elapsed = saved.elapsed || 0;
+  state.started = true;
+  state.submitted = !!saved.submitted;
+  state.idx = Math.min(saved.idx || 0, state.order.length - 1);
+
+  if(state.submitted){
+    computeResult();
+    showResult();
+  } else {
+    showExam();
+    startTimer();
+  }
+  toast('已恢复上次进度');
+}
+
+/* ================= 计时 ================= */
+function startTimer(){
+  const base = state.elapsed;
+  const t0 = Date.now();
+  if(state.timerId) clearInterval(state.timerId);
+  state.timerId = setInterval(() => {
+    if(state.submitted) return;
+    state.elapsed = base + Math.floor((Date.now() - t0) / 1000);
+    $('timer').textContent = fmtTime(state.elapsed);
+    if(state.elapsed % 5 === 0) save();
+  }, 500);
+  $('timer').textContent = fmtTime(state.elapsed);
+}
+
+function stopTimer(){
+  if(state.timerId){ clearInterval(state.timerId); state.timerId = null; }
+}
+
+function save(){
+  LS.write({
+    mode: state.mode,
+    order: state.order,
+    idx: state.idx,
+    answers: state.answers,
+    revealed: state.revealed,
+    elapsed: state.elapsed,
+    submitted: state.submitted
+  });
+}
+
+/* ================= 考试页 ================= */
+function showExam(){
+  $('startView').classList.add('hidden');
+  $('resultView').classList.add('hidden');
+  $('examView').classList.remove('hidden');
+  $('qCard').classList.toggle('study', state.mode === 'study');
+  $('topTitle').textContent = DATA.meta.title;
+  $('topMode').textContent = state.mode === 'study' ? '背题模式 · 即时判定' : '考试模式';
+  $('sheetMode').textContent = state.mode === 'study' ? '背题模式' : '考试模式';
+  $('submitBtn').textContent = state.mode === 'study' ? '结束练习' : '交卷';
+  $('topCount').textContent = '0 / ' + DATA.meta.total;
+  renderSheet();
+  renderQuestion();
+  window.scrollTo({top:0, behavior:'instant'});
+}
+
+const TYPE_NAMES = {1:'单选题', 2:'多选题', 4:'判断题'};
+const TYPE_TAGS = {1:'single', 2:'multi', 4:'judge'};
+const TYPE_LABELS = {1:'一、单选题', 2:'二、多选题', 4:'三、判断题'};
+
+function typeName(t){ return TYPE_NAMES[t] || '单选题'; }
+
+function renderQuestion(){
+  const qi = state.order[state.idx];
+  const q = DATA.questions[qi];
+  const answered = state.answers[qi] || [];
+  const revealed = state.mode === 'study' && !!state.revealed[qi];
+  const showResult = revealed || state.submitted;
+
+  const pill = $('typePill');
+  pill.textContent = typeName(q.t);
+  pill.className = 'pill ' + (TYPE_TAGS[q.t] || 'single');
+  $('qNo').textContent = '第 ' + q.n + ' 题 / 共 ' + DATA.meta.total + ' 题';
+  $('qStem').textContent = q.q;
+
+  const box = $('options');
+  box.innerHTML = '';
+  q.o.forEach(o => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'opt';
+    const picked = answered.includes(o.k);
+    if(picked) btn.classList.add('sel');
+    if(showResult){
+      if(q.a.includes(o.k)) btn.classList.add('correct');
+      else if(picked) btn.classList.add('wrong');
+      btn.disabled = true;
+    }
+    btn.innerHTML = '<span class="key">' + esc(o.k) + '</span><span class="txt">' + esc(o.v) + '</span>';
+    btn.addEventListener('click', () => pick(qi, o.k));
+    box.appendChild(btn);
+  });
+
+  const fb = $('feedback');
+  if(showResult){
+    const ok = isCorrect(qi);
+    const mine = sortLetters(answered);
+    fb.className = 'feedback ' + (ok ? 'ok' : 'bad');
+    fb.innerHTML = (ok ? '回答正确' : '回答错误') + ' · 正确答案：<span>' + esc(correctOf(q)) + '</span>' +
+      (mine ? ' · 你的答案：<span>' + esc(mine) + '</span>' : ' · 未作答');
+    fb.classList.remove('hidden');
+  } else {
+    fb.classList.add('hidden');
+    fb.textContent = '';
+  }
+
+  const confirmBtn = $('confirmBtn');
+  confirmBtn.style.visibility = (state.mode === 'study' && q.t === 2 && answered.length && !revealed) ? 'visible' : 'hidden';
+
+  $('prevBtn').disabled = state.idx === 0;
+  $('nextBtn').disabled = state.idx >= state.order.length - 1;
+
+  updateProgress();
+  renderSheetState();
+}
+
+function pick(qi, letter){
+  const q = DATA.questions[qi];
+  const revealed = state.mode === 'study' && !!state.revealed[qi];
+  if(revealed || state.submitted) return;
+
+  let arr = state.answers[qi] ? state.answers[qi].slice() : [];
+  if(q.t === 2){
+    if(arr.includes(letter)) arr = arr.filter(x => x !== letter);
+    else arr.push(letter);
+    if(arr.length) state.answers[qi] = arr; else delete state.answers[qi];
+  } else {
+    state.answers[qi] = [letter];
+    if(state.mode === 'study') state.revealed[qi] = true;
+  }
+  save();
+  renderQuestion();
+}
+
+function confirmStudy(){
+  const qi = state.order[state.idx];
+  state.revealed[qi] = true;
+  save();
+  renderQuestion();
+}
+
+function go(step){
+  const next = state.idx + step;
+  if(next < 0 || next >= state.order.length) return;
+  state.idx = next;
+  save();
+  renderQuestion();
+  $('qCard').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function updateProgress(){
+  const done = Object.keys(state.answers).filter(k => state.answers[k] && state.answers[k].length).length;
+  $('topCount').textContent = done + ' / ' + DATA.meta.total;
+  $('topBar').style.width = (done / DATA.meta.total * 100) + '%';
+  $('doneCount').textContent = done;
+}
+
+/* ================= 答题卡 ================= */
+function renderSheet(){
+  const wrap = $('sheetGroups');
+  wrap.innerHTML = '';
+  [1, 2, 4].forEach(t => {
+    const items = state.order.map((qi, pos) => ({qi, pos})).filter(x => DATA.questions[x.qi].t === t);
+    if(!items.length) return;
+    const sec = document.createElement('div');
+    sec.className = 'sheet-group';
+    const h4 = document.createElement('h4');
+    const label = document.createElement('span');
+    label.textContent = TYPE_LABELS[t];
+    const count = document.createElement('span');
+    const grid = document.createElement('div');
+    grid.className = 'grid';
+    let done = 0;
+    items.forEach(({qi, pos}) => {
+      const q = DATA.questions[qi];
+      const cell = document.createElement('button');
+      cell.type = 'button';
+      cell.className = 'cell';
+      cell.textContent = q.n;
+      cell.dataset.pos = pos;
+      cell.title = '第 ' + q.n + ' 题 · ' + typeName(q.t);
+      if(isAnswered(qi)) done++;
+      if(state.submitted){
+        if(!isAnswered(qi)) cell.classList.add('miss');
+        else if(isCorrect(qi)) cell.classList.add('right');
+        else cell.classList.add('wrong');
+      } else if(isAnswered(qi)){
+        cell.classList.add('done');
+      }
+      cell.addEventListener('click', () => {
+        state.idx = pos;
+        save();
+        renderQuestion();
+        if(window.innerWidth <= 900) $('qCard').scrollIntoView({behavior:'smooth', block:'start'});
+      });
+      grid.appendChild(cell);
+    });
+    count.textContent = done + '/' + items.length;
+    h4.appendChild(label);
+    h4.appendChild(count);
+    sec.appendChild(h4);
+    sec.appendChild(grid);
+    wrap.appendChild(sec);
+  });
+  updateProgress();
+}
+
+function renderSheetState(){
+  document.querySelectorAll('.cell').forEach(cell => {
+    const pos = Number(cell.dataset.pos);
+    const qi = state.order[pos];
+    cell.classList.remove('cur');
+    if(pos === state.idx) cell.classList.add('cur');
+    if(state.submitted){
+      cell.classList.remove('done');
+      if(!isAnswered(qi)){ cell.classList.add('miss'); cell.classList.remove('right','wrong'); }
+      else if(isCorrect(qi)){ cell.classList.add('right'); cell.classList.remove('wrong','miss'); cell.classList.add('done'); }
+      else { cell.classList.add('wrong'); cell.classList.remove('right','miss'); cell.classList.add('done'); }
+    } else if(isAnswered(qi)){
+      cell.classList.add('done');
+    } else {
+      cell.classList.remove('done','right','wrong','miss');
+    }
+  });
+}
+
+/* ================= 交卷 / 结果 ================= */
+function askSubmit(){
+  const done = Object.keys(state.answers).filter(k => state.answers[k] && state.answers[k].length).length;
+  const left = DATA.meta.total - done;
+  const isStudy = state.mode === 'study';
+  openDialog(
+    isStudy ? '结束练习' : '确认交卷',
+    isStudy
+      ? '本次共作答 ' + done + ' 题' + (left ? '，还有 ' + left + ' 题未作答' : '') + '。结束后可查看完整成绩与答案。'
+      : (left ? '还有 ' + left + ' 题未作答，未作答将按 0 分计。确定交卷吗？' : '所有题目均已作答，确定交卷吗？'),
+    () => doSubmit()
+  );
+}
+
+function doSubmit(){
+  stopTimer();
+  state.submitted = true;
+  state.idx = Math.min(state.idx, state.order.length - 1);
+  computeResult();
+  save();
+  showResult();
+}
+
+function computeResult(){
+  let right = 0, wrong = 0, miss = 0;
+  const rows = [];
+  state.order.forEach(qi => {
+    const q = DATA.questions[qi];
+    const answered = isAnswered(qi);
+    const ok = answered && isCorrect(qi);
+    if(!answered) miss++;
+    else if(ok) right++;
+    else wrong++;
+    rows.push({qi, answered, ok});
+  });
+  state.result = {rows, right, wrong, miss};
+}
+
+function showResult(){
+  stopTimer();
+  const r = state.result || (computeResult(), state.result);
+  const total = DATA.meta.total;
+  $('startView').classList.add('hidden');
+  $('examView').classList.add('hidden');
+  $('resultView').classList.remove('hidden');
+
+  $('scoreNum').textContent = r.right;
+  $('scoreTotal').textContent = total;
+  $('chipAll').textContent = '全部 ' + total;
+  $('rightNum').textContent = r.right;
+  $('wrongNum').textContent = r.wrong;
+  $('missNum').textContent = r.miss;
+  $('accNum').textContent = Math.round(r.right / total * 100) + '%';
+  $('timeNum').textContent = fmtTime(state.elapsed).slice(0,5);
+  $('chipWrong').textContent = r.wrong;
+  $('chipMiss').textContent = r.miss;
+
+  const score = r.right;
+  $('resultTitle').textContent = score >= total * 0.85 ? '很棒，继续保持！'
+    : score >= total * 0.6 ? '基础不错，再巩固错题' : '错题较多，建议再刷一遍';
+  $('resultSub').textContent = DATA.meta.title + ' · ' + (state.mode === 'study' ? '背题模式' : '考试模式') + ' · 每题 1 分，总分 ' + total + ' 分';
+
+  state.filter = 'all';
+  document.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c.dataset.filter === 'all'));
+  renderReview();
+  window.scrollTo({top:0, behavior:'instant'});
+}
+
+function renderReview(){
+  const list = $('reviewList');
+  list.innerHTML = '';
+  const rows = state.result.rows.filter(row => {
+    if(state.filter === 'wrong') return row.answered && !row.ok;
+    if(state.filter === 'miss') return !row.answered;
+    return true;
+  });
+  if(!rows.length){
+    list.innerHTML = '<div class="empty">该分类下没有题目</div>';
+    return;
+  }
+  const frag = document.createDocumentFragment();
+  rows.forEach(row => {
+    const q = DATA.questions[row.qi];
+    const mine = sortLetters(state.answers[row.qi] || []);
+    const item = document.createElement('div');
+    item.className = 'review-item';
+
+    let opts = '';
+    q.o.forEach(o => {
+      let cls = '';
+      if(q.a.includes(o.k)) cls = ' correct';
+      else if(mine.includes(o.k)) cls = ' wrong';
+      opts += '<div class="review-opt' + cls + '"><span class="k">' + esc(o.k) + '</span><span>' + esc(o.v) + '</span></div>';
+    });
+
+    const verdict = !row.answered
+      ? '<span class="verdict miss">未作答</span>'
+      : row.ok ? '<span class="verdict ok">回答正确</span>' : '<span class="verdict bad">回答错误</span>';
+
+    item.innerHTML =
+      '<div class="review-top">' +
+        '<span class="pill ' + (TYPE_TAGS[q.t] || 'single') + '">' + typeName(q.t) + '</span>' +
+        '<span class="q-no">第 ' + q.n + ' 题</span>' + verdict +
+      '</div>' +
+      '<h3 class="review-stem">' + esc(q.q) + '</h3>' +
+      '<div class="review-opts">' + opts + '</div>' +
+      '<div class="answer-line">正确答案：<span class="c">' + esc(correctOf(q)) + '</span>' +
+        ' · 你的答案：' + (mine ? '<span class="w">' + esc(mine) + '</span>' : '<b>未作答</b>') +
+      '</div>';
+    frag.appendChild(item);
+  });
+  list.appendChild(frag);
+}
+
+/* ================= 弹层 ================= */
+function openDialog(title, text, onOk){
+  const mask = document.createElement('div');
+  mask.className = 'mask';
+  mask.innerHTML =
+    '<div class="dialog">' +
+      '<h3>' + esc(title) + '</h3>' +
+      '<p>' + esc(text) + '</p>' +
+      '<div class="dialog-actions">' +
+        '<button class="btn" data-act="cancel">取消</button>' +
+        '<button class="btn primary" data-act="ok">确定</button>' +
+      '</div>' +
+    '</div>';
+  document.body.appendChild(mask);
+  const close = () => mask.remove();
+  mask.addEventListener('click', e => {
+    if(e.target === mask) close();
+    if(e.target.dataset.act === 'cancel') close();
+    if(e.target.dataset.act === 'ok'){ close(); onOk(); }
+  });
+}
+
+function restart(){
+  if(state.timerId) clearInterval(state.timerId);
+  LS.clear();
+  state.started = false;
+  state.submitted = false;
+  state.answers = {};
+  state.revealed = {};
+  state.elapsed = 0;
+  state.order = [];
+  state.idx = 0;
+  state.mode = 'exam';
+  $('resultView').classList.add('hidden');
+  $('examView').classList.add('hidden');
+  $('startView').classList.remove('hidden');
+  document.querySelectorAll('.mode').forEach(x => x.classList.toggle('active', x.dataset.mode === 'exam'));
+  $('shuffleChk').checked = false;
+  $('resumeTip').classList.add('hidden');
+  $('resumeHint').classList.add('hidden');
+  $('resumeBtn').classList.add('hidden');
+  window.scrollTo({top:0, behavior:'instant'});
+}
+
+function backHome(){
+  stopTimer();
+  if(!state.submitted) save();
+  $('resultView').classList.add('hidden');
+  $('examView').classList.add('hidden');
+  $('startView').classList.remove('hidden');
+  const saved = LS.read();
+  if(saved){
+    const done = Object.values(saved.answers || {}).filter(a => a && a.length).length;
+    $('resumeTip').classList.remove('hidden');
+    $('resumeHint').classList.remove('hidden');
+    $('resumeBtn').classList.remove('hidden');
+    $('resumeBtn').textContent = saved.submitted ? '查看上次成绩' : '继续上次进度';
+    $('resumeInfo').textContent = saved.submitted ? '上次已交卷，可查看成绩或重新开始'
+      : '已答 ' + done + ' 题 · ' + (saved.mode === 'study' ? '背题模式' : '考试模式') + ' · ' + fmtTime(saved.elapsed || 0);
+  }
+}
+
+/* ================= 事件绑定 ================= */
+function bindEvents(){
+  $('prevBtn').addEventListener('click', () => go(-1));
+  $('nextBtn').addEventListener('click', () => go(1));
+  $('confirmBtn').addEventListener('click', confirmStudy);
+  $('submitBtn').addEventListener('click', askSubmit);
+  $('quitBtn').addEventListener('click', () => {
+    openDialog('退出答题', '进度会自动保存，下次可从首页继续。确定退出吗？', backHome);
+  });
+  $('restartBtn').addEventListener('click', () => {
+    openDialog('重新开始', '将清空本次作答记录并回到首页，确定吗？', restart);
+  });
+  $('homeBtn').addEventListener('click', backHome);
+
+  document.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      state.filter = chip.dataset.filter;
+      renderReview();
+    });
+  });
+
+  document.addEventListener('keydown', e => {
+    if(e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if($('examView').classList.contains('hidden')) return;
+    if(e.key === 'ArrowLeft'){ e.preventDefault(); go(-1); }
+    if(e.key === 'ArrowRight'){ e.preventDefault(); go(1); }
+    const q = DATA.questions[state.order[state.idx]];
+    const k = e.key.toUpperCase();
+    if(/^[A-H]$/.test(k) && q && q.o.some(o => o.k === k)){
+      e.preventDefault();
+      pick(state.order[state.idx], k);
+    }
+  });
+}
+
+/* ================= 启动 ================= */
+initStart();
+bindEvents();
+</script>
+</body>
+</html>
