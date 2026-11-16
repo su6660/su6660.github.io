@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>徐凯 · 个人主页</title>
+  <meta name="description" content="徐凯的个人主页 - 运维 / IT支持 / 技术售前方向" />
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --ink: #1f2937;
+      --muted: #6b7280;
+      --brand: #2563eb;
+      --brand-soft: #dbeafe;
+      --line: #e5e7eb;
+      --radius: 16px;
+      --shadow: 0 8px 24px rgba(17, 24, 39, 0.06);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--brand); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .wrap { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+
+    /* 顶部导航 */
+    header {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(246, 248, 251, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
+    }
+    .nav .logo { font-weight: 700; font-size: 18px; }
+    .nav .links { display: flex; gap: 22px; font-size: 15px; }
+    .nav .links a { color: var(--muted); }
+    .nav .links a:hover { color: var(--brand); text-decoration: none; }
+
+    /* Hero */
+    .hero { text-align: center; padding: 64px 0 40px; }
+    .avatar {
+      width: 96px; height: 96px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--brand), #7c3aed);
+      color: #fff; font-size: 34px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+    }
+    .hero h1 { font-size: 34px; margin-bottom: 6px; }
+    .hero .tagline { color: var(--brand); font-weight: 600; font-size: 17px; }
+    .hero .loc { color: var(--muted); font-size: 14px; margin-top: 4px; }
+    .hero .intro {
+      max-width: 560px; margin: 18px auto 0; color: var(--muted); font-size: 15px;
+    }
+    .hero .cta { margin-top: 26px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; padding: 10px 22px; border-radius: 999px;
+      font-size: 15px; font-weight: 600; transition: 0.2s;
+    }
+    .btn-primary { background: var(--brand); color: #fff; }
+    .btn-primary:hover { background: #1d4ed8; text-decoration: none; }
+    .btn-ghost { border: 1px solid var(--line); background: #fff; color: var(--ink); }
+    .btn-ghost:hover { border-color: var(--brand); color: var(--brand); text-decoration: none; }
+
+    /* 区块通用 */
+    section { padding: 28px 0; }
+    .card {
+      background: var(--card); border-radius: var(--radius);
+      box-shadow: var(--shadow); padding: 30px;
+    }
+    .sec-title {
+      font-size: 20px; font-weight: 700; margin-bottom: 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .sec-title::before {
+      content: ""; width: 5px; height: 20px; border-radius: 3px;
+      background: var(--brand); display: inline-block;
+    }
+
+    /* 关于 */
+    .about p { color: var(--muted); font-size: 15px; }
+
+    /* 技能标签 */
+    .tags { display: flex; flex-wrap: wrap; gap: 10px; }
+    .tag {
+      background: var(--brand-soft); color: var(--brand);
+      padding: 6px 14px; border-radius: 999px; font-size: 14px; font-weight: 500;
+    }
+
+    /* 时间线 */
+    .timeline { position: relative; padding-left: 22px; }
+    .timeline::before {
+      content: ""; position: absolute; left: 6px; top: 4px; bottom: 4px;
+      width: 2px; background: var(--line);
+    }
+    .item { position: relative; margin-bottom: 24px; }
+    .item:last-child { margin-bottom: 0; }
+    .item::before {
+      content: ""; position: absolute; left: -22px; top: 7px;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--brand); border: 3px solid #fff;
+      box-shadow: 0 0 0 1px var(--line);
+    }
+    .item .when { font-size: 13px; color: var(--muted); font-weight: 500; }
+    .item h3 { font-size: 16px; margin: 2px 0; }
+    .item .sub { color: var(--muted); font-size: 14px; }
+    .item .desc { color: var(--muted); font-size: 14px; margin-top: 4px; }
+
+    /* 联系方式 */
+    .contact-list { display: flex; flex-direction: column; gap: 14px; }
+    .contact-item { display: flex; align-items: center; gap: 14px; font-size: 15px; }
+    .contact-item .icon {
+      width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+      background: var(--brand-soft); color: var(--brand);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 16px;
+    }
+    .contact-item .label { color: var(--muted); font-size: 13px; }
+
+    footer {
+      text-align: center; color: var(--muted); font-size: 13px;
+      padding: 36px 0 44px;
+    }
+
+    @media (max-width: 600px) {
+      .nav .links { display: none; }
+      .hero h1 { font-size: 28px; }
+      .hero { padding-top: 44px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <div class="logo">徐凯</div>
+      <nav class="links">
+        <a href="#about">关于</a>
+        <a href="#skills">技能</a>
+        <a href="#experience">经历</a>
+        <a href="#contact">联系</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- Hero -->
+    <div class="hero">
+      <div class="avatar">徐</div>
+      <h1>徐凯</h1>
+      <div class="tagline">运维 / IT 支持 / 技术售前</div>
+      <div class="loc">江苏 · 常州</div>
+      <p class="intro">
+        退伍军人，机电一体化专业背景，熟悉 Windows / Linux 装机与故障排查，
+        正在向 IT 与运维方向转型。做事踏实、动手能力强。
+      </p>
+      <div class="cta">
+        <a class="btn btn-primary" href="#contact">联系我</a>
+        <a class="btn btn-ghost" href="https://213100.xyz" target="_blank" rel="noopener">我的博客</a>
+      </div>
+    </div>
+
+    <!-- 关于 -->
+    <section id="about">
+      <div class="card">
+        <h2 class="sec-title">关于我</h2>
+        <div class="about">
+          <p>
+            我曾在部队从事装甲装备修理，培养了严谨的工作作风和快速学习能力；
+            在此之前于制造企业参与机床操作实习，对机电设备有直观理解。
+            目前专注于系统运维与技术支持方向，持续学习 Linux、网络与自动化相关知识，
+            也乐于用写作整理所学。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 技能 -->
+    <section id="skills">
+      <div class="card">
+        <h2 class="sec-title">技能</h2>
+        <div class="tags">
+          <span class="tag">Linux / Windows 装机</span>
+          <span class="tag">系统故障排查</span>
+          <span class="tag">装备维修</span>
+          <span class="tag">机电一体化</span>
+          <span class="tag">C1 驾照</span>
+          <span class="tag">英语 B 级</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 经历 -->
+    <section id="experience">
+      <div class="card">
+        <h2 class="sec-title">经历与教育</h2>
+        <div class="timeline">
+          <div class="item">
+            <div class="when">2024 — 2026</div>
+            <h3>中国人民解放军 · 装甲装备修理</h3>
+            <div class="sub">服役</div>
+            <div class="desc">负责装备的维修与保养，养成了规范、细致的工作习惯。</div>
+          </div>
+          <div class="item">
+            <div class="when">2020 — 2024</div>
+            <h3>建东职业技术学院 · 机电一体化</h3>
+            <div class="sub">大专</div>
+            <div class="desc">系统学习机械与电气基础，为设备维护工作打下基础。</div>
+          </div>
+          <div class="item">
+            <div class="when">实习</div>
+            <h3>保锐工具制造 · 瓦尔特机床操作</h3>
+            <div class="sub">实习</div>
+            <div class="desc">接触数控机床的日常操作与维护，熟悉一线生产流程。</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 联系 -->
+    <section id="contact">
+      <div class="card">
+        <h2 class="sec-title">联系方式</h2>
+        <div class="contact-list">
+          <div class="contact-item">
+            <div class="icon">邮</div>
+            <div>
+              <div class="label">邮箱</div>
+              <a href="mailto:su@213100.xyz">su@213100.xyz</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="icon">Q</div>
+            <div>
+              <div class="label">QQ</div>
+              <div>3348542869</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">© 2026 徐凯 · 用 Cloudflare Pages 部署</div>
+  </footer>
+</body>
+</html>
