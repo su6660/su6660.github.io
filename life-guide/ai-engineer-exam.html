@@ -496,6 +496,9 @@ function startWrongBook(){
   if(state.timerId){ clearInterval(state.timerId); state.timerId = null; }
   state.mode = 'study'; // 错题本默认背题模式
   state.wrongBook = true;
+  state.retried = {};
+  state.retrying = false;
+  state.retryHint = null;
   state.order = list;   // 顺序保持错题本的时间序（list() 返回 Object.keys，自然按时间升序）
   state.idx = 0;
   state.answers = {};
@@ -525,6 +528,9 @@ function startNew(){
   if(state.timerId){ clearInterval(state.timerId); state.timerId = null; }
   state.mode = document.querySelector('.mode.active').dataset.mode;
   state.wrongBook = false;
+  state.retried = {};
+  state.retrying = false;
+  state.retryHint = null;
   state.order = buildOrder($('shuffleChk').checked);
   state.idx = 0;
   state.answers = {};
@@ -543,6 +549,9 @@ function resumeSaved(){
   const saved = LS.read();
   if(!saved) return;
   state.wrongBook = false;
+  state.retried = {};
+  state.retrying = false;
+  state.retryHint = null;
   state.mode = saved.mode || 'exam';
   state.order = saved.order && saved.order.length === DATA.meta.total ? saved.order : buildOrder(false);
   state.answers = saved.answers || {};
@@ -639,6 +648,7 @@ function renderQuestion(){
     }
     btn.innerHTML = '<span class="key">' + esc(o.k) + '</span><span class="txt">' + esc(o.v) + '</span>';
     btn.addEventListener('click', () => pick(qi, o.k));
+    if(state.retrying) btn.disabled = true;
     box.appendChild(btn);
   });
 
@@ -649,6 +659,10 @@ function renderQuestion(){
     fb.className = 'feedback ' + (ok ? 'ok' : 'bad');
     fb.innerHTML = (ok ? '回答正确' : '回答错误') + ' · 正确答案：<span>' + esc(correctOf(q)) + '</span>' +
       (mine ? ' · 你的答案：<span>' + esc(mine) + '</span>' : ' · 未作答');
+    fb.classList.remove('hidden');
+  } else if(state.retryHint === qi){
+    fb.className = 'feedback bad';
+    fb.textContent = '答错了，这道题再练一遍';
     fb.classList.remove('hidden');
   } else {
     fb.classList.add('hidden');
@@ -667,7 +681,8 @@ function renderQuestion(){
 
 function pick(qi, letter){
   const q = DATA.questions[qi];
-  if(state.submitted) return;
+  if(state.submitted || state.retrying) return;
+  state.retryHint = null;
 
   let arr = state.answers[qi] ? state.answers[qi].slice() : [];
   if(q.t === 2){
@@ -679,6 +694,7 @@ function pick(qi, letter){
     state.answers[qi] = [letter];
     if(state.mode === 'study') state.revealed[qi] = true;
     if(state.mode === 'study') updateWrongBook(qi);
+    if(state.mode === 'study') scheduleRetry(qi);
   }
   save();
   renderQuestion();
@@ -687,11 +703,32 @@ function pick(qi, letter){
 
 function confirmStudy(){
   const qi = state.order[state.idx];
+  if(state.retrying) return;
+  state.retryHint = null;
   state.revealed[qi] = true;
   updateWrongBook(qi);
+  scheduleRetry(qi);
   save();
   renderQuestion();
   updateWrongCount();
+}
+
+function scheduleRetry(qi){
+  if(state.mode !== 'study' || state.submitted) return;
+  if(state.retried[qi] || isCorrect(qi)) return;
+  state.retried[qi] = true;
+  state.retrying = true;
+  renderQuestion();
+  setTimeout(() => {
+    state.retrying = false;
+    if(state.submitted) return;
+    delete state.answers[qi];
+    delete state.revealed[qi];
+    state.retryHint = qi;
+    save();
+    if(state.order[state.idx] === qi) renderQuestion();
+    updateWrongCount();
+  }, 1500);
 }
 
 function updateWrongBook(qi){
