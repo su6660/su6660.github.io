@@ -492,6 +492,7 @@ function startWrongBook(){
   if(!list.length){ alert('错题本是空的，先去刷题吧~'); return; }
   if(state.timerId){ clearInterval(state.timerId); state.timerId = null; }
   state.mode = 'study'; // 错题本默认背题模式
+  state.wrongBook = true;
   state.order = list;
   state.idx = 0;
   state.answers = {};
@@ -520,6 +521,7 @@ function buildOrder(shuffle){
 function startNew(){
   if(state.timerId){ clearInterval(state.timerId); state.timerId = null; }
   state.mode = document.querySelector('.mode.active').dataset.mode;
+  state.wrongBook = false;
   state.order = buildOrder($('shuffleChk').checked);
   state.idx = 0;
   state.answers = {};
@@ -537,6 +539,7 @@ function startNew(){
 function resumeSaved(){
   const saved = LS.read();
   if(!saved) return;
+  state.wrongBook = false;
   state.mode = saved.mode || 'exam';
   state.order = saved.order && saved.order.length === DATA.meta.total ? saved.order : buildOrder(false);
   state.answers = saved.answers || {};
@@ -575,6 +578,7 @@ function stopTimer(){
 }
 
 function save(){
+  if(state.wrongBook) return; // 错题本练习不写入进度，下次进入重新作答
   LS.write({
     mode: state.mode,
     order: state.order,
@@ -714,9 +718,18 @@ function updateWrongBook(qi){
   }
 }
 
+function clearWrongLeaving(){
+  if(!state.wrongBook || state.submitted) return;
+  const qi = state.order[state.idx];
+  if(qi === undefined) return;
+  delete state.answers[qi];
+  delete state.revealed[qi];
+}
+
 function go(step){
   const next = state.idx + step;
   if(next < 0 || next >= state.order.length) return;
+  clearWrongLeaving();
   state.idx = next;
   save();
   renderQuestion();
@@ -764,6 +777,7 @@ function renderSheet(){
         cell.classList.add('done');
       }
       cell.addEventListener('click', () => {
+        if(pos !== state.idx) clearWrongLeaving();
         state.idx = pos;
         save();
         renderQuestion();
