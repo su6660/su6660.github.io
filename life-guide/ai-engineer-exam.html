@@ -254,6 +254,7 @@
       <div class="stat"><b id="statSingle">200</b><span>单选题</span></div>
       <div class="stat"><b id="statMulti">100</b><span>多选题</span></div>
       <div class="stat"><b>1 分</b><span>每题分值</span></div>
+      <div class="stat"><b id="statWrong" style="color:#e11d48">0</b><span>错题本</span></div>
     </div>
 
     <p class="start-label">选择模式</p>
@@ -278,6 +279,8 @@
     <div class="start-actions">
       <button class="btn primary" id="startBtn">开始答题</button>
       <button class="btn hidden" id="resumeBtn">继续上次进度</button>
+      <button class="btn" id="wrongBookBtn" style="background:#fef2f2;color:#e11d48;border:1px solid #fecaca">错题本 <span id="wrongBookCount">0</span> 题</button>
+      <button class="btn hidden" id="clearWrongBtn" style="background:#f5f5f5;color:#666;border:1px solid #e5e5e5" title="清空错题本">🗑</button>
     </div>
     <div class="resume-tip hidden" id="resumeHint">继续后将从上次停留的题号开始，已作答内容不会丢失。</div>
   </div>
@@ -377,10 +380,27 @@ const DATA = {"meta":{"title":"2026 AI人工智能应用工程师复习题","tid
 
 /* ================= 状态 ================= */
 const SAVE_KEY = 'ai_exam_294790_v1';
+const WRONG_KEY = SAVE_KEY + '_wrong';
 const LS = {
   read(){ try{ return JSON.parse(localStorage.getItem(SAVE_KEY) || 'null'); }catch(e){ return null; } },
   write(v){ try{ localStorage.setItem(SAVE_KEY, JSON.stringify(v)); }catch(e){} },
   clear(){ try{ localStorage.removeItem(SAVE_KEY); }catch(e){} }
+};
+const WS = {
+  read(){ try{ return JSON.parse(localStorage.getItem(WRONG_KEY) || 'null'); }catch(e){ return null; } },
+  write(v){ try{ localStorage.setItem(WRONG_KEY, JSON.stringify(v)); }catch(e){} },
+  add(qi, mine){
+    const w = WS.read() || {};
+    const q = DATA.questions[qi];
+    w[qi] = { q: q.n, t: q.t, a: q.a, m: mine, ts: Date.now() };
+    WS.write(w);
+  },
+  remove(qi){
+    const w = WS.read() || {};
+    if(w[qi]){ delete w[qi]; WS.write(w); }
+  },
+  list(){ const w = WS.read() || {}; return Object.keys(w).map(Number); },
+  count(){ return WS.list().length; }
 };
 
 const state = {
@@ -456,6 +476,37 @@ function initStart(){
 
   $('startBtn').addEventListener('click', () => startNew());
   $('resumeBtn').addEventListener('click', () => resumeSaved());
+  $('wrongBookBtn').addEventListener('click', () => startWrongBook());
+  $('clearWrongBtn').addEventListener('click', () => {
+    if(confirm('确定清空错题本？')){ localStorage.removeItem(WRONG_KEY); updateWrongCount(); }
+  });
+  updateWrongCount();
+}
+
+function updateWrongCount(){
+  const n = WS.count();
+  $('statWrong').textContent = n;
+  $('wrongBookCount').textContent = n;
+  $('clearWrongBtn').classList.toggle('hidden', n === 0);
+}
+
+function startWrongBook(){
+  const list = WS.list();
+  if(!list.length){ alert('错题本是空的，先去刷题吧~'); return; }
+  if(state.timerId){ clearInterval(state.timerId); state.timerId = null; }
+  state.mode = 'study'; // 错题本默认背题模式
+  state.order = list;   // 顺序保持错题本的时间序（list() 返回 Object.keys，自然按时间升序）
+  state.idx = 0;
+  state.answers = {};
+  state.revealed = {};
+  state.elapsed = 0;
+  state.started = true;
+  state.submitted = false;
+  state.result = null;
+  state.filter = 'all';
+  LS.clear();
+  showExam();
+  startTimer();
 }
 
 function buildOrder(shuffle){
@@ -619,21 +670,48 @@ function pick(qi, letter){
     if(arr.includes(letter)) arr = arr.filter(x => x !== letter);
     else arr.push(letter);
     if(arr.length) state.answers[qi] = arr; else delete state.answers[qi];
-    // 多选：改选项后若已判过，重置 revealed 等待重新确认
-    if(state.mode === 'study' && state.revealed[qi]) delete state.revealed[qi];
+    if(state.mode === 'study' && state.revealed[qi]){ delete state.revealed[qi]; updateWrongBook(qi); }
   } else {
     state.answers[qi] = [letter];
     if(state.mode === 'study') state.revealed[qi] = true;
+    if(state.mode === 'study') updateWrongBook(qi);
   }
   save();
   renderQuestion();
+  updateWrongCount();
 }
 
 function confirmStudy(){
   const qi = state.order[state.idx];
   state.revealed[qi] = true;
+  updateWrongBook(qi);
   save();
   renderQuestion();
+  updateWrongCount();
+}
+
+function updateWrongBook(qi){
+  const q = DATA.questions[qi];
+  const mine = state.answers[qi];
+  if(!mine || !mine.length) return;
+  if(state.submitted){
+    // 交卷后结果以提交时为准，这里不再改
+  } else {
+    const mineSorted = mine.slice().sort().join('');
+    const ansSorted = q.a.split('').sort().join('');
+    if(mineSorted === ansSorted){
+      const wasWrong = WS.list().includes(qi);
+      WS.remove(qi);
+      // 如果是在错题本练习里答对了，让它从当前列表消失
+      if(wasWrong && state.order.includes(qi)){
+        const pos = state.order.indexOf(qi);
+        state.order.splice(pos, 1);
+        if(state.idx >= state.order.length) state.idx = Math.max(0, state.order.length - 1);
+      }
+    } else {
+      WS.add(qi, mine);
+    }
+  }
 }
 
 function go(step){
@@ -731,6 +809,17 @@ function doSubmit(){
   state.submitted = true;
   state.idx = Math.min(state.idx, state.order.length - 1);
   computeResult();
+  // 交卷时兜底扫描所有题目，同步错题本
+  state.order.forEach(qi => {
+    const q = DATA.questions[qi];
+    const mine = state.answers[qi];
+    if(!mine || !mine.length){ WS.remove(qi); return; } // 未作答也从错题本移除
+    const mineSorted = mine.slice().sort().join('');
+    const ansSorted = q.a.split('').sort().join('');
+    if(mineSorted === ansSorted) WS.remove(qi);
+    else WS.add(qi, mine);
+  });
+  updateWrongCount();
   save();
   showResult();
 }
