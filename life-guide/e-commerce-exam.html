@@ -264,7 +264,7 @@
       <div class="mode active" data-mode="exam" role="button" tabindex="0">
         <span class="dot"></span>
         <b>考试模式</b>
-        <span>作答时不显示答案，交卷后统一批改并查看全部答案。</span>
+        <span>随机抽取 100 题，作答时不显示答案，交卷后统一批改并查看全部答案。</span>
       </div>
       <div class="mode" data-mode="study" role="button" tabindex="0">
         <span class="dot"></span>
@@ -520,6 +520,7 @@ function buildOrder(shuffle){
   }
   return arr;
 }
+const EXAM_COUNT = 100;
 
 function startNew(){
   if(state.timerId){ clearInterval(state.timerId); state.timerId = null; }
@@ -528,7 +529,9 @@ function startNew(){
   state.retried = {};
   state.retrying = false;
   state.retryHint = null;
-  state.order = buildOrder($('shuffleChk').checked);
+  state.order = state.mode === 'exam'
+    ? buildOrder(true).slice(0, EXAM_COUNT)
+    : buildOrder($('shuffleChk').checked);
   state.idx = 0;
   state.answers = {};
   state.revealed = {};
@@ -550,7 +553,10 @@ function resumeSaved(){
   state.retrying = false;
   state.retryHint = null;
   state.mode = saved.mode || 'exam';
-  state.order = saved.order && saved.order.length === DATA.meta.total ? saved.order : buildOrder(false);
+  const total = DATA.questions.length;
+  state.order = (saved.order && saved.order.length && saved.order.every(i => Number.isInteger(i) && i >= 0 && i < total))
+    ? saved.order
+    : (state.mode === 'exam' ? buildOrder(true).slice(0, EXAM_COUNT) : buildOrder(false));
   state.answers = saved.answers || {};
   state.revealed = saved.revealed || {};
   state.elapsed = saved.elapsed || 0;
