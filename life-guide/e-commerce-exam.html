@@ -581,7 +581,7 @@ function renderQuestion(){
     if(showResult){
       if(q.a.includes(o.k)) btn.classList.add('correct');
       else if(picked) btn.classList.add('wrong');
-      btn.disabled = true;
+      if(state.submitted) btn.disabled = true;
     }
     btn.innerHTML = '<span class="key">' + esc(o.k) + '</span><span class="txt">' + esc(o.v) + '</span>';
     btn.addEventListener('click', () => pick(qi, o.k));
