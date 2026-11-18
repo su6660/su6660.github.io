@@ -668,6 +668,8 @@ function renderSheet(){
       if(!isAnswered(qi)) cell.classList.add('miss');
       else if(isCorrect(qi)) cell.classList.add('right');
       else cell.classList.add('wrong');
+    } else if(state.mode === 'study' && state.revealed[qi]){
+      cell.classList.add(isCorrect(qi) ? 'right' : 'wrong', 'done');
     } else if(isAnswered(qi)){
       cell.classList.add('done');
     }
@@ -696,6 +698,12 @@ function renderSheetState(){
       if(!isAnswered(qi)){ cell.classList.add('miss'); cell.classList.remove('right','wrong'); }
       else if(isCorrect(qi)){ cell.classList.add('right'); cell.classList.remove('wrong','miss'); cell.classList.add('done'); }
       else { cell.classList.add('wrong'); cell.classList.remove('right','miss'); cell.classList.add('done'); }
+    } else if(state.mode === 'study' && state.revealed[qi]){
+      const ok = isCorrect(qi);
+      cell.classList.toggle('right', ok);
+      cell.classList.toggle('wrong', !ok);
+      cell.classList.remove('miss');
+      cell.classList.add('done');
     } else if(isAnswered(qi)){
       cell.classList.add('done');
     } else {
