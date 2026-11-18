@@ -345,7 +345,7 @@
 <!-- ========== 结果页 ========== -->
 <section id="resultView" class="hidden">
   <div class="score-card">
-    <div class="score-main"><b id="scoreNum">0</b><span>分 / 300</span></div>
+    <div class="score-main"><b id="scoreNum">0</b><span>分 / <span id="scoreTotal">300</span></span></div>
     <div class="score-info">
       <h2 id="resultTitle">本次成绩</h2>
       <p id="resultSub"></p>
@@ -365,7 +365,7 @@
   </div>
 
   <div class="filters">
-    <button class="chip active" data-filter="all">全部 300</button>
+    <button class="chip active" data-filter="all">全部 <span id="chipAll">300</span></button>
     <button class="chip" data-filter="wrong">只看错题 <span id="chipWrong">0</span></button>
     <button class="chip" data-filter="miss">只看未答 <span id="chipMiss">0</span></button>
   </div>
@@ -618,7 +618,7 @@ function showExam(){
   $('topMode').textContent = state.mode === 'study' ? '背题模式 · 即时判定' : '考试模式';
   $('sheetMode').textContent = state.mode === 'study' ? '背题模式' : '考试模式';
   $('submitBtn').textContent = state.mode === 'study' ? '结束练习' : '交卷';
-  $('topCount').textContent = '0 / ' + DATA.meta.total;
+  $('topCount').textContent = '0 / ' + state.order.length;
   renderSheet();
   renderQuestion();
   window.scrollTo({top:0, behavior:'instant'});
@@ -636,7 +636,7 @@ function renderQuestion(){
   const pill = $('typePill');
   pill.textContent = typeName(q.t);
   pill.className = 'pill ' + (q.t === 2 ? 'multi' : 'single');
-  $('qNo').textContent = '第 ' + q.n + ' 题 / 共 ' + DATA.meta.total + ' 题';
+  $('qNo').textContent = '第 ' + (state.idx + 1) + ' 题 / 共 ' + state.order.length + ' 题';
   $('qStem').textContent = q.q;
 
   const box = $('options');
@@ -775,8 +775,8 @@ function go(step){
 
 function updateProgress(){
   const done = Object.keys(state.answers).filter(k => state.answers[k] && state.answers[k].length).length;
-  $('topCount').textContent = done + ' / ' + DATA.meta.total;
-  $('topBar').style.width = (done / DATA.meta.total * 100) + '%';
+  $('topCount').textContent = done + ' / ' + state.order.length;
+  $('topBar').style.width = (done / state.order.length * 100) + '%';
   $('doneCount').textContent = done;
 }
 
@@ -784,15 +784,15 @@ function updateProgress(){
 function renderSheet(){
   const gs = $('gridSingle'), gm = $('gridMulti');
   gs.innerHTML = ''; gm.innerHTML = '';
-  let sDone = 0, mDone = 0;
+  let sDone = 0, mDone = 0, sTotal = 0, mTotal = 0;
   state.order.forEach((qi, pos) => {
     const q = DATA.questions[qi];
     const cell = document.createElement('button');
     cell.type = 'button';
     cell.className = 'cell';
-    cell.textContent = q.n;
+    cell.textContent = pos + 1;
     cell.dataset.pos = pos;
-    cell.title = '第 ' + q.n + ' 题 · ' + typeName(q.t);
+    cell.title = '第 ' + (pos + 1) + ' 题 · ' + typeName(q.t) + ' · 原题号 ' + q.n;
     if(state.submitted){
       if(!isAnswered(qi)) cell.classList.add('miss');
       else if(isCorrect(qi)) cell.classList.add('right');
@@ -809,11 +809,11 @@ function renderSheet(){
       renderQuestion();
       if(window.innerWidth <= 900) $('qCard').scrollIntoView({behavior:'smooth', block:'start'});
     });
-    if(q.t === 2){ gm.appendChild(cell); if(isAnswered(qi)) mDone++; }
-    else { gs.appendChild(cell); if(isAnswered(qi)) sDone++; }
+    if(q.t === 2){ gm.appendChild(cell); mTotal++; if(isAnswered(qi)) mDone++; }
+    else { gs.appendChild(cell); sTotal++; if(isAnswered(qi)) sDone++; }
   });
-  $('singleDone').textContent = sDone + '/' + DATA.meta.single;
-  $('multiDone').textContent = mDone + '/' + DATA.meta.multi;
+  $('singleDone').textContent = sDone + '/' + sTotal;
+  $('multiDone').textContent = mDone + '/' + mTotal;
   updateProgress();
 }
 
@@ -845,7 +845,7 @@ function renderSheetState(){
 /* ================= 交卷 / 结果 ================= */
 function askSubmit(){
   const done = Object.keys(state.answers).filter(k => state.answers[k] && state.answers[k].length).length;
-  const left = DATA.meta.total - done;
+  const left = state.order.length - done;
   const isStudy = state.mode === 'study';
   openDialog(
     isStudy ? '结束练习' : '确认交卷',
@@ -894,12 +894,13 @@ function computeResult(){
 function showResult(){
   stopTimer();
   const r = state.result || (computeResult(), state.result);
-  const total = DATA.meta.total;
+  const total = state.order.length;
   $('startView').classList.add('hidden');
   $('examView').classList.add('hidden');
   $('resultView').classList.remove('hidden');
 
   $('scoreNum').textContent = r.right;
+  $('scoreTotal').textContent = total;
   $('rightNum').textContent = r.right;
   $('wrongNum').textContent = r.wrong;
   $('missNum').textContent = r.miss;
@@ -907,6 +908,7 @@ function showResult(){
   $('timeNum').textContent = fmtTime(state.elapsed).slice(0,5);
   $('chipWrong').textContent = r.wrong;
   $('chipMiss').textContent = r.miss;
+  $('chipAll').textContent = total;
 
   const score = r.right;
   $('resultTitle').textContent = score >= total * 0.85 ? '很棒，继续保持！'
