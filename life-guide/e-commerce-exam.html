@@ -613,14 +613,14 @@ function renderQuestion(){
 
 function pick(qi, letter){
   const q = DATA.questions[qi];
-  const revealed = state.mode === 'study' && !!state.revealed[qi];
-  if(revealed || state.submitted) return;
+  if(state.submitted) return;
 
   let arr = state.answers[qi] ? state.answers[qi].slice() : [];
   if(q.t === 2){
     if(arr.includes(letter)) arr = arr.filter(x => x !== letter);
     else arr.push(letter);
     if(arr.length) state.answers[qi] = arr; else delete state.answers[qi];
+    if(state.mode === 'study' && state.revealed[qi]) delete state.revealed[qi];
   } else {
     state.answers[qi] = [letter];
     if(state.mode === 'study') state.revealed[qi] = true;
