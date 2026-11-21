@@ -513,17 +513,33 @@ function startWrongBook(){
   startTimer();
 }
 
-function buildOrder(shuffle){
-  const arr = DATA.questions.map((_, i) => i);
-  if(shuffle){
-    for(let i = arr.length - 1; i > 0; i--){
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
+function shuffleArr(arr){
+  for(let i = arr.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
   }
   return arr;
 }
-const EXAM_COUNT = 100;
+
+function buildOrder(shuffle){
+  const arr = DATA.questions.map((_, i) => i);
+  if(shuffle) shuffleArr(arr);
+  return arr;
+}
+const EXAM_SINGLE = 80;
+const EXAM_MULTI = 20;
+
+function buildExamOrder(){
+  const singles = [], multis = [];
+  DATA.questions.forEach((q, i) => {
+    if(q.t === 1) singles.push(i);
+    else if(q.t === 2) multis.push(i);
+  });
+  shuffleArr(singles);
+  shuffleArr(multis);
+  const picked = singles.slice(0, EXAM_SINGLE).concat(multis.slice(0, EXAM_MULTI));
+  return shuffleArr(picked);
+}
 
 function startNew(){
   if(state.timerId){ clearInterval(state.timerId); state.timerId = null; }
@@ -533,7 +549,7 @@ function startNew(){
   state.retrying = false;
   state.retryHint = null;
   state.order = state.mode === 'exam'
-    ? buildOrder(true).slice(0, EXAM_COUNT)
+    ? buildExamOrder()
     : buildOrder($('shuffleChk').checked);
   state.idx = 0;
   state.answers = {};
@@ -559,7 +575,7 @@ function resumeSaved(){
   const total = DATA.questions.length;
   state.order = (saved.order && saved.order.length && saved.order.every(i => Number.isInteger(i) && i >= 0 && i < total))
     ? saved.order
-    : (state.mode === 'exam' ? buildOrder(true).slice(0, EXAM_COUNT) : buildOrder(false));
+    : (state.mode === 'exam' ? buildExamOrder() : buildOrder(false));
   state.answers = saved.answers || {};
   state.revealed = saved.revealed || {};
   state.elapsed = saved.elapsed || 0;
