@@ -526,18 +526,24 @@ function buildOrder(shuffle){
   if(shuffle) shuffleArr(arr);
   return arr;
 }
-const EXAM_SINGLE = 80;
+const EXAM_SINGLE = 70;
 const EXAM_MULTI = 20;
+const EXAM_JUDGE = 10;
 
 function buildExamOrder(){
-  const singles = [], multis = [];
+  const pool = {1: [], 2: [], 4: []};
   DATA.questions.forEach((q, i) => {
-    if(q.t === 1) singles.push(i);
-    else if(q.t === 2) multis.push(i);
+    if(pool[q.t]) pool[q.t].push(i);
   });
-  shuffleArr(singles);
-  shuffleArr(multis);
-  const picked = singles.slice(0, EXAM_SINGLE).concat(multis.slice(0, EXAM_MULTI));
+  const picked = [];
+  const judge = pool[4]; shuffleArr(judge);
+  const judges = judge.slice(0, EXAM_JUDGE);
+  picked.push(...judges);
+  const multi = pool[2]; shuffleArr(multi);
+  picked.push(...multi.slice(0, EXAM_MULTI));
+  const single = pool[1]; shuffleArr(single);
+  const singleWant = EXAM_SINGLE + (EXAM_JUDGE - judges.length);
+  picked.push(...single.slice(0, Math.min(singleWant, single.length)));
   return shuffleArr(picked);
 }
 
