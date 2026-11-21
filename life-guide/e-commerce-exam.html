@@ -743,7 +743,8 @@ function updateWrongBook(qi){
     if(mineSorted === ansSorted){
       const wasWrong = WS.list().includes(qi);
       WS.remove(qi);
-      if(wasWrong && state.order.includes(qi)){
+      // 仅在错题本练习里答对时才把该题从当前列表移除；普通模式不让题目消失
+      if(state.wrongBook && wasWrong && state.order.includes(qi)){
         const pos = state.order.indexOf(qi);
         state.order.splice(pos, 1);
         if(state.idx >= state.order.length) state.idx = Math.max(0, state.order.length - 1);
